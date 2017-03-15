@@ -26,9 +26,11 @@ $INSTRUCTORS = array(
     'SC3' => 'Veale',
     'SC7' => 'Batista',
     'RC3' => 'Bechberger',
+    'RC4' => 'Schick',
+    'RC5' => 'Berov',
     'MC5' => 'Cardoso',
     'SC1' => 'London',
-    'SC8' => 'Schreiber',
+    'SC8' => '<del>Schreiber</del> Jaeger',
     'SC16' => 'Hanappe',
     'ET3' => 'Kuhn',
 );
@@ -72,7 +74,10 @@ function event_group_list_item($event, $start_time, $evening_time, $instructors)
 
     // DIRTY HACK
     if ($abbr == 'SC1') {
-        $location = 'Forum 2';
+       $location = 'Forum 1';
+    }
+    if ($abbr == 'SC2') {
+       $location = 'Forum 2';
     }
 
     $color = $event->color;
