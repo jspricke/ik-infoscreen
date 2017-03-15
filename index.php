@@ -135,11 +135,11 @@ $img = getRandomFromArray($imgList);
         <script src="./js/jquery-3.1.1.min.js"></script>
         <script src="./js/bootstrap-3.3.7.min.js"></script>
         <link href="./css/bootstrap-3.3.7.min.css" rel="stylesheet">
-        <script type="text/javascript" src="./js/coolclock.js"></script>
+        <script type="text/javascript" src="./js/clock.js"></script>
         <script type="text/javascript" src="./js/ikterminal.js"></script>
         <script type="text/javascript">
             const loader = function() {
-                CoolClock.findAndCreateClocks();
+                startTime();
                 refreshBySchedule('shoutbox', 5);
                 refreshBySchedule('impression', 20);
                 document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
