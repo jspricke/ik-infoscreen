@@ -140,8 +140,8 @@ $img = getRandomFromArray($imgList);
         <script type="text/javascript">
             const loader = function() {
                 startTime();
-                refreshBySchedule('shoutbox', 5);
-                refreshBySchedule('impression', 20);
+                refreshBySchedule('shoutbox', 'shoutbox-container', 5);
+                refreshBySchedule('impression', 'impression-container', 20);
                 document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
                 document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
             };
@@ -153,8 +153,8 @@ $img = getRandomFromArray($imgList);
 		.col-lg-5ths {
 		    position: relative;
 		    min-height: 1px;
-		    padding-right: 10px;
-		    padding-left: 10px;
+		    padding-right: 20px;
+		    padding-left: 0px;
                     font-size:120%;
 		}
 
@@ -183,68 +183,81 @@ $img = getRandomFromArray($imgList);
 			float: left;
 		    }
 		}
+		
+		.footer-bottom {
+			width: 100%;
+			padding: 0;
+			bottom: 10px;
+			z-index: 1;
+			height: 30px;
+			position: absolute;
+			text-align: center;
+		}
         </style>
     </head>
     <body onload="loader();">
         <div class="<?= fluid_if_fullscreen(); ?>">
-            <div class="page-header">
-		<h1>IK <?php echo $start_date->format('Y'); ?> <small>Day <?php echo $current_day; ?></small> <span class="hidden-xs hidden-sm pull-right"><small><a href="http://guenne.ik">http://guenne.ik</a></small> <span id="time"></span></span></h1>
+            <div class="page-header" style="margin-top: 0.5em; padding-bottom: 0;">
+		<h1>IK <?php echo $start_date->format('Y'); ?><small style="margin-left: 1.5em;">Day <?php echo $current_day; ?></small> <span class="hidden-xs hidden-sm pull-right"><small style="margin-right: 1.5em;"><a href="http://guenne.ik">http://guenne.ik</a></small><span id="time"></span></span></h1>
             </div>
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-9" style="padding:0;">
-                <div class="container-fluid">
-		    <?php foreach ($TIMES as $start_time => $end_time) : ?>
-		    <div class="col-xs-12 col-sm-12 col-md-5ths col-lg-5ths">
-			<div class="list-group">
-			    <a href="" class="list-group-item active"><strong><?= $start_time ?> &ndash; <?= $end_time ?></strong></a>
-			    <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $INSTRUCTORS); } ?>
+			<div class="container-fluid">
+			    <?php foreach ($TIMES as $start_time => $end_time) : ?>
+			    <div class="col-xs-12 col-sm-12 col-md-5ths col-lg-5ths">
+				<div class="list-group">
+				    <a href="" class="list-group-item active"><strong><?= $start_time ?> &ndash; <?= $end_time ?></strong></a>
+				    <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $INSTRUCTORS); } ?>
+				</div>
+			    </div>
+			    <?php endforeach ?>
 			</div>
-		    </div>
-		    <?php endforeach ?>
+		</div>
+	
+                <div class="col-xs-12 col-sm-12 col-md-3 panel panel-default" style="padding: 0 0 0 0; margin: 0 10px 0 -10px;">
+                        <div class="panel-heading hidden-xs hidden-sm">Shoutbox</div>
+                        <form action="shoutbox.php" method="post" id="shoutboxform">
+                            <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" style="width:100%;">
+                        </form>
+                        <div class="container-fluid" style="height: 36em; overflow-y: auto; overflow-x: hidden; padding-left:0; padding-right:0;" id="shoutbox-container">
+                            <table class="table table-condensed" id="shoutbox">
+                            <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
+                                <tr>
+                                    <td width="20" bgcolor="<?= substr(md5($ip), 0, 6); ?>"></td>
+                                    <td style="display: inline-block; width: 75%;"><span class="text-muted"><?= date('d. H:i', $time) ?></span> <?= trim($msg); ?></td>
+                                </tr>
+                            <?php endforeach ?>
+                            </table>
+                        </div>
                 </div>
+	    </div>
+
+	    <div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-4">
                     <div class="panel" style="font-size:120%">
-                        <div class="panel-header"><h4>Tonight: 15.03.</h4></div>
-                        <div class="panel-body">
+			<div class="panel-body" style="padding:0;">
+				<h3 style="margin-top: .75em; margin-bottom: .5em;">Tonight: 15.03.</h3>
 				<p>16.03. 1:15pm Diversity &amp; Inclusion Task Force in the Europa Saal</p>
-				<p>SC 1 will be in Forum 1 and SC 2 will be in Forum 2</p>
+				<p>SC&nbsp;1 will be in Forum&nbsp;1 and SC&nbsp;2 will be in Forum&nbsp;2</p>
 				<p style="color: red;">Bring your <u>wallet</u> to lunch</p>
                         </div>
                     </div>
                 </div>
 		<div class="col-xs-12 col-sm-12 col-md-5">
                     <div class="panel" style="font-size:120%">
-                        <div class="panel-header"><h4>Announcements</h4></div>
-                        <div class="panel-body">
+			<div class="panel-body" style="padding: 0;">
+                            <h3 style="margin-top: .75em; margin-bottom: .5em;">Announcements</h3>
                             <p>Do you have images from IK? Please share with Jochen or Michael</p>
                             <p>Hate paywalls? Paste the URL into <a href="http://sci-hub.io">sci-hub.io</a>.</p>
                             <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
                         </div>
                     </div>
-                </div>
-            </div>
+		</div>         
 
-                <div class="col-xs-12 col-sm-12 col-md-3 panel panel-default" style="padding:0;">
-                        <div class="panel-heading hidden-xs hidden-sm">Shoutbox</div>
-                        <form action="shoutbox.php" method="post" id="shoutboxform">
-                            <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" style="width:100%;">
-                        </form>
-                        <div class="container-fluid" style="height: 36em; overflow-y: auto; padding-left:0; padding-right:0;" id="shoutbox">
-                            <table class="table table-condensed">
-                            <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
-                                <tr>
-                                    <td width="20" bgcolor="<?= substr(md5($ip), 0, 6); ?>"></td>
-                                    <td style="word-break:break-all;word-wrap:break-word;"><span class="text-muted"><?= date('d. H:i', $time) ?></span> <?= trim($msg); ?></td>
-                                </tr>
-                            <?php endforeach ?>
-                            </table>
-                        </div>
-                </div>
-
-                <div class="col-md-3 hidden-xs hidden-sm text-center">
-                    <a href="http://guenne.ik/images" class="thumbnail" id="impression">
-                        <img src="<?php echo $path . $img ?>" alt="IK Impression">
+		<div class="col-md-3 hidden-xs hidden-sm text-center thumbnail" style="margin: 0 10px 0 -10px;">
+                    <a href="http://guenne.ik/images" id="impression-container">
+                        <img src="<?php echo $path . $img ?>" alt="IK Impression" id="impression">
                     </a>
                 </div>
             </div>

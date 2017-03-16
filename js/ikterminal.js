@@ -1,14 +1,14 @@
 // id: #ID value without #
-const refreshById = function(id) {
+const refreshById = function(id_inner, id_outer) {
     return function () {
-        $('#' + id).load(document.URL +  ' #' + id);
+        $('#' + id_outer).load(document.URL +  ' #' + id_inner);
     };
 }
 
 // id: #ID value without #
 // interval: time in seconds to reload
-const refreshBySchedule = function(id, interval) {
-    setInterval(refreshById(id), interval * 1000)
+const refreshBySchedule = function(id_inner, id_outer, interval) {
+    setInterval(refreshById(id_inner, id_outer), interval * 1000)
 }
 
 const sendShoutbox = function ( evt ) {
