@@ -140,6 +140,7 @@ $img = getRandomFromArray($imgList);
         <script type="text/javascript">
             const loader = function() {
                 startTime();
+                refreshBySchedule('content', 'meta-container', 60);
                 refreshBySchedule('shoutbox', 'shoutbox-container', 5);
                 refreshBySchedule('impression', 'impression-container', 20);
                 document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
@@ -195,8 +196,8 @@ $img = getRandomFromArray($imgList);
 		}
         </style>
     </head>
-    <body onload="loader();">
-        <div class="<?= fluid_if_fullscreen(); ?>">
+    <body onload="loader();" id="meta-container">
+        <div class="<?= fluid_if_fullscreen(); ?>" id="content">
             <div class="page-header" style="margin-top: 0.5em; padding-bottom: 0;">
 		<h1>IK <?php echo $start_date->format('Y'); ?><small style="margin-left: 1.5em;">Day <?php echo $current_day; ?></small> <span class="hidden-xs hidden-sm pull-right"><small style="margin-right: 1.5em;"><a href="http://guenne.ik">http://guenne.ik</a></small><span id="time"></span></span></h1>
             </div>
