@@ -85,7 +85,7 @@ function event_group_list_item($event, $start_time, $evening_time, $instructors)
     $instructor = $instructors[$abbr];
 
     echo sprintf('<a href="./details/detail%s.html" class="list-group-item">' .
-                    '<div>%s<span class="label" style="background-color:%s;">%s</span> <strong>%s</strong><span class="badge pull-right">%s</span></div><div style="clear:both;"></div>' .
+                    '<div>%s<span class="label" style="background-color:%s;">%s</span> <strong>%s</strong></div><div style="margin-top:3px;" class="badge pull-left">%s</div><div style="clear:both;"></div>' .
                     '<div><small>%s</small></div>' .
                     '</a>',
                  $id, $time, substr($color, 0, 7), $abbr, $instructor, $location, $title);
@@ -236,20 +236,19 @@ $img = getRandomFromArray($imgList);
 
 	    <div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-4">
-                    <div class="panel" style="font-size:120%">
+                    <div class="panel" style="font-size:150%">
 			<div class="panel-body" style="padding:0;">
-				<h3 style="margin-top: .75em; margin-bottom: .5em;">Tonight: 15.03.</h3>
-				<p>16.03. 1:15pm Diversity &amp; Inclusion Task Force in the Europa Saal</p>
-				<p>SC&nbsp;1 will be in Forum&nbsp;1 and SC&nbsp;2 will be in Forum&nbsp;2</p>
-				<p style="color: red;">Bring your <u>wallet</u> to lunch</p>
+				<h3 style="margin-top: .75em; margin-bottom: .5em;">Announcements</h3>
+				<p style="color:red;">Checkout until 9am! Return your keys and don't forget you luggage.</p>
+				<p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am</p>
                         </div>
                     </div>
                 </div>
 		<div class="col-xs-12 col-sm-12 col-md-5">
                     <div class="panel" style="font-size:120%">
 			<div class="panel-body" style="padding: 0;">
-                            <h3 style="margin-top: .75em; margin-bottom: .5em;">Announcements</h3>
-                            <p>Do you have images from IK? Please share with Jochen or Michael</p>
+                            <h3 style="margin-top: .75em; margin-bottom: .5em;">Information</h3>
+                            <p>Do you have images from IK? Please share with Jochen or Michael.</p>
                             <p>Hate paywalls? Paste the URL into <a href="http://sci-hub.io">sci-hub.io</a>.</p>
                             <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
                         </div>
@@ -262,9 +261,6 @@ $img = getRandomFromArray($imgList);
                     </a>
                 </div>
             </div>
-        </div>
-
-        <div class="<?= fluid_if_fullscreen(); ?>">
             <div class="footer-bottom">
                     <div class="text-center">
                         <ul class="list-inline">
