@@ -1,9 +1,10 @@
 <?php
-$START = '2017-03-10';
-$END = '2017-03-18';
-$TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => 'End of Day');
+$START = '2018-03-09';
+$END = '2018-03-16';
+$TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '/ik/hack');
 date_default_timezone_set('Europe/Berlin');
 $TODAY = date('Y-m-d');
+$TODAY = '2018-03-09';
 
 // hack, since the json does not contain lecturers
 $INSTRUCTORS = array(
@@ -60,35 +61,49 @@ function filter_schedule($schedule, $day) {
 
 function event_group_list_item($event, $start_time, $evening_time, $instructors) {
     $evt_start = new DateTime($event->start);
+    $evt_end   = new DateTime($event->end);
+
     $time = '';
     if ($start_time != 'Evening' && $evt_start->format('H:i') != $start_time) {
         return;
+    } else if ( strpos( $event->session, '/ik/hack' ) !== false ) {
+        $time = '<span class="text-mute">' . $evt_start->format('H:i') .'-'. $evt_end->format('H:i') .' </span>';
     } else if ($start_time == 'Evening') {
         if ($evt_start < $evening_time) {
             return;
         }
-        $time = '<span class="text-mute">' . $evt_start->format('H:i') .': </span>';
+        $time = '<span class="text-mute">' . $evt_start->format('H:i') .' </span>';
     }
     list($abbr, $title) = explode(' ', $event->title, 2);
+    $abbr = str_replace(':','',$abbr);
     $location = $event->location;
 
+
     // DIRTY HACK
-    if ($abbr == 'SC1') {
-       $location = 'Forum 1';
-    }
-    if ($abbr == 'SC2') {
-       $location = 'Forum 2';
-    }
+    // if ($abbr == 'SC1') {
+    //    $location = 'Forum 1';
+    // }
+    // if ($abbr == 'SC2') {
+    //    $location = 'Forum 2';
+    // }
 
     $color = $event->color;
     $id = $event->coll_id;
-    $instructor = $instructors[$abbr];
+    $instructor = $event->instructor;
 
-    echo sprintf('<a href="./details/detail%s.html" class="list-group-item">' .
-                    '<div>%s<span class="label" style="background-color:%s;">%s</span> <strong>%s</strong></div><div style="margin-top:3px;" class="badge pull-left">%s</div><div style="clear:both;"></div>' .
-                    '<div><small>%s</small></div>' .
-                    '</a>',
-                 $id, $time, substr($color, 0, 7), $abbr, $instructor, $location, $title);
+    if ( strpos( $event->session, '/ik/hack' ) == false )
+        echo sprintf('<a href="./details/detail%s.html" class="list-group-item">' .
+                        '<div>%s<span class="label" style="background-color:%s;">%s</span> <strong>%s</strong></div><div style="margin-top:3px;" class="badge pull-left">%s</div><div style="clear:both;"></div>' .
+                        '<div><small>%s</small></div>' .
+                        '</a>',
+                        $id, $time, substr($color, 0, 7), $abbr, $instructor, $location, $title);
+    else {
+      echo sprintf('<a  href="./details/detail%s.html" class="list-group-item">' .
+                      '<div>%s<span class="label" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188);">%s</span> <strong>%s</strong></div><div style="margin-top:3px;" class="badge pull-left">%s</div><div style="clear:both;"></div>' .
+                      '<div><small>%s</small></div>' .
+                      '</a>',
+                      $id, $time, '/ik/hack & Community', '', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
+    }
 }
 
 function fluid_if_fullscreen() {
@@ -184,7 +199,7 @@ $img = getRandomFromArray($imgList);
 			float: left;
 		    }
 		}
-		
+
 		.footer-bottom {
 			width: 100%;
 			padding: 0;
@@ -199,7 +214,7 @@ $img = getRandomFromArray($imgList);
     <body onload="loader();" id="meta-container">
         <div class="<?= fluid_if_fullscreen(); ?>" id="content">
             <div class="page-header" style="margin-top: 0.5em; padding-bottom: 0;">
-		<h1>IK <?php echo $start_date->format('Y'); ?><small style="margin-left: 1.5em;">Day <?php echo $current_day; ?></small> <span class="hidden-xs hidden-sm pull-right"><small style="margin-right: 1.5em;"><a href="http://guenne.ik">http://guenne.ik</a></small><span id="time"></span></span></h1>
+		<h1>IK<?php echo $start_date->format('Y'); ?><small style="margin-left: 1.5em;">Day <?php echo $current_day; ?></small> <span class="hidden-xs hidden-sm pull-right"><small style="margin-right: 1.5em;"><a href="http://guenne.ik">http://guenne.ik</a></small><span id="time"></span></span></h1>
             </div>
 
             <div class="row">
@@ -215,7 +230,7 @@ $img = getRandomFromArray($imgList);
 			    <?php endforeach ?>
 			</div>
 		</div>
-	
+
                 <div class="col-xs-12 col-sm-12 col-md-3 panel panel-default" style="padding: 0 0 0 0; margin: 0 10px 0 -10px;">
                         <div class="panel-heading hidden-xs hidden-sm">Shoutbox</div>
                         <form action="shoutbox.php" method="post" id="shoutboxform">
@@ -239,8 +254,8 @@ $img = getRandomFromArray($imgList);
                     <div class="panel" style="font-size:150%">
 			<div class="panel-body" style="padding:0;">
 				<h3 style="margin-top: .75em; margin-bottom: .5em;">Announcements</h3>
-				<p style="color:red;">Checkout until 9am! Return your keys and don't forget you luggage.</p>
-				<p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am</p>
+				<!--p style="color:red;">Checkout until 9am! Return your keys and don't forget you luggage.</p-->
+				<!--p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am</p-->
                         </div>
                     </div>
                 </div>
@@ -253,7 +268,7 @@ $img = getRandomFromArray($imgList);
                             <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
                         </div>
                     </div>
-		</div>         
+		</div>
 
 		<div class="col-md-3 hidden-xs hidden-sm text-center thumbnail" style="margin: 0 10px 0 -10px;">
                     <a href="http://guenne.ik/images" id="impression-container">
