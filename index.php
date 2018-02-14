@@ -4,37 +4,6 @@ $END = '2018-03-16';
 $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '/ik/hack');
 date_default_timezone_set('Europe/Berlin');
 $TODAY = date('Y-m-d');
-$TODAY = '2018-03-09';
-
-// hack, since the json does not contain lecturers
-$INSTRUCTORS = array(
-    'ET4:' => 'Wachsmuth',
-    'MC1' => 'Pascanu',
-    'MC3' => 'Verleysen',
-    'MC4' => 'Spranger',
-    'PC1' => 'Smeddinck',
-    'PC3' => 'Maier',
-    'RC2' => 'Klug',
-    'SC2' => 'Gervas',
-    'SC5' => 'Steward',
-    'SC6' => 'Gjorgjieva',
-    'SC10' => 'Rovatsos',
-    'SC11' => 'Baronchelli',
-    'SC13' => 'Banisch',
-    'SC14' => 'Kuhn',
-    'SC15' => 'Steedman',
-    'PC2' => 'van Trijp, van Eecke',
-    'SC3' => 'Veale',
-    'SC7' => 'Batista',
-    'RC3' => 'Bechberger',
-    'RC4' => 'Schick',
-    'RC5' => 'Berov',
-    'MC5' => 'Cardoso',
-    'SC1' => 'London',
-    'SC8' => '<del>Schreiber</del> Jaeger',
-    'SC16' => 'Hanappe',
-    'ET3' => 'Kuhn',
-);
 
 $start_date = new DateTime($START . ' 00:00'); $today_date = new DateTime($TODAY . ' 00:00');
 $evening_date = new DateTime($TODAY . ' 18:00');
@@ -59,7 +28,7 @@ function filter_schedule($schedule, $day) {
         });
 }
 
-function event_group_list_item($event, $start_time, $evening_time, $instructors) {
+function event_group_list_item($event, $start_time, $evening_time) {
     $evt_start = new DateTime($event->start);
     $evt_end   = new DateTime($event->end);
 
@@ -77,15 +46,6 @@ function event_group_list_item($event, $start_time, $evening_time, $instructors)
     list($abbr, $title) = explode(' ', $event->title, 2);
     $abbr = str_replace(':','',$abbr);
     $location = $event->location;
-
-
-    // DIRTY HACK
-    // if ($abbr == 'SC1') {
-    //    $location = 'Forum 1';
-    // }
-    // if ($abbr == 'SC2') {
-    //    $location = 'Forum 2';
-    // }
 
     $color = $event->color;
     $id = $event->coll_id;
@@ -224,7 +184,7 @@ $img = getRandomFromArray($imgList);
 			    <div class="col-xs-12 col-sm-12 col-md-5ths col-lg-5ths">
 				<div class="list-group">
 				    <a href="" class="list-group-item active"><strong><?= $start_time ?> &ndash; <?= $end_time ?></strong></a>
-				    <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $INSTRUCTORS); } ?>
+				    <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
 				</div>
 			    </div>
 			    <?php endforeach ?>
