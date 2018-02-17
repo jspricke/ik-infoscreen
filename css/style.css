@@ -1,0 +1,131 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: #17a;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#headerl {
+    grid-area: headerl;
+}
+
+#headerr {
+    grid-area: headerr;
+    text-align: right;
+    display: none;
+}
+
+#schedule {
+    grid-area: schedule;
+}
+
+#footer {
+    grid-area: footer;
+    text-align: center;
+    display: none;
+}
+
+#announcements {
+    grid-area: announcements;
+}
+
+#information {
+    grid-area: information;
+}
+
+#impressions {
+    grid-area: impressions;
+    display: none;
+}
+
+#shoutbox {
+    grid-area: shoutbox;
+}
+
+#shoutbox_container {
+    height: 36em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left:0;
+    padding-right:0;
+}
+
+.lecture_id {
+    padding: 0.3em;
+    border-radius: 0.25em;
+    color: #fff;
+}
+
+.location {
+    padding: 0.3em;
+    border-radius: 0.25em;
+    color: #fff;
+    background-color: #777;
+}
+
+.event_header {
+    grid-row-start: 1;
+    margin: 15px;
+    background-color: rgb(51, 122, 183);
+    color: #fff;
+}
+
+.message_box {
+    width:2em;
+    height:2em;
+    float:left;
+}
+
+@media (min-width: 50em) {
+    body {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas:
+            "headerl headerr"
+            "schedule schedule"
+            "announcements information"
+            "shoutbox impressions"
+            "footer footer";
+    }
+
+    #footer {
+        display: inline;
+    }
+
+    #headerr {
+        display: inline;
+    }
+
+    #impressions {
+        display: inline;
+    }
+
+    #schedule {
+        display: grid;
+        grid-template-rows: repeat(6, auto);
+        grid-auto-flow: column;
+    }
+}
+
+@media (min-width: 70em) {
+    body {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-areas:
+            "headerl headerl headerr headerr"
+            "schedule schedule schedule shoutbox"
+            "announcements information . impressions"
+            "footer footer footer footer";
+    }
+}

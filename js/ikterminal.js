@@ -28,7 +28,7 @@ const sendData = function () {
 
     XHR.addEventListener("load", function(event) {
         document.getElementById('shoutboxform').reset();
-        refreshById('shoutbox');
+        refreshById('shoutbox_container', 'shoutbox_container');
     });
 
     XHR.addEventListener("error", function(event) {
@@ -39,3 +39,29 @@ const sendData = function () {
 
     XHR.send(new FormData(document.getElementById('shoutboxform')));
 }
+
+function startTime() {
+	    var today = new Date();
+	    var h = today.getHours();
+	    var m = today.getMinutes();
+	    var s = today.getSeconds();
+	    m = checkTime(m);
+	    s = checkTime(s);
+	    document.getElementById('time').innerHTML =
+		    h + ":" + m;
+		    //h + ":" + m + ":" + s;
+	    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+	    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+	    return i;
+}
+
+const loader = function() {
+    startTime();
+    refreshBySchedule('schedule', 'schedule', 60);
+    refreshBySchedule('shoutbox_container', 'shoutbox_container', 5);
+    refreshBySchedule('impressions', 'impressions', 20);
+    document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
+    document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+};
