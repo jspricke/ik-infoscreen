@@ -1,14 +1,14 @@
 // id: #ID value without #
-const refreshById = function(id_inner, id_outer) {
+const refreshById = function(id) {
     return function () {
-        $('#' + id_outer).load(document.URL +  ' #' + id_inner);
+        $('#' + id).load(document.URL +  ' #' + id + ">*");
     };
 }
 
 // id: #ID value without #
 // interval: time in seconds to reload
-const refreshBySchedule = function(id_inner, id_outer, interval) {
-    setInterval(refreshById(id_inner, id_outer), interval * 1000)
+const refreshBySchedule = function(id, interval) {
+    setInterval(refreshById(id), interval * 1000)
 }
 
 const sendShoutbox = function ( evt ) {
@@ -52,6 +52,7 @@ function startTime() {
 		    //h + ":" + m + ":" + s;
 	    var t = setTimeout(startTime, 500);
 }
+
 function checkTime(i) {
 	    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
 	    return i;
@@ -59,9 +60,9 @@ function checkTime(i) {
 
 const loader = function() {
     startTime();
-    refreshBySchedule('schedule', 'schedule', 60);
-    refreshBySchedule('shoutbox_container', 'shoutbox_container', 5);
-    refreshBySchedule('impressions', 'impressions', 20);
+    refreshBySchedule('schedule', 60);
+    refreshBySchedule('shoutbox_container', 5);
+    refreshBySchedule('impressions', 20);
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
 };
