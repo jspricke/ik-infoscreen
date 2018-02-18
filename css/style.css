@@ -81,7 +81,7 @@ footer ul {
 /* Big screens have a 5-column schedule, the shoutbox on the right */
 @media (min-width:1025px) {
     main {  /* Place impressions next to announcements and information */
-        grid-template-columns: repeat(3, 1fr) 15em;
+        grid-template-columns: repeat(4, 1fr);
     }
 
     section#schedule {  /* 5-column schedule */
@@ -175,6 +175,7 @@ a:hover {
 }
 
 #shoutbox_container {
+    height: 50em;
     overflow-y: auto;
     overflow-x: hidden;
     padding-left:0;
@@ -185,4 +186,8 @@ a:hover {
     width: 1.5em;
     height: 1.5em;
     float: left;
+}
+
+#impressions {
+    text-align: center;
 }
