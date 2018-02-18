@@ -5,7 +5,8 @@ $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:3
 date_default_timezone_set('Europe/Berlin');
 $TODAY = date('Y-m-d');
 
-$start_date = new DateTime($START . ' 00:00'); $today_date = new DateTime($TODAY . ' 00:00');
+$start_date = new DateTime($START . ' 00:00');
+$today_date = new DateTime($TODAY . ' 00:00');
 $evening_date = new DateTime($TODAY . ' 18:00');
 $current_day = $today_date->add(new DateInterval('P1D'))->diff($start_date)->format('%a');
 
@@ -47,22 +48,30 @@ function event_group_list_item($event, $start_time, $evening_time) {
     $abbr = str_replace(':','',$abbr);
     $location = $event->location;
 
-    $color = $event->color;
+    $color = substr($event->color, 0, 7);
     $id = $event->coll_id;
     $instructor = $event->instructor;
 
     if ( strpos( $event->session, '/ik/hack' ) == false ) {
-        echo sprintf('<div class="event"><a href="./details/detail%s.html">' .
-            '<div>%s<span class="lecture_id" style="background-color:%s;">%s</span><strong>%s</strong></div>' .
-            '<div><span class="location">%s</span>%s</div>' .
-                     '</a></div>',
-                     $id, $time, substr($color, 0, 7), $abbr, $instructor, $location, $title);
+        echo sprintf('<div class="event">' .
+                         '<a href="./details/detail%s.html">' .
+                             '<span class="lecture_id" style="background-color:%s;">%s</span>' .
+                             '<span class="lecturer">%s</span>' .
+                             '<span class="location" style="background-color:%s;">%s</span>' .
+                             '<span class="title">%s</span>' .
+                         '</a>' .
+                     '</div>',
+                     $id, $color, $abbr, $instructor, $color, $location, $title);
     } else {
-        echo sprintf('<div class="event"><a href="./details/detail%s.html">' .
-              '<div>%s<span class="lecture_id" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span><strong>%s</strong></div>' .
-              '<div><span class="location">%s</span>%s</div>' .
-                   '</a></div>',
-                      $id, $time, '/ik/hack & Community', '', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
+        echo sprintf('<div class="event">' .
+                         '<a href="./details/detail%s.html">' .
+                             '<span class="lecture_id" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span>' .
+                             '<span class="lecturer">%s</span>' .
+                             '<span class="location">%s</span>' .
+                             '<span class="title">%s</span>' .
+                         '</a>' .
+                     '</div>',
+                     $id, $time, '/ik/hack & Community', '', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
     }
 }
 
@@ -105,64 +114,66 @@ $img = getRandomFromArray($imgList);
     </head>
     <body onload="loader();" id="body">
 
-        <div id="headerl">
+        <header>
             <h1>
                 IK<?php echo $start_date->format('Y'); ?>
                 <small>Day <?php echo $current_day; ?></small>
             </h1>
-        </div>
-
-        <div id="headerr">
             <h1>
                 <small><a href="http://guenne.ik">http://guenne.ik</a></small>
                 <span id="time"></span>
             </h1>
-        </div>
+        </header>
 
-        <div id="schedule">
-            <?php foreach ($TIMES as $start_time => $end_time) : ?>
-                <a href="" class="event_header"><strong><?= $start_time ?> &ndash; <?= $end_time ?></strong></a>
-                <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
-            <?php endforeach ?>
-        </div>
-
-
-        <div id="announcements">
-            <h3>Announcements</h3>
-            <p style="color:red;">Checkout until 9am! Return your keys and don't forget you luggage.</p>
-            <p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am</p>
-        </div>
-
-        <div id="information">
-            <h3>Information</h3>
-            <p>Do you have images from IK? Please share with Jochen or Michael.</p>
-            <p>Hate paywalls? Paste the URL into <a href="http://sci-hub.io">sci-hub.io</a>.</p>
-            <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
-        </div>
-
-        <div id="shoutbox">
-            <h3>Shoutbox</h3>
-            <form action="shoutbox.php" method="post" id="shoutboxform">
-                <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" style="width:90%;">
-            </form>
-            <div id="shoutbox_container">
-                <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
-                    <p><span class="message_box" style="background-color:#<?= substr(md5($ip), 0, 6); ?>;"></span><span><?= date('d. H:i', $time) ?></span> <?= trim($msg); ?></p>
+        <main>
+            <section id="schedule">
+                <?php foreach ($TIMES as $start_time => $end_time) : ?>
+                    <div class="timeslot">
+                        <p><?= $start_time ?> &ndash; <?= $end_time ?></p>
+                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
+                    </div>
                 <?php endforeach ?>
-            </div>
-        </div>
+            </section>
 
-        <div id="impressions">
-            <a href="http://guenne.ik/images">
-                <img src="<?php echo $path . $img ?>" alt="IK Impression" id="impression">
-            </a>
-        </div>
+            <section id="announcements">
+                <h3>Announcements</h3>
+                <p style="color:red;">Checkout until 9am! Return your keys and don't forget your luggage.</p>
+                <p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am.</p>
+            </section>
 
-        <div id="footer">
-                <a href="http://guenne.ik/slides">http://guenne.ik/slides</a>
-                <a href="http://guenne.ik/images">http://guenne.ik/images</a>
-                <a href="https://www.facebook.com/groups/270641113015786/?fref=nf">IK Facebook Group</a>
-        </div>
+            <section id="information">
+                <h3>Information</h3>
+                <p>Do you have images from IK? Please share with Jochen or Michael.</p>
+                <p>Hate paywalls? Paste the URL into <a href="https://sci-hub.la">sci-hub.la</a>.</p>
+                <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
+            </section>
+
+            <section id="impressions">
+                <a href="http://guenne.ik/images">
+                    <img src="<?php echo $path . $img ?>" alt="IK Impression" id="impression" />
+                </a>
+            </section>
+
+            <aside id="shoutbox">
+                <h3>Shoutbox</h3>
+                <form action="shoutbox.php" method="post" id="shoutboxform">
+                    <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" />
+                </form>
+                <div id="shoutbox_container">
+                    <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
+                        <p><span class="message_box" style="background-color:#<?= substr(md5($ip), 0, 6); ?>;"></span><span><?= date('d. H:i', $time) ?></span> <?= trim($msg); ?></p>
+                    <?php endforeach ?>
+                </div>
+            </aside>
+        </main>
+
+        <footer>
+            <ul>
+                <li><a href="http://guenne.ik/slides">http://guenne.ik/slides</a></li>
+                <li><a href="http://guenne.ik/images">http://guenne.ik/images</a></li>
+                <li><a href="https://www.facebook.com/groups/270641113015786/?fref=nf">IK Facebook Group</a></li>
+            </ul>
+        </footer>
 
     </body>
 </html>

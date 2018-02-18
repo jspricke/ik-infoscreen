@@ -1,5 +1,117 @@
+/** *** Layouts *** **/
+
+header {
+    display: grid;
+    grid-template-columns: 1fr;  /* 1 header only on small screens */
+    border-bottom: 1px solid #cdcdcd;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header h1+h1 {
+    display: none;  /* disable link and time on very small devices, will be enabled on bigger screens */
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr;  /* 1 column layout on small screens */
+}
+
+img {  /* Never stretch the layout because of the impression image. */
+    max-width: 100%;
+    border-radius: 0.5em;
+}
+
+.event a {  /* Make events a grid. */
+    display: grid;
+    grid-template-columns: 1fr 8fr;
+    grid-template-rows: auto auto;
+    margin-top: 0.1em;
+}
+
+.timeslot {
+    margin: 0.75em 0.15em;
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    text-align: center;
+}
+
+/* Bigger small screens have a 2-column schedule */
+@media (min-width:600px) {
+    header { /* reset width for h1 s in header */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header h1+h1 { /* enable link and time */
+        display: block;
+    }
+
+    section#schedule { /* 2-column schedule */
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Medium screens have a 3-column schedule */
+@media (min-width:801px) {
+    main { /* show announcements and information side-by-side, impressions and shoutbox as well */
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    main section:not(#schedule) {
+        margin: 0 0.5em;
+        padding: .2em;
+    }
+
+    section#schedule {  /* 3-column schedule */
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Big screens have a 5-column schedule, the shoutbox on the right */
+@media (min-width:1025px) {
+    main {  /* Place impressions next to announcements and information */
+        grid-template-columns: repeat(3, 1fr) 15em;
+    }
+
+    section#schedule {  /* 5-column schedule */
+        grid-column-start: 1;
+        grid-column-end: 4;
+
+        grid-template-columns: repeat(5, 1fr);
+    }
+
+    aside {  /* place shoutbox to the right */
+        grid-column: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        margin-left: 0.15em;
+    }
+
+    #shoutbox {
+        margin-top: .75em;
+    }
+}
+
+
+/** *** Styles *** **/
+
 body {
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+header h1+h1 {
+    text-align: right;
 }
 
 h1 {
@@ -16,116 +128,61 @@ a:hover {
     text-decoration: underline;
 }
 
-#headerl {
-    grid-area: headerl;
+
+/* Schedule children */
+
+.timeslot p:first-child {
+    margin: 0;
+    padding: 1em;
+    background-color: rgb(51, 122, 183);
+    color: #fff;
+    border-radius: 0.25em;
 }
 
-#headerr {
-    grid-area: headerr;
-    text-align: right;
-    display: none;
+.event a span {
+    padding: 0.3em;
 }
 
-#schedule {
-    grid-area: schedule;
+.event a span.lecture_id {
+    border-radius: 0.25em 0.25em 0 0;
+    color: #fff;
 }
 
-#footer {
-    grid-area: footer;
-    text-align: center;
-    display: none;
+.event a span.location {
+    border-radius: 0 0 0.25em 0.25em;
+    color: #fff;
 }
 
-#announcements {
-    grid-area: announcements;
+.event a span.lecturer {
+    font-weight: bold;
 }
 
-#information {
-    grid-area: information;
-}
 
-#impressions {
-    grid-area: impressions;
-    display: none;
-}
+/* Shoutbox */
 
 #shoutbox {
-    grid-area: shoutbox;
+    background: #f5f5f5;
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+#shoutbox h3 {
+    margin: 0.2em;
+}
+
+#shoutbox form input {
+    width: 99%;
 }
 
 #shoutbox_container {
-    height: 36em;
     overflow-y: auto;
     overflow-x: hidden;
     padding-left:0;
     padding-right:0;
 }
 
-.lecture_id {
-    padding: 0.3em;
-    border-radius: 0.25em;
-    color: #fff;
-}
-
-.location {
-    padding: 0.3em;
-    border-radius: 0.25em;
-    color: #fff;
-    background-color: #777;
-}
-
-.event_header {
-    grid-row-start: 1;
-    margin: 15px;
-    background-color: rgb(51, 122, 183);
-    color: #fff;
-}
-
 .message_box {
-    width:2em;
-    height:2em;
-    float:left;
-}
-
-@media (min-width: 50em) {
-    body {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-areas:
-            "headerl headerr"
-            "schedule schedule"
-            "announcements information"
-            "shoutbox impressions"
-            "footer footer";
-    }
-
-    #footer {
-        display: inline;
-    }
-
-    #headerr {
-        display: inline;
-    }
-
-    #impressions {
-        display: inline;
-    }
-
-    #schedule {
-        display: grid;
-        grid-template-rows: repeat(6, auto);
-        grid-auto-flow: column;
-    }
-}
-
-@media (min-width: 70em) {
-    body {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-areas:
-            "headerl headerl headerr headerr"
-            "schedule schedule schedule shoutbox"
-            "announcements information . impressions"
-            "footer footer footer footer";
-    }
+    width: 1.5em;
+    height: 1.5em;
+    float: left;
 }
