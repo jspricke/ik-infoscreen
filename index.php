@@ -1,4 +1,7 @@
 <?php
+
+/** Schedule **/
+
 $START = '2018-03-09';
 $END = '2018-03-16';
 $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '/ik/hack');
@@ -9,14 +12,6 @@ $start_date = new DateTime($START . ' 00:00');
 $today_date = new DateTime($TODAY . ' 00:00');
 $evening_date = new DateTime($TODAY . ' 18:00');
 $current_day = $today_date->add(new DateInterval('P1D'))->diff($start_date)->format('%a');
-
-function read_shouts() {
-    $chat = file_get_contents('CHAT');
-    $chat = explode(PHP_EOL, $chat);
-    $chat = array_reverse($chat);
-    unset($chat[0]);
-    return $chat;
-}
 
 function read_schedule() {
     return json_decode(file_get_contents('ikschedule.json'))->events;
@@ -79,10 +74,24 @@ function event_group_list_item($event, $start_time, $evening_time) {
     }
 }
 
-$chat = read_shouts();
 $schedule_json = read_schedule();
 $schedule = filter_schedule($schedule_json, $TODAY);
-$path = 'thumbs/';
+
+
+/** Shoutbox **/
+
+function read_shouts() {
+    $chat = file_get_contents('CHAT');
+    $chat = explode(PHP_EOL, $chat);
+    $chat = array_reverse($chat);
+    unset($chat[0]);
+    return $chat;
+}
+
+$chat = read_shouts();
+
+
+/** Random impression image **/
 
 function getImagesFromDir($path) {
     $images = array();
@@ -102,9 +111,10 @@ function getRandomFromArray($ar) {
     return $ar[$num];
 }
 
+$path = 'thumbs/';
 $imgList = getImagesFromDir($path);
-
 $img = getRandomFromArray($imgList);
+
 ?><!DOCTYPE html>
 <html>
     <head>
