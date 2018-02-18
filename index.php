@@ -48,16 +48,20 @@ function event_group_list_item($event, $start_time, $evening_time) {
     $abbr = str_replace(':','',$abbr);
     $location = $event->location;
 
-    $color = substr($event->color, 0, 7);
+    if ($event->color == '#ffffffff') {
+        $color = sprintf('background-color:%s;color:#000;', $event->color);
+    } else {
+        $color = sprintf('background-color:%s;', $event->color);
+    }
     $id = $event->coll_id;
     $instructor = $event->instructor;
 
     if ( strpos( $event->session, '/ik/hack' ) == false ) {
         echo sprintf('<div class="event">' .
                          '<a href="./details/detail%s.html">' .
-                             '<span class="lecture_id" style="background-color:%s;">%s</span>' .
+                             '<span class="lecture_id" style="%s">%s</span>' .
                              '<span class="lecturer">%s</span>' .
-                             '<span class="location" style="background-color:%s;">%s</span>' .
+                             '<span class="location" style="%s">%s</span>' .
                              '<span class="title">%s</span>' .
                          '</a>' .
                      '</div>',
