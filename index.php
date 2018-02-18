@@ -7,6 +7,7 @@ $END = '2018-03-16';
 $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '');
 date_default_timezone_set('Europe/Berlin');
 $TODAY = date('Y-m-d');
+$NOW = date('H:i');
 
 $start_date = new DateTime($START . ' 00:00');
 $today_date = new DateTime($TODAY . ' 00:00');
@@ -63,21 +64,24 @@ function event_group_list_item($event, $start_time, $evening_time) {
     }
 
     // Determine event color, overwrite white
-    if ($event->color == '#ffffffff') {
-        $style = 'background-color:#ececf5;color:#000;';
-    } else {
-        $style = sprintf('background-color:%s;', $event->color);
-    }
+    $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
 
     printf('<div class="event">' .
                '<a href="./details/detail%s.html">' .
-                   '<span class="lecture_id" style="%s">%s</span>' .
+                   '<span class="lecture_id" style="background-color: %s;">%s</span>' .
                    '<span class="lecturer">%s</span>' .
-                   '<span class="location" style="%s">%s</span>' .
+                   '<span class="location" style="background-color: %s;">%s</span>' .
                    '<span class="title">%s</span>' .
                '</a>' .
            '</div>',
-           $id, $style, $time ? $time : $abbr, $instructor, $style, $location, $title);
+           $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title);
+}
+
+function is_active_timeslot($now, $start, $end) {
+    if ($start == 'Evening') {
+        return $now > '18:00';
+    }
+    return $start <= $now && $now < $end;
 }
 
 $schedule_json = read_schedule();
@@ -148,7 +152,7 @@ $img = getRandomFromArray($imgList);
         <main>
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
-                    <div class="timeslot">
+                    <div class="timeslot <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'active' : '' ?>">
                         <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
                         <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
                     </div>
