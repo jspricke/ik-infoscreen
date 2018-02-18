@@ -71,11 +71,11 @@ function event_group_list_item($event, $start_time, $evening_time) {
                          '<a href="./details/detail%s.html">' .
                              '<span class="lecture_id" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span>' .
                              '<span class="lecturer">%s</span>' .
-                             '<span class="location">%s</span>' .
+                             '<span class="location" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span>' .
                              '<span class="title">%s</span>' .
                          '</a>' .
                      '</div>',
-                     $id, $time, '/ik/hack & Community', '', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
+                     $id, $time, '/ik/hack & Community', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
     }
 }
 
