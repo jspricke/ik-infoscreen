@@ -4,7 +4,7 @@
 
 $START = '2018-03-09';
 $END = '2018-03-16';
-$TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '/ik/hack');
+$TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '');
 date_default_timezone_set('Europe/Berlin');
 $TODAY = date('Y-m-d');
 
@@ -28,50 +28,56 @@ function event_group_list_item($event, $start_time, $evening_time) {
     $evt_start = new DateTime($event->start);
     $evt_end   = new DateTime($event->end);
 
-    $time = '';
+    // Check time and return if not in the correct time slot.
     if ($start_time != 'Evening' && $evt_start->format('H:i') != $start_time) {
         return;
-    } else if ( strpos( $event->session, '/ik/hack' ) !== false ) {
-        $time = '<span>' . $evt_start->format('H:i') .'-'. $evt_end->format('H:i') .' </span>';
     } else if ($start_time == 'Evening') {
         if ($evt_start < $evening_time) {
             return;
         }
-        $time = '<span>' . $evt_start->format('H:i') .' </span>';
+        // For evening events get the proper time (replaces the abbreviation)
+        $time = $evt_start->format('H:i') . '&ndash;' . $evt_end->format('H:i');
+    } else {
+        $time = '';
     }
-    list($abbr, $title) = explode(' ', $event->title, 2);
-    $abbr = str_replace(':','',$abbr);
+
+    // Default event meta data
+    $id = $event->coll_id;
+    $instructor = trim($event->instructor);
     $location = $event->location;
 
-    if ($event->color == '#ffffffff') {
-        $color = sprintf('background-color:%s;color:#000;', $event->color);
-    } else {
-        $color = sprintf('background-color:%s;', $event->color);
-    }
-    $id = $event->coll_id;
-    $instructor = $event->instructor;
+    list($abbr, $title) = explode(' ', $event->title, 2);
+    $abbr = str_replace(':','',$abbr);
 
-    if ( strpos( $event->session, '/ik/hack' ) == false ) {
-        echo sprintf('<div class="event">' .
-                         '<a href="./details/detail%s.html">' .
-                             '<span class="lecture_id" style="%s">%s</span>' .
-                             '<span class="lecturer">%s</span>' .
-                             '<span class="location" style="%s">%s</span>' .
-                             '<span class="title">%s</span>' .
-                         '</a>' .
-                     '</div>',
-                     $id, $color, $abbr, $instructor, $color, $location, $title);
-    } else {
-        echo sprintf('<div class="event">' .
-                         '<a href="./details/detail%s.html">' .
-                             '<span class="lecture_id" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span>' .
-                             '<span class="lecturer">%s</span>' .
-                             '<span class="location" style="background-color:rgb(0, 0, 0); color:rgb(255, 247, 188)">%s</span>' .
-                             '<span class="title">%s</span>' .
-                         '</a>' .
-                     '</div>',
-                     $id, $time, '/ik/hack & Community', $location, preg_replace( '/\/ik\/hack ?-?/','', $event->title ) );
+    // Special cases: event has no instructor
+    if (!$instructor) {
+        // Can be inside the title (e.g. /ik/hack)
+        if (substr_count($title, '-') > 1) {
+            list(, $instructor, $title) = explode('-', $title, 3);
+            if (substr_count($event->title, '/ik/hack') == 1) {
+                $title = "/ik/hack &ndash; $title";
+            }
+        } else {  // Can be absent at all (then the title explosion above was faulty, so we fix it):
+            $title = $event->title;
+        }
     }
+
+    // Determine event color, overwrite white
+    if ($event->color == '#ffffffff') {
+        $style = 'background-color:#ececf5;color:#000;';
+    } else {
+        $style = sprintf('background-color:%s;', $event->color);
+    }
+
+    printf('<div class="event">' .
+               '<a href="./details/detail%s.html">' .
+                   '<span class="lecture_id" style="%s">%s</span>' .
+                   '<span class="lecturer">%s</span>' .
+                   '<span class="location" style="%s">%s</span>' .
+                   '<span class="title">%s</span>' .
+               '</a>' .
+           '</div>',
+           $id, $style, $time ? $time : $abbr, $instructor, $style, $location, $title);
 }
 
 $schedule_json = read_schedule();
@@ -143,7 +149,7 @@ $img = getRandomFromArray($imgList);
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot">
-                        <p><?= $start_time ?> &ndash; <?= $end_time ?></p>
+                        <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
                         <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
                     </div>
                 <?php endforeach ?>
