@@ -31,7 +31,14 @@ function event_group_list_item($event, $start_time, $evening_time) {
 
     // Check time and return if not in the correct time slot.
     if ($start_time != 'Evening' && $evt_start->format('H:i') != $start_time) {
-        return;
+
+        // /ik/hack: one exception at 13:30, appended to 11:00 block with time instead of abbreviation
+        if ($start_time != '11:00' || $evt_start->format('H:i') != '13:30') {
+            return;
+        }
+        $time = '13:30&ndash;14:30';
+        // end /ik/hack exception, without it this code block can be replace by a single return;
+
     } else if ($start_time == 'Evening') {
         if ($evt_start < $evening_time) {
             return;
@@ -140,8 +147,8 @@ $img = getRandomFromArray($imgList);
 
         <header>
             <h1>
-                IK<?php echo $start_date->format('Y'); ?>
-                <small>Day <?php echo $current_day; ?></small>
+                IK<?= $start_date->format('Y'); ?>
+                <small>Day <?= $current_day; ?></small>
             </h1>
             <h1>
                 <small><a href="http://guenne.ik">http://guenne.ik</a></small>
