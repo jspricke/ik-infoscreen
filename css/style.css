@@ -46,7 +46,7 @@ footer ul {
 /* Bigger small screens have a 2-column schedule */
 @media (min-width:600px) {
     header { /* reset width for h1 s in header */
-        grid-template-columns: 1fr auto;
+        grid-template-columns: 1fr 1fr;
     }
 
     header h1+h1 { /* enable link and time */
@@ -78,17 +78,28 @@ footer ul {
     }
 }
 
-/* Big screens have a 5-column schedule, the shoutbox on the right */
+/* Big screens have a 6-column schedule, the shoutbox on the right */
 @media (min-width:1025px) {
     main {  /* Place impressions next to announcements and information */
         grid-template-columns: repeat(4, 1fr);
     }
 
-    section#schedule {  /* 5-column schedule */
+    section#schedule {  /* 6-column schedule */
         grid-column-start: 1;
         grid-column-end: 4;
 
         grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .timeslot {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+
+    .timeslot:last-child, .timeslot:nth-last-child(2) {
+        grid-row-start: auto;
+        grid-row-end: auto;
     }
 
     aside {  /* place shoutbox to the right */
