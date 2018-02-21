@@ -139,7 +139,7 @@ a:hover {
     border-radius: 0.25em;
 }
 
-.timeslot.active {
+.timeslot.active, .timeslot .active {
     border-radius: 0.5em;
     background-color: #e0f2f7;
 }

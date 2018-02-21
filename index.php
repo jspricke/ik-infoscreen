@@ -6,8 +6,8 @@ $START = '2018-03-09';
 $END = '2018-03-16';
 $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '');
 date_default_timezone_set('Europe/Berlin');
-$TODAY = date('Y-m-d');
-$NOW = date('H:i');
+$TODAY = '2018-03-11';//date('Y-m-d');
+$NOW = '13:34';//date('H:i');
 
 $start_date = new DateTime($START . ' 00:00');
 $today_date = new DateTime($TODAY . ' 00:00');
@@ -25,26 +25,32 @@ function filter_schedule($schedule, $day) {
         });
 }
 
-function event_group_list_item($event, $start_time, $evening_time) {
+function sort_schedule($schedule) {
+    function comparison($a, $b) {
+        return strcmp($a->start, $b->start);
+    }
+    uasort($schedule, 'comparison');
+}
+
+function event_group_list_item($event, $start_slot, $end_slot, $evening_slot, $now) {
     $evt_start = new DateTime($event->start);
-    $evt_end   = new DateTime($event->end);
+    $evt_start_ft = $evt_start->format('H:i');
+    $evt_end = new DateTime($event->end);
+    $evt_end_ft = $evt_end->format('H:i');
 
-    // Check time and return if not in the correct time slot.
-    if ($start_time != 'Evening' && $evt_start->format('H:i') != $start_time) {
-
-        // /ik/hack: one exception at 13:30, appended to 11:00 block with time instead of abbreviation
-        if ($start_time != '11:00' || $evt_start->format('H:i') != '13:30') {
-            return;
-        }
-        $time = '13:30&ndash;14:30';
-        // end /ik/hack exception, without it this code block can be replace by a single return;
-
-    } else if ($start_time == 'Evening') {
-        if ($evt_start < $evening_time) {
+    if ($start_slot == 'Evening') {
+        if ($evt_start < $evening_slot) {
             return;
         }
         // For evening events get the proper time (replaces the abbreviation)
-        $time = $evt_start->format('H:i') . '&ndash;' . $evt_end->format('H:i');
+        $time = $evt_start_ft . '&ndash;' . $evt_end_ft;
+    } else if ($evt_start_ft < $start_slot || $evt_start_ft >= $end_slot) {
+        // Lunchtime exception:
+        if ($start_slot == '14:30' && $evt_start_ft >= '12:30' && $evt_start_ft < '14:30') {
+            $time = $evt_start_ft . '&ndash;' . $evt_end_ft;
+        } else {
+            return;
+        }
     } else {
         $time = '';
     }
@@ -73,7 +79,10 @@ function event_group_list_item($event, $start_time, $evening_time) {
     // Determine event color, overwrite white
     $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
 
-    printf('<div class="event">' .
+    // Mark events as active in case they are in the wrong column
+    $active = $evt_start_ft < $now && $now < $evt_end_ft;
+
+    printf('<div class="event %sactive">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
                    '<span class="lecturer">%s</span>' .
@@ -81,7 +90,7 @@ function event_group_list_item($event, $start_time, $evening_time) {
                    '<span class="title">%s</span>' .
                '</a>' .
            '</div>',
-           $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title);
+           $active ? '' : 'in', $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title);
 }
 
 function is_active_timeslot($now, $start, $end) {
@@ -93,11 +102,13 @@ function is_active_timeslot($now, $start, $end) {
 
 $schedule_json = read_schedule();
 $schedule = filter_schedule($schedule_json, $TODAY);
+sort_schedule($schedule);
 
 
 /** Shoutbox **/
 
 function read_shouts() {
+    touch('CHAT');
     $chat = file_get_contents('CHAT');
     $chat = explode(PHP_EOL, $chat);
     $chat = array_reverse($chat);
@@ -161,7 +172,7 @@ $img = getRandomFromArray($imgList);
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'active' : '' ?>">
                         <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
-                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
+                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $end_time, $evening_date, $NOW); } ?>
                     </div>
                 <?php endforeach ?>
             </section>
