@@ -1,0 +1,50 @@
+@media (max-width:299px) {
+    aside p img {
+        max-width: 250px;
+        max-height: 500px;
+        border-radius: .2em;
+        margin: 0 auto;
+    }
+
+    aside p:not(:first-of-type) {
+        text-align: justify;
+    }
+}
+
+@media (min-width:300px) {
+    aside p img {
+        float: right;
+        max-width: 50%;
+        max-height: 50%;
+        margin: 0 0 .5em 1em;
+        border-radius: .2em;
+    }
+
+    aside p:not(:first-of-type) {
+        text-align: justify;
+        padding: 0;
+        hyphens: auto;
+    }
+}
+
+@media (min-width:600px) {
+    body {
+        display: grid;
+        grid-template-columns: auto 30%;
+        grid-column-gap: 1em;
+        padding: 1em;
+        margin: 0 auto;
+        max-width: 800px;
+    }
+
+    body h1:first-of-type {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    aside {
+        grid-column-start: 2;
+        font-size: 0.8em;
+    }
+
+}
