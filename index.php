@@ -66,9 +66,6 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
         // Can be inside the title (e.g. /ik/hack)
         if (substr_count($title, '-') > 1) {
             list(, $instructor, $title) = explode('-', $title, 3);
-            if (substr_count($event->title, '/ik/hack') == 1) {
-                $title = "/ik/hack &ndash; $title";
-            }
         } else {  // Can be absent at all (then the title explosion above was faulty, so we fix it):
             $title = $event->title;
         }
