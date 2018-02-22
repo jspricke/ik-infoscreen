@@ -78,13 +78,13 @@ footer ul {
     }
 }
 
-/* Big screens have a 6-column schedule, the shoutbox on the right */
+/* Big screens have a 5-column schedule, the shoutbox on the right */
 @media (min-width:1025px) {
     main {  /* Place impressions next to announcements and information */
         grid-template-columns: repeat(4, 1fr);
     }
 
-    section#schedule {  /* 6-column schedule */
+    section#schedule {  /* 5-column schedule */
         grid-column-start: 1;
         grid-column-end: 4;
 
