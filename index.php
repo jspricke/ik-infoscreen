@@ -6,8 +6,8 @@ $START = '2018-03-09';
 $END = '2018-03-16';
 $TIMES = array('09:00' => '10:30', '11:00' => '12:30', '14:30' => '16:00', '16:30' => '18:00', 'Evening' => '');
 date_default_timezone_set('Europe/Berlin');
-$TODAY = '2018-03-11';//date('Y-m-d');
-$NOW = '13:34';//date('H:i');
+$TODAY = date('Y-m-d');
+$NOW = date('H:i');
 
 $start_date = new DateTime($START . ' 00:00');
 $today_date = new DateTime($TODAY . ' 00:00');

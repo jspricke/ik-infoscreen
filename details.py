@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 def download_course(id):
     url = f'https://www.interdisciplinary-college.de/index.php?controller=collections&action=see_detail&id={id}'
+    print(f'Retrieving {url}.')
     return requests.get(url).content
 
 
@@ -30,44 +31,60 @@ def parse_and_create_details(download, id):
 
     website, image, vita = [0, 0, 0]
     instructor = inst_body.div.div.table.tr.td.get_text().strip()
-    website = inst_body.find('a')['href'].strip()
-    image = inst_body.find('img')['src'].strip()
-    vita = inst_body.find_all('strong')[1].next_sibling.next_sibling
 
-    details = f'''
-<!DOCTYPE html>
+    try:
+        website = inst_body.find('a')['href'].strip()
+        websites = website.split('<br />')
+        websites = [f'<a href="{website}">{website}</a>'for website in websites]
+        website = '<br />'.join(websites)
+    except TypeError:
+        website = 'N/A'
+
+    try:
+        image = inst_body.find('img')['src'].strip()
+        imagetag = f'<img src="{id}{os.path.splitext(image)[1]}" alt="{instructor}" />'
+    except TypeError:
+        image = None
+        imagetag = ''
+
+    vita = inst_body.find_all('strong')[1].next_sibling.next_sibling.children
+    vita = ''.join(str(v) for v in vita)
+
+    details = f'''<!DOCTYPE html>
 <head>
     <title>{title}</title>
+    <link rel="stylesheet" type="text/css" href="/css/detail.css">
 </head>
 <body>
-<article>
     <h1>{title}</h1>
-    <section>
-        <h2>Description</h2>
-        {description}
-    </section>
-    <section>
-        <h2>Objectives</h2>
-        {objectives}
-    </section>
-    <section>
-        <h2>Literature</h2>
-        {literature}
-    </section>
-    <section>
-        <h2>Requirements</h2>
-        {requirements}
-    <section>
-        <h2>Room</h2>
-        {location}
-    </section>
+    <article>
+        <section>
+            <h2>Description</h2>
+            {description}
+        </section>
+        <section>
+            <h2>Objectives</h2>
+            {objectives}
+        </section>
+        <section>
+            <h2>Literature</h2>
+            {literature}
+        </section>
+        <section>
+            <h2>Requirements</h2>
+            {requirements}
+        </section>
+        <section>
+            <h2>Room</h2>
+            {location}
+        </section>
+    </article>
     <aside>
         <h2>{instructor}</h2>
-        <p>Website: <a href="{website}">{website}</a></p>
-        <img src="{id}{os.path.splitext(image)[1]}" alt="{instructor}" />
-        {vita}
+        <p>Website: {website}</p>
+        <p>{imagetag}
+        {vita}</p>
     </aside>
-</article>
 </body>
 </html>'''
     return details, image
@@ -76,16 +93,18 @@ def parse_and_create_details(download, id):
 def main():
     with open('ikschedule.json') as iksched:
         schedule = json.load(iksched)
-    ids = set(course['coll_id'] for course in schedule['events'])
+    ids = sorted(list(set(course['coll_id'] for course in schedule['events'])))
     os.makedirs('details', exist_ok=True)
     for id in ids:
-        with open('details/detail{id}.html', 'w') as f:
+        with open(f'details/detail{id}.html', 'w') as f:
             output, img = parse_and_create_details(download_course(id), id)
             f.write(output)
-        resp = requests.get(img, stream=True)
-        with open(f'details/{id}{os.path.splitext(img)[1]}', 'wb') as f:
-            for block in resp.iter_content(2**10):
-                f.write(block)
+        if img:
+            print(f'Retrieving {img}.')
+            resp = requests.get(img, stream=True)
+            with open(f'details/{id}{os.path.splitext(img)[1]}', 'wb') as f:
+                for block in resp.iter_content(2**10):
+                    f.write(block)
 
 
 if __name__ == '__main__':
