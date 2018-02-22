@@ -13,8 +13,8 @@ $TIMES = array(
     'Evening' => '',
     $IKHACK => '');
 date_default_timezone_set('Europe/Berlin');
-$TODAY = '2018-03-11';//date('Y-m-d');
-$NOW = '11:34';//date('H:i');
+$TODAY = date('Y-m-d');
+$NOW = date('H:i');
 
 $start_date = new DateTime($START . ' 00:00');
 $today_date = new DateTime($TODAY . ' 00:00');
