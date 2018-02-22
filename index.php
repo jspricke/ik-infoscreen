@@ -32,7 +32,7 @@ function filter_schedule($schedule, $day) {
         });
 }
 
-function event_group_list_item($event, $start_time, $evening_time) {
+function event_group_list_item($event, $start_time, $evening_time, $now) {
     global $IKHACK;
     $evt_start = new DateTime($event->start);
     $evt_end   = new DateTime($event->end);
@@ -77,7 +77,7 @@ function event_group_list_item($event, $start_time, $evening_time) {
     // Determine event color, overwrite white
     $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
 
-    printf('<div class="event">' .
+    printf('<div class="event%s">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
                    '<span class="lecturer">%s</span>' .
@@ -85,6 +85,7 @@ function event_group_list_item($event, $start_time, $evening_time) {
                    '<span class="title">%s</span>' .
                '</a>' .
            '</div>',
+           is_active_event($now, $evt_start->format('H:i'), $evt_end->format('H:i')) ? ' active' : '',
            $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title);
 }
 
@@ -92,6 +93,10 @@ function is_active_timeslot($now, $start, $end) {
     if ($start == 'Evening') {
         return $now > '18:00';
     }
+    return is_active_event($now, $start, $end);
+}
+
+function is_active_event($now, $start, $end) {
     return $start <= $now && $now < $end;
 }
 
@@ -165,7 +170,7 @@ $img = getRandomFromArray($imgList);
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot<?= is_active_timeslot($NOW, $start_time, $end_time) ? ' active' : '' ?>">
                         <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
-                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date); } ?>
+                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $NOW); } ?>
                     </div>
                 <?php endforeach ?>
             </section>
