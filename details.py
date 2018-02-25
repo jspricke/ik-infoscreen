@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 from json import _default_decoder, decoder
 from os import makedirs
