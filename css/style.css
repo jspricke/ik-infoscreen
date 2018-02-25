@@ -46,7 +46,7 @@ footer ul {
 /* Bigger small screens have a 2-column schedule */
 @media (min-width:600px) {
     header { /* reset width for h1 s in header */
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr auto;
     }
 
     header h1+h1 { /* enable link and time */
