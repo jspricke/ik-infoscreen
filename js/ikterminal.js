@@ -1,7 +1,25 @@
+const contentFromHTMLById = function(html, id) {
+    var dom = document.createElement('html');
+    dom.innerHTML = html;
+    return dom.querySelector('#' + id).innerHTML;
+}
+
 // id: #ID value without #
 const refreshById = function(id) {
     return function () {
-        $('#' + id).load(document.URL +  ' #' + id + ">*");
+        var XHR = new XMLHttpRequest();
+
+        XHR.addEventListener("load", function(event) {
+            var content = contentFromHTMLById(XHR.responseText, id);
+            document.getElementById(id).innerHTML = content;
+        });
+
+        XHR.addEventListener("error", function(event) {
+            console.log(event);
+        });
+
+        XHR.open("GET", document.URL);
+        XHR.send(null);
     };
 }
 
@@ -28,11 +46,11 @@ const sendData = function () {
 
     XHR.addEventListener("load", function(event) {
         document.getElementById('shoutboxform').reset();
-        refreshById('shoutbox_container', 'shoutbox_container');
+        refreshById('shoutbox_container')();
     });
 
     XHR.addEventListener("error", function(event) {
-        console.log('error');
+        console.log(event);
     });
 
     XHR.open("POST", "./shoutbox.php");
