@@ -61,9 +61,9 @@ def create_aside(attributes, suffix):
     aside = []
     aside.append(f'<h2>{instructor}</h2>')
 
-    email = attributes[f'experimenter_email{suffix}']
+    email = attributes[f'experimenter_email{suffix}'].strip()
 
-    if email and email != 'None':
+    if email and email != 'None' and email != 'TBA':
         aside.append(f'<p>Email: {email}</p>')
 
     aff_key = f'experimenter_affiliation{suffix}'
@@ -72,7 +72,7 @@ def create_aside(attributes, suffix):
         if affiliation:
             aside.append(f'<p>Affiliation: {affiliation}</p>')
 
-    website = attributes[f'experimenter_website{suffix}']
+    website = attributes[f'experimenter_website{suffix}'].strip()
     if website and website != 'TBA' and website != 'None':
         websites = website.split('<br />')
         websites = [f'<a href="{website}">{website}</a>'for website in websites]
@@ -106,7 +106,7 @@ def create_details(json):
             images.append(image)
 
     asides = "\n".join(asides)
-    literature = sub(urls, r'<a href="\1">\1</a>', json['attributes']['literature'])
+    literature = sub(urls, r'<a href="\1">\1</a>', json['attributes']['literature']).strip('<br />')
 
     details = f'''<!DOCTYPE html>
 <head>
@@ -120,11 +120,11 @@ def create_details(json):
     <article>
         <section>
             <h2>Description</h2>
-            {json['attributes']['description']}
+            {json['attributes']['description'].strip('<br />')}
         </section>
         <section>
             <h2>Objectives</h2>
-            {json['attributes']['objectives']}
+            {json['attributes']['objectives'].strip('<br />')}
         </section>
         <section>
             <h2>Literature</h2>
