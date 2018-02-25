@@ -89,6 +89,17 @@ footer ul {
         grid-column-end: 4;
 
         grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+
+    .timeslot {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+
+    .timeslot:last-child, .timeslot:nth-last-child(2) {
+        grid-row-start: auto;
+        grid-row-end: auto;
     }
 
     aside {  /* place shoutbox to the right */
@@ -139,7 +150,7 @@ a:hover {
     border-radius: 0.25em;
 }
 
-.timeslot.active {
+.timeslot.active, .event.active {
     border-radius: 0.5em;
     background-color: #e0f2f7;
 }
