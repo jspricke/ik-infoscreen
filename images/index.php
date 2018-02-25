@@ -24,7 +24,7 @@ if (isset($_GET['folder']))
 }
 function gen_link($folder, $imgidx, $t)
 {
-	$link = '<a href="./?';
+	$link = '<a href="/images/?';
 	if (isset($folder)) $link .= 'folder='.$folder;
 	if (isset($imgidx)) $link .= '&imgidx='.$imgidx;
 	$link .= '">'.$t.'</a>'; 
@@ -33,8 +33,13 @@ function gen_link($folder, $imgidx, $t)
 
 ?>
 
+<!DOCTYPE html>
 <html>
-<head></head>
+<head>
+    <meta charset="utf-8">
+    <title>IK Images</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <body>
 
 <?php if ($showimg) { ?>
@@ -48,7 +53,7 @@ function gen_link($folder, $imgidx, $t)
 	?>
 </h1>
 <div>
-<img src="<?php echo './'.$folder.'/'.$images[$imgidx]; ?>" width="1024"/>
+<img src="<?php echo './'.$folder.'/'.$images[$imgidx]; ?>" width="100%"/>
 </div>
 <?php } else {
 	foreach (new DirectoryIterator('.') as $fileInfo)
