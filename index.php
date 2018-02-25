@@ -151,7 +151,7 @@ $img = getRandomFromArray($imgList);
                 <small>Day <?= $current_day; ?></small>
             </h1>
             <h1>
-                <small><a href="http://guenne.ik">http://guenne.ik</a></small>
+                <small><a href="/">http://guenne.ik</a></small>
                 <span id="time"></span>
             </h1>
         </header>
@@ -176,11 +176,11 @@ $img = getRandomFromArray($imgList);
                 <h3>Information</h3>
                 <p>Do you have images from IK? Please share with Jochen or Michael.</p>
                 <p>Hate paywalls? Paste the URL into <a href="https://sci-hub.la">sci-hub.la</a>.</p>
-                <p>Please upload your slides here: <a href="http://guenne.ik/incoming">http://guenne.ik/incoming</a></p>
+                <p>Please upload your slides here: <a href="/incoming">http://guenne.ik/incoming</a></p>
             </section>
 
             <section id="impressions">
-                <a href="http://guenne.ik/images">
+                <a href="/images">
                     <img src="<?php echo $path . $img ?>" alt="IK Impression" id="impression" />
                 </a>
             </section>
@@ -200,8 +200,8 @@ $img = getRandomFromArray($imgList);
 
         <footer>
             <ul>
-                <li><a href="http://guenne.ik/slides">http://guenne.ik/slides</a></li>
-                <li><a href="http://guenne.ik/images">http://guenne.ik/images</a></li>
+                <li><a href="/slides">http://guenne.ik/slides</a></li>
+                <li><a href="/images">http://guenne.ik/images</a></li>
                 <li><a href="https://www.facebook.com/groups/270641113015786/?fref=nf">IK Facebook Group</a></li>
             </ul>
         </footer>
