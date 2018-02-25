@@ -164,7 +164,7 @@ $img = getRandomFromArray($imgList);
         <main>
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
-                    <div class="timeslot<?= is_active_timeslot($NOW, $start_time, $end_time) ? ' active' : '' ?>">
+                    <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
                         <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
                         <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $NOW); } ?>
                     </div>

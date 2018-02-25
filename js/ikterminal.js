@@ -65,4 +65,5 @@ const loader = function() {
     refreshBySchedule('impressions', 20);
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+    window.scrollTo(0, document.getElementById('timeslot_active').offsetTop);
 };
