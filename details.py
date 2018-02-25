@@ -75,9 +75,8 @@ def create_aside(attributes, suffix):
     website = attributes[f'experimenter_website{suffix}'].strip()
     if website and website != 'TBA' and website != 'None':
         websites = website.split('<br />')
-        websites = [f'<a href="{website}">{website}</a>'for website in websites]
-        website = '<br />'.join(websites)
-        aside.append(f'<p>Website: {website}</p>')
+        websites = [f'<a href="{website}">Website</a>'for website in websites]
+        aside.append(f'<p>{"<br />".join(websites)}</p>')
 
     vita = attributes[f'experimenter_vita{suffix}']
     vita = sub(urls, r'<a href="\1">\1</a>', vita)
