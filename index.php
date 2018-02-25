@@ -144,7 +144,6 @@ $img = getRandomFromArray($imgList);
         <meta charset="utf-8">
         <title>Today's IK Schedule</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="/js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="/js/ikterminal.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
