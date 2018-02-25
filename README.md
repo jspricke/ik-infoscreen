@@ -9,4 +9,4 @@ On site, it is available on the local WiFi at <a href="http://guenne.ik">http://
 
 If you have suggestions, comments, problems, etc., send us your PRs, open
 issues, or, in case of poor internet connectivity, talk to one of the
-contributors in persosn.
+contributors in person.
