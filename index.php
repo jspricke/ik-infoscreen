@@ -207,6 +207,7 @@ $img = getRandomFromArray($imgList);
                 <li><a href="/slides">http://guenne.ik/slides</a></li>
                 <li><a href="/images">http://guenne.ik/images</a></li>
                 <li><a href="https://www.facebook.com/groups/270641113015786/?fref=nf">IK Facebook Group</a></li>
+                <li><a href="https://github.com/jspricke/ik-infoscreen">Source on Github</a></li>
             </ul>
         </footer>
 
