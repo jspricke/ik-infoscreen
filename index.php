@@ -77,7 +77,7 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
     if ($start_time != 'Evening' && $start_time != $IKHACK && $evt_start->format('H:i') != $start_time) {
         return;
     } else if ($start_time == 'Evening' || $start_time == $IKHACK) {
-        if ($start_time == 'Evening' && $evt_start < $evening_time) {
+        if ($start_time == 'Evening' && ($evt_start < $evening_time || strpos($event->title, $IKHACK) !== false)) {
             return;
         } else if ($start_time == $IKHACK && strpos($event->title, $IKHACK) === false) {
             echo strpos($event->title, $IKHACK) . ' ';
