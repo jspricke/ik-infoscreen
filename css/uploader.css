@@ -1,0 +1,53 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+h1 {
+    font-size: 36px;
+    font-weight: normal;
+}
+
+p {
+    padding: 0.2em 1em;
+}
+
+fieldset {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    padding: 0.8em;
+    border-radius: 0.8em;
+}
+
+label:after {
+    content: ":";
+}
+
+progress {
+    color: green;
+}
+
+p#statusMessage:not(.error):not(.warning):not(.info) {
+    display: none;
+}
+
+p#statusMessage {
+    border-radius: 0.8em;
+    padding: 0.8em;
+    color: white;
+}
+
+p#statusMessage.error {
+    background: #d9534f;
+}
+
+p#statusMessage.warning {
+    background: #f0ad4e;
+}
+
+p#statusMessage.info {
+    background: #5cb85c;
+}
