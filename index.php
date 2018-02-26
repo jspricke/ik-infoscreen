@@ -152,7 +152,7 @@ $img = getRandomFromArray($imgList);
         <header>
             <h1>
                 IK<?= $start_date->format('Y'); ?>
-                <small>Day <?= $current_day; ?></small>
+                <small id="ikday">Day <?= $current_day; ?></small>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>
