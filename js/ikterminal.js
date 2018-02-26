@@ -29,19 +29,19 @@ const refreshBySchedule = function(id, interval) {
     setInterval(refreshById(id), interval * 1000)
 }
 
-const sendShoutbox = function ( evt ) {
+const sendShoutbox = function(evt) {
     if (evt.keyCode == 13) {
         document.getElementById('shoutboxform').submit();
     }
 }
 
-const submitShoutbox = function ( evt ) {
+const submitShoutbox = function(evt) {
     evt.preventDefault();
     sendData();
     return false;
 }
 
-const sendData = function () {
+const sendData = function() {
     var XHR = new XMLHttpRequest();
 
     XHR.addEventListener("load", function(event) {
@@ -58,22 +58,19 @@ const sendData = function () {
     XHR.send(new FormData(document.getElementById('shoutboxform')));
 }
 
-function startTime() {
-	    var today = new Date();
-	    var h = today.getHours();
-	    var m = today.getMinutes();
-	    var s = today.getSeconds();
-	    m = checkTime(m);
-	    s = checkTime(s);
-	    document.getElementById('time').innerHTML =
-		    h + ":" + m;
-		    //h + ":" + m + ":" + s;
-	    var t = setTimeout(startTime, 500);
+const startTime = function() {
+	var today = new Date();
+	var h = today.getHours();
+	var m = today.getMinutes();
+	document.getElementById('time').innerHTML = padTime(h) + ":" + padTime(m);
+	setTimeout(startTime, 1000);
 }
 
-function checkTime(i) {
-	    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-	    return i;
+const padTime = function(i) {
+	if (i < 10) {
+        i = "0" + i;
+    }
+	return i;
 }
 
 const loader = function() {
