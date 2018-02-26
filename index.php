@@ -76,13 +76,14 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
     // Check time and return if not in the correct time slot.
     if ($start_time != 'Evening' && $start_time != $IKHACK && $evt_start->format('H:i') != $start_time) {
         return;
-    } else if ($start_time == 'Evening' || $start_time == $IKHACK) {
-        if ($start_time == 'Evening' && ($evt_start < $evening_time || strpos($event->title, $IKHACK) !== false)) {
-            return;
-        } else if ($start_time == $IKHACK && strpos($event->title, $IKHACK) === false) {
-            echo strpos($event->title, $IKHACK) . ' ';
-            return;
-        }
+    }
+    if ($start_time == 'Evening' && ($evt_start < $evening_time || strpos($event->title, $IKHACK) !== false)) {
+        return;
+    }
+    if ($start_time == $IKHACK && strpos($event->title, $IKHACK) === false) {
+        return;
+    }
+    if ($start_time == 'Evening' || $start_time == $IKHACK) {
         // For evening events get the proper time (replaces the abbreviation)
         $time = $evt_start->format('H:i') . '&ndash;' . $evt_end->format('H:i');
     } else {
