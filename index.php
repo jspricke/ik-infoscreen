@@ -25,6 +25,42 @@ function read_schedule() {
     return json_decode(file_get_contents('ikschedule.json'))->events;
 }
 
+function sort_schedule($schedule) {
+    function comparison($l, $r) {
+        $comp = strcmp($l->start, $r->start);
+        if ($comp) {
+            return $comp;
+        }
+        $comp = strcmp($l->end, $r->end);
+        if ($comp) {
+            return $comp;
+        }
+        return strcmp($l->title, $r->title);
+    }
+    uasort($schedule, 'comparison');
+    return $schedule;
+}
+
+// assumes a sorted array
+function add_counts($schedule) {
+    $counts = array();
+    foreach ($schedule as $key => $value) {
+        $coll_id = $value->coll_id;
+        if (array_key_exists($coll_id, $counts)) {
+            $counts[$coll_id] = $counts[$coll_id] + 1;
+        } else {
+            $counts[$coll_id] = 1;
+        }
+        $value->nth_session = $counts[$coll_id];
+    }
+
+    foreach ($schedule as $key => $value) {
+        $value->num_sessions = $counts[$value->coll_id];
+    }
+
+    return $schedule;
+}
+
 function filter_schedule($schedule, $day) {
     return array_filter($schedule, function ($element) use ($day) {
         $start_datetime = new DateTime($element->start);
@@ -74,16 +110,23 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
     // Determine event color, overwrite white
     $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
 
+    // If the number of sessions is bigger than 1, add a sessioncount
+    if ($event->num_sessions > 1) {
+        $sessioncount = '<small>(' . $event->nth_session . '/' . $event->num_sessions . ')</small>';
+    } else {
+        $sessioncount = '';
+    }
+
     printf('<div class="event%s">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
                    '<span class="lecturer">%s</span>' .
                    '<span class="location" style="background-color: %s;">%s</span>' .
-                   '<span class="title">%s</span>' .
+                   '<span class="title">%s %s</span>' .
                '</a>' .
            '</div>',
            is_active_event($now, $evt_start->format('H:i'), $evt_end->format('H:i')) ? ' active' : '',
-           $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title);
+           $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title, $sessioncount);
 }
 
 function is_active_timeslot($now, $start, $end) {
@@ -97,8 +140,10 @@ function is_active_event($now, $start, $end) {
     return $start <= $now && $now < $end;
 }
 
-$schedule_json = read_schedule();
-$schedule = filter_schedule($schedule_json, $TODAY);
+$schedule = read_schedule();
+$schedule = sort_schedule($schedule);
+$schedule = add_counts($schedule);
+$schedule = filter_schedule($schedule, $TODAY);
 
 
 /** Shoutbox **/
