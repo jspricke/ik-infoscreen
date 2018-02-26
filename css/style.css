@@ -14,6 +14,10 @@ header h1+h1 {
     display: none;  /* disable link and time on very small devices, will be enabled on bigger screens */
 }
 
+header h1:first-child span {
+    font-size: 50%;
+}
+
 main {
     display: grid;
     grid-template-columns: 1fr;  /* 1 column layout on small screens */
@@ -43,6 +47,42 @@ footer ul {
     text-align: center;
 }
 
+section#daytoggler {
+    text-align: center;
+    /* overwrite rules from section:not(#schedule) */
+    margin-top: 0.75em !important;
+    padding: 0 !important;
+}
+
+section#daytoggler button {
+    margin: 0;
+    padding: 0.2em 1.2em;
+    border: 2px outset rgb(51, 122, 183);
+    border-left: none;
+    border-right: none;
+    background-color: #e0f2f7;
+}
+
+section#daytoggler button:first-child {
+    border-left: 2px outset rgb(51, 122, 183);
+    border-radius: 0.5em 0 0 0.5em;
+}
+
+section#daytoggler button:last-child {
+    border-right: 2px outset rgb(51, 122, 183);
+    border-radius: 0 0.5em 0.5em 0;
+}
+
+section#daytoggler button[disabled="disabled"] {
+    border: 1px inset gray;
+    color: gray;
+}
+
+section#daytoggler button.active {
+    color: rgb(51, 122, 183);
+    font-weight: bold;
+}
+
 /* Bigger small screens have a 2-column schedule */
 @media (min-width:600px) {
     header { /* reset width for h1 s in header */
@@ -56,6 +96,15 @@ footer ul {
     section#schedule { /* 2-column schedule */
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    section#daytoggler {
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+
+    section#daytoggler button {
+        padding: 0.5em 2em;
     }
 }
 
@@ -76,6 +125,11 @@ footer ul {
 
         grid-template-columns: repeat(3, 1fr);
     }
+
+    section#daytoggler {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
 }
 
 /* Big screens have a 5-column schedule, the shoutbox on the right */
@@ -90,6 +144,11 @@ footer ul {
 
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
+    }
+
+    section#daytoggler {
+        grid-column-start: 1;
+        grid-column-end: 4;
     }
 
     .timeslot {

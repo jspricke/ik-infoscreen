@@ -1,9 +1,9 @@
 <?php
 
-/** Schedule **/
+date_default_timezone_set('Europe/Berlin');
 
-$START = '2018-03-09';
-$END = '2018-03-16';
+/** Constants **/
+
 $IKHACK = '/ik/hack';
 $TIMES = array(
     '09:00' => '10:30',
@@ -12,27 +12,36 @@ $TIMES = array(
     '16:30' => '18:00',
     'Evening' => '',
     $IKHACK => '');
-date_default_timezone_set('Europe/Berlin');
+
+$START = '2018-03-09';
+$END = '2018-03-16';
+$TODAY = date('Y-m-d');
 $NOW = date('H:i');
-$START_DATE = new DateTime($START . ' 00:00');
+
+$START_DATE = new DateTimeImmutable($START . ' 00:00');
+$END_DATE = new DateTimeImmutable($END . ' 24:00');
+$TODAY_DATE = new DateTimeImmutable($TODAY . ' 00:00');
+
+$CURRENT_DAY = $TODAY_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
+$IK_DAYS = $START_DATE->diff($END_DATE)->format('%a');
+
+
+/** Schedule **/
 
 // Read ?day=X. X can be a number between 1 and 8 (inclusive) to denote the IK
 // day. Alternatively, X can be a date (e.g. 2018-03-12) to denote a date. If
 // day is not provided, the current day is used.
+$SCHEDULE_DAY = $TODAY;
 if (isset($_GET['day'])) {
     $day = urlencode($_GET['day']);
     if (strlen($day) == 1 && 1 <= (int) $day && (int) $day <= 8) {
-        $TODAY = date('Y-m-d', strtotime($START . ' -1 day +' . $day . ' day'));
+        $SCHEDULE_DAY = date('Y-m-d', strtotime($START . ' -1 day +' . $day . ' day'));
     } else {
-        $TODAY = date('Y-m-d', strtotime($day));
+        $SCHEDULE_DAY = date('Y-m-d', strtotime($day));
     }
-} else {
-    $TODAY = date('Y-m-d');
 }
-
-$TODAY_DATE = new DateTime($TODAY . ' 00:00');
-$EVENING_DATE = new DateTime($TODAY . ' 18:00');
-$CURRENT_DAY = $TODAY_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
+$EVENING_DATE = new DateTimeImmutable($SCHEDULE_DAY . ' 18:00');
+$VIEW_DAY = $EVENING_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
 
 function read_schedule() {
     return json_decode(file_get_contents('ikschedule.json'))->events;
@@ -110,8 +119,17 @@ function is_active_event($now, $start, $end) {
     return $start <= $now && $now < $end;
 }
 
+function create_swapDay_button($day) {
+    global $CURRENT_DAY, $VIEW_DAY;
+    printf('<button onclick="swapDay(%s);"%s%s>%s</button>',
+        $day == $CURRENT_DAY ? '' : $day,
+        $day == $CURRENT_DAY ? ' class="active"' : '',
+        $day == $VIEW_DAY ? ' disabled="disabled"' : '',
+        $day);
+}
+
 $schedule_json = read_schedule();
-$schedule = filter_schedule($schedule_json, $TODAY);
+$schedule = filter_schedule($schedule_json, $SCHEDULE_DAY);
 
 
 /** Shoutbox **/
@@ -166,6 +184,9 @@ $img = getRandomFromArray($imgList);
             <h1>
                 IK<?= $START_DATE->format('Y'); ?>
                 <small>Day <?= $CURRENT_DAY; ?></small>
+                <?php if ($TODAY !== $SCHEDULE_DAY) : ?>
+                <span>(Day <?= $VIEW_DAY ?>)</span>
+                <?php endif ?>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>
@@ -174,6 +195,12 @@ $img = getRandomFromArray($imgList);
         </header>
 
         <main>
+            <section id="daytoggler">
+                <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
+                    create_swapDay_button($i);
+                } ?>
+            </section>
+
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
