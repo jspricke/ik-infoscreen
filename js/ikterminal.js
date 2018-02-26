@@ -73,8 +73,18 @@ const padTime = function(i) {
 	return i;
 }
 
+const startIKDay = function() {
+    var now = new Date();
+    var timeToPastMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5, 0) - now;  // 5 Seconds for time differences
+    setTimeout(function() {
+        refreshById('ikday');
+        startIKDay();
+    }, timeToPastMidnight);
+}
+
 const loader = function() {
     startTime();
+    startIKDay();
     refreshBySchedule('schedule', 60);
     refreshBySchedule('shoutbox_container', 5);
     refreshBySchedule('impressions', 20);
