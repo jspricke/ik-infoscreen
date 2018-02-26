@@ -13,13 +13,26 @@ $TIMES = array(
     'Evening' => '',
     $IKHACK => '');
 date_default_timezone_set('Europe/Berlin');
-$TODAY = date('Y-m-d');
 $NOW = date('H:i');
+$START_DATE = new DateTime($START . ' 00:00');
 
-$start_date = new DateTime($START . ' 00:00');
-$today_date = new DateTime($TODAY . ' 00:00');
-$evening_date = new DateTime($TODAY . ' 18:00');
-$current_day = $today_date->add(new DateInterval('P1D'))->diff($start_date)->format('%a');
+// Read ?day=X. X can be a number between 1 and 8 (inclusive) to denote the IK
+// day. Alternatively, X can be a date (e.g. 2018-03-12) to denote a date. If
+// day is not provided, the current day is used.
+if (isset($_GET['day'])) {
+    $day = urlencode($_GET['day']);
+    if (strlen($day) == 1 && 1 <= (int) $day && (int) $day <= 8) {
+        $TODAY = date('Y-m-d', strtotime($START . ' -1 day +' . $day . ' day'));
+    } else {
+        $TODAY = date('Y-m-d', strtotime($day));
+    }
+} else {
+    $TODAY = date('Y-m-d');
+}
+
+$TODAY_DATE = new DateTime($TODAY . ' 00:00');
+$EVENING_DATE = new DateTime($TODAY . ' 18:00');
+$CURRENT_DAY = $TODAY_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
 
 function read_schedule() {
     return json_decode(file_get_contents('ikschedule.json'))->events;
@@ -151,8 +164,8 @@ $img = getRandomFromArray($imgList);
 
         <header>
             <h1>
-                IK<?= $start_date->format('Y'); ?>
-                <small>Day <?= $current_day; ?></small>
+                IK<?= $START_DATE->format('Y'); ?>
+                <small>Day <?= $CURRENT_DAY; ?></small>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>
@@ -165,7 +178,7 @@ $img = getRandomFromArray($imgList);
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
                         <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
-                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $evening_date, $NOW); } ?>
+                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $EVENING_DATE, $NOW); } ?>
                     </div>
                 <?php endforeach ?>
             </section>
