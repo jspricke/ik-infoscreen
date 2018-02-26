@@ -82,6 +82,28 @@ const startIKDay = function() {
     }, timeToPastMidnight);
 }
 
+const scrollToActive = function() {
+    var active = document.getElementById('timeslot_active');
+
+    // If no timeslot is active, scroll to next timeslot
+    if (!active) {
+        var timeslots = document.getElementsByClassName('timeslot');
+        var now = new Date();
+	    var now = padTime(now.getHours()) + ':' + padTime(now.getMinutes());
+        for (var i = 0; i < timeslots.length; ++i) {
+            var components = timeslots[i].children[0].innerHTML.split(' ');
+            if (components.length > 1 && components[2] > now) {
+                active = timeslots[i];
+                break;
+            }
+        }
+    }
+
+    if (active) {
+        window.scrollTo(0, active.offsetTop);
+    }
+}
+
 const loader = function() {
     startTime();
     startIKDay();
@@ -90,5 +112,5 @@ const loader = function() {
     refreshBySchedule('impressions', 20);
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
-    window.scrollTo(0, document.getElementById('timeslot_active').offsetTop);
+    scrollToActive();
 };
