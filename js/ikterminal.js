@@ -77,7 +77,7 @@ const startIKDay = function() {
     var now = new Date();
     var timeToPastMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5, 0) - now;  // 5 Seconds for time differences
     setTimeout(function() {
-        refreshById('ikday');
+        refreshById('ikday')();
         startIKDay();
     }, timeToPastMidnight);
 }
