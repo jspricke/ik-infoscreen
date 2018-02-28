@@ -185,7 +185,7 @@ $img = getRandomFromArray($imgList);
                 IK<?= $START_DATE->format('Y'); ?>
                 <small>Day <?= $CURRENT_DAY; ?></small>
                 <?php if ($TODAY !== $SCHEDULE_DAY) : ?>
-                <span>(Day <?= $VIEW_DAY ?>)</span>
+                <span id="previewday">(Day <?= $VIEW_DAY ?>)</span>
                 <?php endif ?>
             </h1>
             <h1>

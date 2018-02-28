@@ -14,7 +14,7 @@ header h1+h1 {
     display: none;  /* disable link and time on very small devices, will be enabled on bigger screens */
 }
 
-header h1:first-child span {
+header #previewday {
     font-size: 50%;
 }
 
