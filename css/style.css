@@ -57,24 +57,20 @@ section#daytoggler {
 section#daytoggler button {
     margin: 0;
     padding: 0.2em 1.2em;
-    border: 2px outset rgb(51, 122, 183);
-    border-left: none;
-    border-right: none;
+    border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
 }
 
 section#daytoggler button:first-child {
-    border-left: 2px outset rgb(51, 122, 183);
     border-radius: 0.5em 0 0 0.5em;
 }
 
 section#daytoggler button:last-child {
-    border-right: 2px outset rgb(51, 122, 183);
     border-radius: 0 0.5em 0.5em 0;
 }
 
 section#daytoggler button[disabled="disabled"] {
-    border: 1px inset gray;
+    border: 1px inset #e0f2f7;
     color: gray;
 }
 
@@ -129,6 +125,10 @@ section#daytoggler button.active {
     section#daytoggler {
         grid-column-start: 1;
         grid-column-end: 3;
+    }
+
+    section#daytoggler button:before {
+        content: "Day ";
     }
 }
 
