@@ -23,6 +23,9 @@ $END_DATE = new DateTimeImmutable($END . ' 24:00');
 $TODAY_DATE = new DateTimeImmutable($TODAY . ' 00:00');
 
 $CURRENT_DAY = $TODAY_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
+if ($TODAY_DATE < $START_DATE) {
+    $CURRENT_DAY = -1 * $CURRENT_DAY -1;
+}
 $IK_DAYS = $START_DATE->diff($END_DATE)->format('%a');
 
 
