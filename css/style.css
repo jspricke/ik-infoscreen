@@ -143,7 +143,7 @@ section#daytoggler button.active {
         grid-column-end: 4;
 
         grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: 1fr auto;
+        grid-template-rows: auto 1fr;
     }
 
     section#daytoggler {

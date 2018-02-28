@@ -178,7 +178,7 @@ function create_swapDay_button($day) {
 $schedule = read_schedule();
 $schedule = sort_schedule($schedule);
 $schedule = add_counts($schedule);
-$schedule = filter_schedule($schedule, $TODAY);
+$schedule = filter_schedule($schedule, $SCHEDULE_DAY);
 
 
 /** Shoutbox **/
