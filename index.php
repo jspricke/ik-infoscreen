@@ -21,12 +21,6 @@
         </header>
 
         <main>
-            <section id="daytoggler">
-                <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
-                    create_swapDay_button($i);
-                } ?>
-            </section>
-
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
@@ -34,6 +28,12 @@
                         <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $EVENING_DATE, $NOW); } ?>
                     </div>
                 <?php endforeach ?>
+            </section>
+
+            <section id="daytoggler">
+                <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
+                    create_swapDay_button($i);
+                } ?>
             </section>
 
             <section class="announcements">
