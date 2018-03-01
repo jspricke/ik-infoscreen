@@ -118,6 +118,7 @@ section#daytoggler button.active {
 @media (min-width:801px) {
     main { /* show announcements and information side-by-side, impressions and shoutbox as well */
         grid-template-columns: repeat(2, 1fr);
+        grid-gap: 2em;
     }
 
     main section:not(#schedule) {
