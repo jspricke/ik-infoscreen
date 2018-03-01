@@ -233,9 +233,6 @@ $img = getRandomFromArray($imgList);
             <h1>
                 IK<?= $START_DATE->format('Y'); ?>
                 <small>Day <?= $CURRENT_DAY; ?></small>
-                <?php if ($TODAY !== $SCHEDULE_DAY) : ?>
-                <span id="previewday">(Day <?= $VIEW_DAY ?>)</span>
-                <?php endif ?>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>

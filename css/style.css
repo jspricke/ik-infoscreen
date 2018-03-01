@@ -14,10 +14,6 @@ header h1+h1 {
     display: none;  /* disable link and time on very small devices, will be enabled on bigger screens */
 }
 
-header #previewday {
-    font-size: 50%;
-}
-
 main {
     display: grid;
     grid-template-columns: 1fr;  /* 1 column layout on small screens */
