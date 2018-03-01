@@ -276,7 +276,7 @@ $img = getRandomFromArray($imgList);
             </section>
 
             <aside id="shoutbox">
-                <h3>Shoutbox</h3>
+                <p id="shoutbox_header">Shoutbox</p>
                 <form action="shoutbox.php" method="post" id="shoutboxform">
                     <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" />
                 </form>
