@@ -105,7 +105,13 @@ def create_details(json):
             images.append(image)
 
     asides = "\n".join(asides)
-    literature = sub(urls, r'<a href="\1">\1</a>', json['attributes']['literature']).strip('<br />')
+    literature = sub(urls, r'<a href="\1">\1</a>', json['attributes']['literature'])
+    literature = sub(r'^<br />', '', literature)
+    literature = sub(r'<br />$', '', literature)
+    description = sub(r'^<br />', '', json['attributes']['description'])
+    description = sub(r'<br />$', '', description)
+    objectives = sub(r'^<br />', '', json['attributes']['objectives'])
+    objectives = sub(r'<br />$', '', objectives)
 
     details = f'''<!DOCTYPE html>
 <head>
@@ -119,11 +125,11 @@ def create_details(json):
     <article>
         <section>
             <h2>Description</h2>
-            {json['attributes']['description'].strip('<br />')}
+            {description}
         </section>
         <section>
             <h2>Objectives</h2>
-            {json['attributes']['objectives'].strip('<br />')}
+            {objectives}
         </section>
         <section>
             <h2>Literature</h2>
