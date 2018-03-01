@@ -35,12 +35,26 @@ img {  /* Never stretch the layout because of the impression image. */
     margin: 0.75em 0.15em;
 }
 
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #efefef;
+}
+
 footer ul {
     list-style-type: none;
     padding: 0;
     display: grid;
     grid-auto-flow: column;
     text-align: center;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 section#daytoggler {
@@ -174,6 +188,15 @@ section#daytoggler button.active {
 
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+}
+
+html {
+    height: 100%;
+    box-sizing: border-box;
 }
 
 header h1+h1 {

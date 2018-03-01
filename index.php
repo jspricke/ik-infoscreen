@@ -290,8 +290,8 @@ $img = getRandomFromArray($imgList);
 
         <footer>
             <ul>
-                <li><a href="/slides">http://guenne.ik/slides</a></li>
-                <li><a href="/images">http://guenne.ik/images</a></li>
+                <li><a href="/slides">Slides</a></li>
+                <li><a href="/images">Images</a></li>
                 <li><a href="https://www.facebook.com/groups/270641113015786/?fref=nf">IK Facebook Group</a></li>
                 <li><a href="https://github.com/jspricke/ik-infoscreen">Source on Github</a></li>
             </ul>
