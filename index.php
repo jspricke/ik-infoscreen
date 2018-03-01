@@ -31,6 +31,7 @@
             </section>
 
             <section id="daytoggler">
+                <button onclick="toggleFavoriteVisibility(); return false;">Toggle</button>
                 <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
                     create_swapDay_button($i);
                 } ?>

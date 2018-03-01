@@ -112,6 +112,49 @@ const swapDay = function(day) {
     window.location.href = url;
 }
 
+const toggleFavorite = function(id) {
+    // TODO: toggle button images, style buttons
+    var storage = window.localStorage;
+    var ids = new Set();
+    if (storage.getItem('course_ids') !== null) {
+        JSON.parse(storage.getItem('course_ids')).forEach(
+            (e) => ids.add(e)
+        );
+    }
+    if (ids.has(id)) {
+        ids.delete(id);
+    } else {
+        ids.add(id);
+    }
+    storage.setItem('course_ids', JSON.stringify(Array.from(ids)));
+    console.log(storage);
+}
+
+const toggleFavoriteVisibility = function() {
+    // TODO: store current toggling state and reverse if needed
+    // Add ability to share/transfer across devices
+    var storage = window.localStorage;
+    var ids = new Set();
+    if (storage.getItem('course_ids') !== null) {
+        JSON.parse(storage.getItem('course_ids')).forEach(
+            (e) => ids.add(e)
+        );
+    }
+
+    var events = document.getElementById('schedule').getElementsByClassName('event');
+    for (var i = 0; i < events.length; ++i) {
+        if (ids.has(parseInt(events[i].getAttribute('data-id')))) {
+            events[i].style.display = 'block';
+        } else {
+            events[i].style.display = 'none';
+        }
+    }
+}
+
+const clearFavorites = function() {
+    window.localStorage.removeItem('course_ids');
+}
+
 const loader = function() {
     startTime();
     startIKDay();
