@@ -97,6 +97,7 @@ def create_aside(attributes, suffix):
 def clean_section(section, title):
     section = sub(r'^(<br />)*', '', section)
     section = sub(r'(<br />)*$', '', section).strip()
+    section = sub(urls, r'<a href="\1">\1</a>', section)
     if section:
         return f'<section><h2>{title}</h2>{section}</section>'
     return ''
