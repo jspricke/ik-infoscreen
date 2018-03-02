@@ -282,7 +282,7 @@ $img = getRandomFromArray($imgList);
                 </form>
                 <div id="shoutbox_container">
                     <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
-                        <p><span class="message_box" style="background-color:#<?= substr(md5($ip), 0, 6); ?>;"></span><span><?= date('d. H:i', $time) ?></span> <?= trim($msg); ?></p>
+                        <p><span class="message_box" style="background-color:#<?= substr(md5($ip), 0, 6); ?>;"></span><span><?= date('d. H:i', $time) ?>:</span> <?= trim($msg); ?></p>
                     <?php endforeach ?>
                 </div>
             </aside>

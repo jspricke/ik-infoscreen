@@ -293,26 +293,28 @@ a:hover {
 
 /* Shoutbox */
 
-#shoutbox form input {
-    width: 99%;
+#shoutboxform input {
+    width: 100%;
+}
+
+#shoutbox {
+    background-color: #efefef;
+    border-radius: 0.5em;
 }
 
 #shoutbox_container {
+    padding: 0.5em;
+    min-height: 5em;
     max-height: 50em;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-left:0;
-    padding-right:0;
-    background-color: #efefef;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    min-height: 5em;
 }
 
 .message_box {
-    width: 1.5em;
-    height: 1.5em;
+    width: 1em;
+    height: 1em;
     float: left;
+    margin-right: 0.4em;
 }
 
 #impressions {
