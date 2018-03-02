@@ -250,7 +250,7 @@ $img = getRandomFromArray($imgList);
             <section id="schedule">
                 <?php foreach ($TIMES as $start_time => $end_time) : ?>
                     <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
-                        <p><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></p>
+                        <h3><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></h3>
                         <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $EVENING_DATE, $NOW); } ?>
                     </div>
                 <?php endforeach ?>
@@ -276,7 +276,7 @@ $img = getRandomFromArray($imgList);
             </section>
 
             <aside id="shoutbox">
-                <p id="shoutbox_header">Shoutbox</p>
+                <h3>Shoutbox</h3>
                 <form action="shoutbox.php" method="post" id="shoutboxform">
                     <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" />
                 </form>

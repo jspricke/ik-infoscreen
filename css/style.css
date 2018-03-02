@@ -238,6 +238,15 @@ h1 {
     font-weight: normal;
 }
 
+h3 {
+    margin: 0;
+    padding: 1em;
+    background-color: rgb(51, 122, 183);
+    color: #fff;
+    border-radius: 0.25em;
+    font-weight: normal;
+}
+
 a {
     text-decoration: none;
     color: #17a;
@@ -249,17 +258,6 @@ a:hover {
 
 
 /* Schedule children */
-
-.timeslot p:first-child,
-.announcements h3,
-#shoutbox_header {
-    margin: 0;
-    padding: 1em;
-    background-color: rgb(51, 122, 183);
-    color: #fff;
-    border-radius: 0.25em;
-    font-weight: normal;
-}
 
 #timeslot_active, .event.active {
     border-radius: 0.5em;
@@ -289,7 +287,7 @@ a:hover {
     font-weight: bold;
 }
 
-.announcements p:not(:first-child) {
+.announcements p {
     padding: 0 0.3em;
 }
 
