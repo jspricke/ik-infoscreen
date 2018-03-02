@@ -264,11 +264,6 @@ a:hover {
     background-color: #e0f2f7;
 }
 
-.timeslot.active p:first-child {
-    background-color: #66ACE8;
-}
-
-
 .event a span {
     padding: 0.3em;
 }
