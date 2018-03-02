@@ -94,6 +94,14 @@ def create_aside(attributes, suffix):
     return '\n'.join(aside), image
 
 
+def clean_section(section, title):
+    section = sub(r'^<br />', '', section)
+    section = sub(r'<br />$', '', section).strip()
+    if section:
+        return f'<section><h2>{title}</h2>{section}</section>'
+    return ''
+
+
 def create_details(json):
     asides = []
     images = []
@@ -105,13 +113,6 @@ def create_details(json):
             images.append(image)
 
     asides = "\n".join(asides)
-    literature = sub(urls, r'<a href="\1">\1</a>', json['attributes']['literature'])
-    literature = sub(r'^<br />', '', literature)
-    literature = sub(r'<br />$', '', literature)
-    description = sub(r'^<br />', '', json['attributes']['description'])
-    description = sub(r'<br />$', '', description)
-    objectives = sub(r'^<br />', '', json['attributes']['objectives'])
-    objectives = sub(r'<br />$', '', objectives)
 
     details = f'''<!DOCTYPE html>
 <head>
@@ -123,26 +124,11 @@ def create_details(json):
 <body>
     <h1>{json['title']}</h1>
     <article>
-        <section>
-            <h2>Description</h2>
-            {description}
-        </section>
-        <section>
-            <h2>Objectives</h2>
-            {objectives}
-        </section>
-        <section>
-            <h2>Literature</h2>
-            {literature}
-        </section>
-        <section>
-            <h2>Requirements</h2>
-            {json['attributes']['course_requirements']}
-        </section>
-        <section>
-            <h2>Room</h2>
-            {json['attributes']['experiment_location']}
-        </section>
+        {clean_section(json['attributes']['description'], 'Description')}
+        {clean_section(json['attributes']['objectives'], 'Objectives')}
+        {clean_section(json['attributes']['literature'], 'Literature')}
+        {clean_section(json['attributes']['course_requirements'], 'Requirements')}
+        {clean_section(json['attributes']['experiment_location'], 'Room')}
     </article>
     <aside>
         {asides}
