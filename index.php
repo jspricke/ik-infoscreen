@@ -129,7 +129,8 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
         if (substr_count($title, '-') > 1) {
             list(, $instructor, $title) = explode('-', $title, 3);
         } else {  // Can be absent at all (then the title explosion above was faulty, so we fix it):
-            $title = $event->title;
+            $instructor = $event->title;
+            $title = '';
         }
     }
 
