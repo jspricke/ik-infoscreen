@@ -144,6 +144,36 @@ section#daytoggler button.active {
     }
 }
 
+/* Big screens have a 3-column schedule, the shoutbox on the right */
+@media (min-width:1024px) {
+    main {  /* Place impressions next to announcements and information */
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    section#schedule {  /* 3-column schedule */
+        grid-column-start: 1;
+        grid-column-end: 3;
+
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    section#daytoggler {
+        grid-column-start: 1;
+        grid-column-end: 4;
+    }
+
+    aside {  /* place shoutbox to the right */
+        grid-column: 3;
+        grid-row-start: 1;
+        grid-row-end: 3;
+        margin-left: 0.15em;
+    }
+
+    #shoutbox {
+        margin-top: .75em;
+    }
+}
+
 /* Big screens have a 5-column schedule, the shoutbox on the right */
 @media (min-width:1125px) {
     main {  /* Place impressions next to announcements and information */
