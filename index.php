@@ -257,13 +257,13 @@ $img = getRandomFromArray($imgList);
             </section>
 
             <section class="announcements">
-                <p>Announcements</p>
+                <h3>Announcements</h3>
                 <p style="color:red;">Checkout until 9am! Return your keys and don't forget your luggage.</p>
                 <p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am.</p>
             </section>
 
             <section class="announcements">
-                <p>Information</p>
+                <h3>Information</h3>
                 <p>Do you have images from IK? Please share with Jochen or Michael.</p>
                 <p>Hate paywalls? Paste the URL into <a href="https://sci-hub.la">sci-hub.la</a>.</p>
                 <p>Please upload your slides here: <a href="/incoming">http://guenne.ik/incoming</a></p>

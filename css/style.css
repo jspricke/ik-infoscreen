@@ -250,12 +250,15 @@ a:hover {
 
 /* Schedule children */
 
-.timeslot p:first-child {
+.timeslot p:first-child,
+.announcements h3,
+#shoutbox_header {
     margin: 0;
     padding: 1em;
     background-color: rgb(51, 122, 183);
     color: #fff;
     border-radius: 0.25em;
+    font-weight: normal;
 }
 
 #timeslot_active, .event.active {
@@ -286,28 +289,11 @@ a:hover {
     font-weight: bold;
 }
 
-.announcements p:first-child {
-    margin: 0;
-    padding: 1em;
-    background-color: rgb(51, 122, 183);
-    color: #fff;
-    border-radius: 0.25em;
-}
-
 .announcements p:not(:first-child) {
     padding: 0 0.3em;
 }
 
 /* Shoutbox */
-
-#shoutbox_header {
-    margin: 0.2em;
-    margin: 0;
-    padding: 1em;
-    background-color: rgb(51, 122, 183);
-    color: #fff;
-    border-radius: 0.25em;
-}
 
 #shoutbox form input {
     width: 99%;
