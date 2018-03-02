@@ -7,7 +7,7 @@ header {
 }
 
 header h1 {
-    margin: 0;
+    margin: 0.3em;
 }
 
 header h1+h1 {
@@ -17,6 +17,7 @@ header h1+h1 {
 main {
     display: grid;
     grid-template-columns: 1fr;  /* 1 column layout on small screens */
+    margin: 0.3em;
 }
 
 img {  /* Never stretch the layout because of the impression image. */
