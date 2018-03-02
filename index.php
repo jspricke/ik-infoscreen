@@ -138,7 +138,7 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
 
     // If the number of sessions is bigger than 1, add a sessioncount
     if ($event->num_sessions > 1) {
-        $sessioncount = '<small>(' . $event->nth_session . '/' . $event->num_sessions . ')</small>';
+        $sessioncount = ' (' . $event->nth_session . '/' . $event->num_sessions . ')';
     } else {
         $sessioncount = '';
     }
@@ -146,13 +146,13 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
     printf('<div class="event%s">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
-                   '<span class="lecturer">%s</span>' .
+                   '<span class="lecturer">%s%s</span>' .
                    '<span class="location" style="background-color: %s;">%s</span>' .
-                   '<span class="title">%s %s</span>' .
+                   '<span class="title">%s</span>' .
                '</a>' .
            '</div>',
            is_active_event($now, $evt_start->format('H:i'), $evt_end->format('H:i')) ? ' active' : '',
-           $id, $color, $time ? $time : $abbr, $instructor, $color, $location, $title, $sessioncount);
+           $id, $color, $time ? $time : $abbr, $instructor, $sessioncount, $color, $location, $title);
 }
 
 function is_active_timeslot($now, $start, $end) {
