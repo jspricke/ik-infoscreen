@@ -55,31 +55,31 @@ footer ul {
     margin: 0.5em 0 0.5em 0;
 }
 
-section#daytoggler {
+#daytoggler {
     text-align: center;
 }
 
-section#daytoggler button {
+#daytoggler button {
     margin: 0;
     padding: 0.2em 1.2em;
     border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
 }
 
-section#daytoggler button:first-child {
+#daytoggler button:first-child {
     border-radius: 0.5em 0 0 0.5em;
 }
 
-section#daytoggler button:last-child {
+#daytoggler button:last-child {
     border-radius: 0 0.5em 0.5em 0;
 }
 
-section#daytoggler button[disabled="disabled"] {
+#daytoggler button[disabled="disabled"] {
     border: 1px inset #e0f2f7;
     color: gray;
 }
 
-section#daytoggler button.active {
+#daytoggler button.active {
     color: rgb(51, 122, 183);
     font-weight: bold;
 }
@@ -94,17 +94,17 @@ section#daytoggler button.active {
         display: block;
     }
 
-    section#schedule { /* 2-column schedule */
+    #schedule { /* 2-column schedule */
         grid-template-columns: repeat(2, 1fr);
         grid-column-gap: 0.15em;
     }
 
-    section#daytoggler {
+    #daytoggler {
         grid-column-start: 1;
         grid-column-end: 2;
     }
 
-    section#daytoggler button {
+    #daytoggler button {
         padding: 0.5em 2em;
     }
 }
@@ -115,19 +115,24 @@ section#daytoggler button.active {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    section#schedule {  /* 3-column schedule */
+    aside {
+        grid-column: 2;
+        grid-row-start: 3;
+        grid-row-end: 5;
+    }
+
+    #schedule {  /* 3-column schedule */
         grid-column-start: 1;
         grid-column-end: 3;
-
         grid-template-columns: repeat(3, 1fr);
     }
 
-    section#daytoggler {
+    #daytoggler {
         grid-column-start: 1;
         grid-column-end: 3;
     }
 
-    section#daytoggler button:before {
+    #daytoggler button:before {
         content: "Day ";
     }
 }
@@ -138,14 +143,7 @@ section#daytoggler button.active {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    section#schedule {  /* 3-column schedule */
-        grid-column-start: 1;
-        grid-column-end: 3;
-
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    section#daytoggler {
+    #daytoggler {
         grid-column-start: 1;
         grid-column-end: 4;
     }
@@ -163,7 +161,7 @@ section#daytoggler button.active {
         grid-template-columns: repeat(4, 1fr);
     }
 
-    section#schedule {  /* 5-column schedule */
+    #schedule {  /* 5-column schedule */
         grid-column-start: 1;
         grid-column-end: 4;
 
