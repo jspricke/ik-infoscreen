@@ -103,10 +103,6 @@ footer ul {
         grid-column-start: 1;
         grid-column-end: 2;
     }
-
-    #daytoggler button {
-        padding: 0.5em 2em;
-    }
 }
 
 /* Medium screens have a 3-column schedule */
