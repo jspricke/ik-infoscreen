@@ -117,7 +117,9 @@ const loader = function() {
     startIKDay();
     refreshBySchedule('schedule', 60);
     refreshBySchedule('shoutbox_container', 5);
-    refreshBySchedule('impressions', 20);
+    if (screen.width >= 1024) {
+        refreshBySchedule('impressions', 20);
+    }
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
     scrollToActive();
