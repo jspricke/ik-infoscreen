@@ -18,6 +18,7 @@ main {
     display: grid;
     grid-template-columns: 1fr;  /* 1 column layout on small screens */
     margin: 0.3em;
+    grid-gap: 1em;
 }
 
 img {  /* Never stretch the layout because of the impression image. */
@@ -25,15 +26,16 @@ img {  /* Never stretch the layout because of the impression image. */
     border-radius: 0.5em;
 }
 
+#schedule {
+    display: grid;
+    grid-row-gap: 0.75em;
+}
+
 .event a {  /* Make events a grid. */
     display: grid;
     grid-template-columns: 1fr 8fr;
     grid-template-rows: auto auto;
     margin-top: 0.1em;
-}
-
-.timeslot {
-    margin: 0.75em 0.15em;
 }
 
 footer {
@@ -55,9 +57,6 @@ footer ul {
 
 section#daytoggler {
     text-align: center;
-    /* overwrite rules from section:not(#schedule) */
-    margin-top: 0.75em !important;
-    padding: 0 !important;
 }
 
 section#daytoggler button {
@@ -96,8 +95,8 @@ section#daytoggler button.active {
     }
 
     section#schedule { /* 2-column schedule */
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 0.15em;
     }
 
     section#daytoggler {
@@ -114,12 +113,6 @@ section#daytoggler button.active {
 @media (min-width:801px) {
     main { /* show announcements and information side-by-side, impressions and shoutbox as well */
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 2em;
-    }
-
-    main section:not(#schedule) {
-        margin: 0 0.5em;
-        padding: .2em;
     }
 
     section#schedule {  /* 3-column schedule */
@@ -161,11 +154,6 @@ section#daytoggler button.active {
         grid-column: 3;
         grid-row-start: 1;
         grid-row-end: 3;
-        margin-left: 0.15em;
-    }
-
-    #shoutbox {
-        margin-top: .75em;
     }
 }
 
@@ -202,11 +190,6 @@ section#daytoggler button.active {
         grid-column: 4;
         grid-row-start: 1;
         grid-row-end: 4;
-        margin-left: 0.15em;
-    }
-
-    #shoutbox {
-        margin-top: .75em;
     }
 }
 
