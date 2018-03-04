@@ -50,6 +50,7 @@ footer ul {
     display: grid;
     grid-auto-flow: column;
     text-align: center;
+    margin: 0.5em 0 0.5em 0;
 }
 
 section#daytoggler {
@@ -225,7 +226,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     position: relative;
     margin: 0;
-    padding-bottom: 6rem;
+    padding-bottom: 4em;
     min-height: 100%;
 }
 
