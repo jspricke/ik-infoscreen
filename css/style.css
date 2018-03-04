@@ -2,7 +2,6 @@
 
 header {
     display: grid;
-    grid-template-columns: 1fr;  /* 1 header only on small screens */
     border-bottom: 1px solid #cdcdcd;
 }
 
@@ -16,7 +15,6 @@ header h1+h1 {
 
 main {
     display: grid;
-    grid-template-columns: 1fr;  /* 1 column layout on small screens */
     margin: 0.3em;
     grid-gap: 1em;
 }
@@ -34,7 +32,6 @@ img {  /* Never stretch the layout because of the impression image. */
 .event a {  /* Make events a grid. */
     display: grid;
     grid-template-columns: 1fr 8fr;
-    grid-template-rows: auto auto;
     margin-top: 0.1em;
 }
 
@@ -165,11 +162,6 @@ footer ul {
         grid-template-rows: auto 1fr;
     }
 
-    section#daytoggler {
-        grid-column-start: 1;
-        grid-column-end: 4;
-    }
-
     .timeslot {
         grid-row-start: 1;
         grid-row-end: 3;
@@ -184,6 +176,7 @@ footer ul {
         grid-column: 4;
         grid-row-start: 1;
         grid-row-end: 4;
+        margin-left: 0.15em;
     }
 }
 
