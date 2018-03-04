@@ -158,7 +158,7 @@ section#daytoggler button.active {
 }
 
 /* Big screens have a 5-column schedule, the shoutbox on the right */
-@media (min-width:1125px) {
+@media (min-width:1280px) {
     main {  /* Place impressions next to announcements and information */
         grid-template-columns: repeat(4, 1fr);
     }
