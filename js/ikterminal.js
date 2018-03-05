@@ -117,7 +117,7 @@ const loader = function() {
     startIKDay();
     refreshBySchedule('schedule', 60);
     refreshBySchedule('shoutbox_container', 5);
-    if (screen.width >= 1024) {
+    if (window.matchMedia("screen and (min-width: 1024px)")) {
         refreshBySchedule('impressions', 20);
     }
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
