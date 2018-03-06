@@ -60,39 +60,54 @@ footer ul {
     margin: 0.5em 0 0.5em 0;
 }
 
-#daytoggler {
-    text-align: center;
+#tools {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
 }
 
-#daytoggler button {
+#daytoggle {
+    display: flex;
+    justify-content: center;
+}
+
+#daytoggle a {
+    display: block;
+    color: black;
+    text-decoration: none;
     margin: 0;
     padding: 0.2em 1.2em;
+    font-size: 0.8em;
     border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
 }
 
-#daytoggler button:first-of-type {
+#daytoggle a:first-of-type {
     border-radius: 0.5em 0 0 0.5em;
 }
 
-#daytoggler button:last-child {
+#daytoggle a:last-child {
     border-radius: 0 0.5em 0.5em 0;
 }
 
-#daytoggler button[disabled="disabled"] {
+#daytoggle a.disabled {
     border: 1px inset #e0f2f7;
     color: gray;
 }
 
-#daytoggler button.active {
+#daytoggle a.active {
     color: rgb(51, 122, 183);
     font-weight: bold;
 }
 
-#daytoggler div {
+#favtoggle {
     font-size: 0.85em;
     padding: 0.1em;
-    float: left;
+}
+
+#favport {
+    font-size: 0.85em;
+    padding: 0.1em;
 }
 
 /* Bigger small screens have a 2-column schedule */
@@ -110,7 +125,7 @@ footer ul {
         grid-column-gap: 0.15em;
     }
 
-    #daytoggler {
+    #tools {
         grid-column-start: 1;
         grid-column-end: 2;
     }
@@ -140,12 +155,12 @@ footer ul {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    #daytoggler {
+    #tools {
         grid-column-start: 1;
         grid-column-end: 3;
     }
 
-    #daytoggler button:before {
+    #daytoggle a:before {
         content: "Day ";
     }
 }
@@ -156,7 +171,7 @@ footer ul {
         grid-template-columns: repeat(3, 1fr);
     }
 
-    #daytoggler {
+    #tools {
         grid-column-start: 1;
         grid-column-end: 4;
     }

@@ -116,17 +116,6 @@ const scrollToActive = function() {
 }
 
 
-/** *** Preview *** **/
-
-const swapDay = function(day) {
-    var url = document.URL.split('?')[0];
-    if (day) {
-        url += '?day=' + day;
-    }
-    window.location.href = url;
-}
-
-
 /** *** Favorites *** **/
 
 /**
@@ -264,6 +253,28 @@ const updateFavorites = function() {
     setTimeout(updateCheckboxes, 10);
 }
 
+/**
+ * Copies the current list of favorites to the clipboard
+ * and shows a short notification about the process.
+ */
+const exportFavorites = function() {
+    var ids = getFavorites();
+    prompt('Copy this and paste it on another device.', Array.from(ids).join(','));
+}
+
+/**
+ * Prompts the user to paste the list from the export.
+ * Updates the favorites.
+ */
+const importFavorites = function() {
+    var favorites = prompt('Insert your exported favorites. Leave blank to keep your current favorites.', '');
+    if (favorites) {
+        var ids = new Set(favorites.split(',').map(i => parseInt(i)));
+        setFavorites(ids);
+        updateFavorites();
+    }
+}
+
 
 /** *** Entry point *** **/
 
@@ -287,6 +298,8 @@ const loader = function() {
     }).observe(document.getElementById('schedule'), {childList: true} );
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+    document.getElementById('export').addEventListener('click', exportFavorites);
+    document.getElementById('import').addEventListener('click', importFavorites);
 
     window.addEventListener('focus', evt => updateFavorites());
 
