@@ -6,6 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="/js/ikterminal.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <noscript>
+            <style>
+                #schedule input, #daytoggler label, #favtoggler {
+                    display: none;
+                }
+            </style>
+        </noscript>
     </head>
     <body onload="loader();" id="body">
 
