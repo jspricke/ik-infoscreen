@@ -61,7 +61,7 @@ def create_aside(attributes, suffix):
 
     pic_key = f'experimenter_pic{suffix}'
     image = None
-    if pic_key in attributes:
+    if pic_key in attributes and attributes[pic_key]:
         image_url = search(r'src="([^"]*)"', attributes[pic_key])
         if image_url:
             image = image_url.group(1)
