@@ -94,6 +94,11 @@ const startIKDay = function() {
 /** *** Scrolling *** **/
 
 const scrollToActive = function() {
+    // Don't scroll on large devices
+    if (window.matchMedia("screen and (min-width: 1024px)")) {
+        return;
+    }
+
     var active = document.getElementById('timeslot_active');
 
     // If no timeslot is active, scroll to next timeslot
