@@ -38,7 +38,7 @@
             </section>
 
             <section id="daytoggler">
-                <label for="favtoggler">Favorites</label><input type="checkbox" id="favtoggler" onclick="toggleFavoriteVisibility();" />
+                <div><input type="checkbox" id="favtoggler" onclick="toggleFavoriteVisibility();" /><label for="favtoggler">Favorites</label></div>
                 <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
                     create_swapDay_button($i);
                 } ?>

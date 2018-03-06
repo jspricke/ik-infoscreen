@@ -89,6 +89,12 @@ footer ul {
     font-weight: bold;
 }
 
+#daytoggler div {
+    font-size: 0.85em;
+    padding: 0.1em;
+    float: left;
+}
+
 /* Bigger small screens have a 2-column schedule */
 @media (min-width:600px) {
     header { /* reset width for h1 s in header */
