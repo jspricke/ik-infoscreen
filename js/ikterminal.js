@@ -1,3 +1,5 @@
+/** *** Refreshes *** **/
+
 const contentFromHTMLById = function(html, id) {
     var dom = document.createElement('html');
     dom.innerHTML = html;
@@ -29,6 +31,9 @@ const refreshBySchedule = function(id, interval) {
     setInterval(refreshById(id), interval * 1000)
 }
 
+
+/** *** Shoutbox *** **/
+
 const sendShoutbox = function(evt) {
     if (evt.keyCode == 13) {
         document.getElementById('shoutboxform').submit();
@@ -37,11 +42,11 @@ const sendShoutbox = function(evt) {
 
 const submitShoutbox = function(evt) {
     evt.preventDefault();
-    sendData();
+    sendShoutboxData();
     return false;
 }
 
-const sendData = function() {
+const sendShoutboxData = function() {
     var XHR = new XMLHttpRequest();
 
     XHR.addEventListener("load", function(event) {
@@ -57,6 +62,9 @@ const sendData = function() {
 
     XHR.send(new FormData(document.getElementById('shoutboxform')));
 }
+
+
+/** *** Date and Time *** **/
 
 const startTime = function() {
 	var today = new Date();
@@ -82,6 +90,9 @@ const startIKDay = function() {
     }, timeToPastMidnight);
 }
 
+
+/** *** Scrolling *** **/
+
 const scrollToActive = function() {
     var active = document.getElementById('timeslot_active');
 
@@ -103,6 +114,9 @@ const scrollToActive = function() {
         window.scrollTo(0, active.offsetTop);
     }
 }
+
+
+/** *** Preview *** **/
 
 const swapDay = function(day) {
     var url = document.URL.split('?')[0];
@@ -154,6 +168,9 @@ const toggleFavoriteVisibility = function() {
 const clearFavorites = function() {
     window.localStorage.removeItem('course_ids');
 }
+
+
+/** *** Entry point *** **/
 
 const loader = function() {
     startTime();
