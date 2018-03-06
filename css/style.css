@@ -39,6 +39,10 @@ img {  /* Never stretch the layout because of the impression image. */
     margin-top: 0.1em;
 }
 
+.event input {
+    float: right;
+}
+
 footer {
     position: absolute;
     right: 0;
@@ -246,6 +250,12 @@ a:hover {
 #timeslot_active, .event.active {
     border-radius: 0.5em;
     background-color: #e0f2f7;
+}
+
+.event a:hover {
+    text-decoration: none;
+    background: #efefef;
+    border-radius: 0.5em;
 }
 
 .event a span {

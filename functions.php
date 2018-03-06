@@ -144,16 +144,17 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
         $sessioncount = '';
     }
 
-    printf('<div class="event%s">' .
+    printf('<div class="event%s" data-id="%s">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
-                   '<span class="lecturer">%s%s</span>' .
+                   '<span class="lecturer">%s%s<input type="checkbox" value="%s" /></span>' .
                    '<span class="location" style="background-color: %s;">%s</span>' .
                    '<span class="title">%s</span>' .
                '</a>' .
            '</div>',
            is_active_event($now, $evt_start->format('H:i'), $evt_end->format('H:i')) ? ' active' : '',
-           $id, $color, $time ? $time : $abbr, $instructor, $sessioncount, $color, $location, $title);
+           $id, $id, $color, $time ? $time : $abbr, $instructor, $sessioncount,
+           $id, $color, $location, $title);
 }
 
 function is_active_timeslot($now, $start, $end) {

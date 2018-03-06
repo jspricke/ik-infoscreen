@@ -52,7 +52,7 @@
 
             <section id="impressions">
                 <a href="/images">
-                    <img src="<?php echo $path . $img ?>" alt="IK Impression" id="impression" />
+                    <img src="<?= $path . $img ?>" alt="IK Impression" id="impression" />
                 </a>
             </section>
 
