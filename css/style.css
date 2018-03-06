@@ -139,7 +139,7 @@ footer ul {
         grid-column-end: 3;
     }
 
-    #daytoggler button:before {
+    #daytoggler button:not(:first-child):before {
         content: "Day ";
     }
 }
