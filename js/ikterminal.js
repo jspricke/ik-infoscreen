@@ -171,7 +171,6 @@ const toggleFavorite = function(id) {
         ids.add(id);
     }
     setFavorites(ids);
-    updateFavorites();
 }
 
 /**
@@ -251,6 +250,7 @@ const addFavoriteEventListeners = function() {
         input.addEventListener('click', evt => {
             evt.preventDefault();
             toggleFavorite(parseInt(evt.target.value));
+            updateFavorites();
         });
     }
 }
@@ -287,6 +287,8 @@ const loader = function() {
     }).observe(document.getElementById('schedule'), {childList: true} );
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+
+    window.addEventListener('focus', evt => updateFavorites());
 
     scrollToActive();
 };

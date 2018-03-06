@@ -52,3 +52,26 @@
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
+#favcb {
+    display: none;
+}
+
+#favcb + label {
+	background-color: #fafafa;
+	border: 1px solid #cacece;
+	padding: 15px;
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+    float: right;
+}
+
+#favcb:checked + label:after {
+	font-size: 28px;
+	position: absolute;
+    left: 0;
+    top: 0;
+	color: #99a1a7;
+	content: '\1F31F';
+}
