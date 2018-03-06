@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from json import _default_decoder, decoder
+from json import loads
 from os import makedirs
 from os.path import basename
 from re import compile, search, sub
@@ -14,28 +14,6 @@ urls = compile(r'(((https?|ftp|git|file|mailto|doi)[.:][^	 ,"\'<>\){}]*|www\.[-a
 def get_json():
     data = urlencode({'start': '2018-03-09', 'end': '2018-03-17', 'request': 'see_all'}).encode('ascii')
     return urlopen('https://www.interdisciplinary-college.de/index.php?controller=collections&action=see_detail_from_all_json', data).read().decode('utf-8')
-
-
-# http://www.benweaver.com/blog/decode-multiple-json-objects-in-python.html
-def iload_json(buff, decoder=None, _w=decoder.WHITESPACE.match):
-    """Generate a sequence of top-level JSON values declared in the
-    buffer.
-
-    >>> list(iload_json('[1, 2] "a" { "c": 3 }'))
-    [[1, 2], u'a', {u'c': 3}]
-    """
-
-    decoder = decoder or _default_decoder
-    idx = _w(buff, 0).end()
-    end = len(buff)
-
-    try:
-        while idx != end:
-            (val, idx) = decoder.raw_decode(buff, idx=idx)
-            yield val
-            idx = _w(buff, idx).end()
-    except ValueError as exc:
-        raise ValueError('%s (%r at position %d).' % (exc, buff[idx:], idx))
 
 
 def create_aside(attributes, suffix):
@@ -142,7 +120,7 @@ def create_details(json):
 def main():
     makedirs('details', exist_ok=True)
 
-    for detail in iload_json(get_json()):
+    for detail in loads(get_json()):
         output, images = create_details(detail['data'])
         open(f'details/detail{detail["collection_id"]}.html', 'w').write(output)
 
