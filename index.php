@@ -8,8 +8,11 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <noscript>
             <style>
-                #schedule input, #daytoggler label, #favtoggler {
+                #schedule input, #favtoggle, #favport {
                     display: none;
+                }
+                #tools {
+                    justify-content: center;
                 }
             </style>
         </noscript>
@@ -37,11 +40,22 @@
                 <?php endforeach ?>
             </section>
 
-            <section id="daytoggler">
-                <div><input type="checkbox" id="favtoggler" onclick="toggleFavoriteVisibility();" /><label for="favtoggler">Favorites</label></div>
+            <section id="tools">
+                <div id="favtoggle">
+                    <input type="checkbox" id="favtoggler" onclick="toggleFavoriteVisibility();" />
+                    <label for="favtoggler">Favorites</label>
+                </div>
+
+                <div id="daytoggle">
                 <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
                     create_swapDay_button($i);
                 } ?>
+                </div>
+
+                <div id="favport">
+                    <button id="export">Export favorites</button>
+                    <button id="import">Import favorites</button>
+                </div>
             </section>
 
             <section class="announcements">
