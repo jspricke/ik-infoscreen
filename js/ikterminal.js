@@ -209,6 +209,8 @@ const applyFavoriteVisibility = function() {
             events[i].style.display = 'none';
         }
     }
+
+    document.getElementById('favtoggler').checked = visible != 1;
 }
 
 /**
