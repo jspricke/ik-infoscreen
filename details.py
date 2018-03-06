@@ -121,6 +121,10 @@ def main():
     makedirs('details', exist_ok=True)
 
     for detail in loads(get_json()):
+        if detail["collection_id"] == '80':
+            detail['data']['attributes']['experimenter_firstname'] = detail['data']['title'].split('-')[1]
+            detail['data']['attributes']['experimenter_vita'] = detail['data']['attributes']['literature']
+            detail['data']['attributes']['literature'] = ''
         output, images = create_details(detail['data'])
         open(f'details/detail{detail["collection_id"]}.html', 'w').write(output)
 
