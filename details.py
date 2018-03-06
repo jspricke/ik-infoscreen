@@ -97,11 +97,22 @@ def create_details(json):
 <head>
     <meta charset="utf-8">
     <title>{json['title'].replace('<b>', '').replace('</b>', '')}</title>
+    <script type="text/javascript" src="/js/ikterminal.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/detail.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <noscript>
+        <style>
+        #favcb + label {{
+            display: none;
+        }}
+        </style>
+    </noscript>
 </head>
-<body>
-    <h1>{json['title']}</h1>
+<body onload="document.getElementById('favcb').checked = getFavorites().has({json['collection_id']});"
+>
+    <h1>{json['title']}
+    <input type="checkbox" id="favcb" onclick="toggleFavorite({json['collection_id']});" /><label for="favcb"></label>
+    </h1>
     <article>
         {clean_section(json['attributes']['description'], 'Description')}
         {clean_section(json['attributes']['objectives'], 'Objectives')}
