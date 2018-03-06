@@ -126,38 +126,85 @@ const swapDay = function(day) {
     window.location.href = url;
 }
 
-const toggleFavorite = function(id) {
-    // TODO: toggle button images, style buttons
+
+/** *** Favorites *** **/
+
+/**
+ * Reads the course ids from the localStorage (course_ids) into a set.
+ *
+ * Returns:
+ *     A set of course ids..
+ */
+const getFavorites = function() {
     var storage = window.localStorage;
     var ids = new Set();
-    if (storage.getItem('course_ids') !== null) {
-        JSON.parse(storage.getItem('course_ids')).forEach(
-            (e) => ids.add(e)
-        );
+
+    if ('course_ids' in storage) {
+        JSON.parse(storage.getItem('course_ids')).forEach(e => ids.add(e));
     }
+
+    return ids;
+}
+
+/**
+ * Sets the course ids for the localStorage (course_ids).
+ *
+ * Args:
+ *     ids A set containing the course ids.
+ */
+const setFavorites = function(ids) {
+    window.localStorage.setItem('course_ids', JSON.stringify(Array.from(ids)));
+}
+
+/**
+ * If an id is not present in the favorite list, add it.
+ * Otherwise, remove it.
+ *
+ * Args:
+ *     id The id to add or remove.
+ */
+const toggleFavorite = function(id) {
+    console.log('Toggling ' + id);
+    var ids = getFavorites();
     if (ids.has(id)) {
         ids.delete(id);
     } else {
         ids.add(id);
     }
-    storage.setItem('course_ids', JSON.stringify(Array.from(ids)));
-    console.log(storage);
+    setFavorites(ids);
+    updateFavorites();
 }
 
+/**
+ * Swaps the visibility of (all) course items.
+ * By default they are visible (courses_visible is not in localStorage), so the first call sets
+ * this to false. Subsequent calls toggle between true and false.
+ */
 const toggleFavoriteVisibility = function() {
-    // TODO: store current toggling state and reverse if needed
-    // Add ability to share/transfer across devices
     var storage = window.localStorage;
-    var ids = new Set();
-    if (storage.getItem('course_ids') !== null) {
-        JSON.parse(storage.getItem('course_ids')).forEach(
-            (e) => ids.add(e)
-        );
-    }
+
+    // null (default) -> false, true -> false, false -> true
+    var visible = 'courses_visible' in storage ? storage.getItem('courses_visible') ^ true : false;
+    storage.setItem('courses_visible', visible);
+
+    applyFavoriteVisibility();
+    scrollToActive();
+}
+
+/**
+ * Changes the display style of all .event elements inside the #schedule.
+ * If the localStorage's courses_visible is true (or null) all events are shown (display: block).
+ * Otherwise, only the favorite events are shownn (all others get display: none).
+ */
+const applyFavoriteVisibility = function() {
+    var ids = getFavorites();
+    var visible = 'courses_visible' in window.localStorage ?
+        window.localStorage.getItem('courses_visible') : true;
 
     var events = document.getElementById('schedule').getElementsByClassName('event');
     for (var i = 0; i < events.length; ++i) {
-        if (ids.has(parseInt(events[i].getAttribute('data-id')))) {
+        var selected = ids.has(parseInt(events[i].getAttribute('data-id')))
+        if (visible | selected) {
             events[i].style.display = 'block';
         } else {
             events[i].style.display = 'none';
@@ -165,14 +212,67 @@ const toggleFavoriteVisibility = function() {
     }
 }
 
+/**
+ * Cleans up the local storage.
+ * Removes the items course_ids and courses_visible. Applies the favorite
+ * visibility, effectively showing all events.
+ */
 const clearFavorites = function() {
     window.localStorage.removeItem('course_ids');
+    window.localStorage.removeItem('courses_visible');
+    updateFavorites();
+}
+
+/**
+ * Updates the checkboxes. For selected events they are checked, for others not.
+ */
+const updateCheckboxes = function() {
+    console.log('update updateCheckboxes');
+    var ids = getFavorites();
+
+    var events = document.getElementById('schedule').getElementsByClassName('event');
+    for (var i = 0; i < events.length; ++i) {
+        var selected = ids.has(parseInt(events[i].getAttribute('data-id')))
+        var input = events[i].querySelector('input');
+        input.checked = false;
+        if (selected) {
+            input.checked = true;
+        }
+    }
+}
+
+/**
+ * Adds eventlisteners to all checkboxes inside the schedule.
+ */
+const addFavoriteEventListeners = function() {
+    console.log('Adding favorite listeners.');
+    var ids = getFavorites();
+    var inputs = document.getElementById('schedule').getElementsByTagName('input');
+    for (var input of inputs) {
+        input.addEventListener('click', evt => {
+            evt.preventDefault();
+            toggleFavorite(parseInt(evt.target.value));
+        });
+    }
+}
+
+/**
+ * Updates the checkboxes and the event visibilities.
+ */
+const updateFavorites = function() {
+    applyFavoriteVisibility();
+    // push back to the stack to avoid toggling issues with the checkbox states
+    setTimeout(updateCheckboxes, 10);
 }
 
 
 /** *** Entry point *** **/
 
 const loader = function() {
+    addFavoriteEventListeners();
+    updateFavorites();
+
+    // Refresh data
     startTime();
     startIKDay();
     refreshBySchedule('schedule', 60);
@@ -180,7 +280,14 @@ const loader = function() {
     if (window.matchMedia("screen and (min-width: 1024px)")) {
         refreshBySchedule('impressions', 20);
     }
+
+    // Register event listeners
+    new MutationObserver(() => {
+        addFavoriteEventListeners();
+        updateFavorites();
+    }).observe(document.getElementById('schedule'), {childList: true} );
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+
     scrollToActive();
 };
