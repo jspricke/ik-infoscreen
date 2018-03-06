@@ -164,7 +164,6 @@ const setFavorites = function(ids) {
  *     id The id to add or remove.
  */
 const toggleFavorite = function(id) {
-    console.log('Toggling ' + id);
     var ids = getFavorites();
     if (ids.has(id)) {
         ids.delete(id);
@@ -227,7 +226,6 @@ const clearFavorites = function() {
  * Updates the checkboxes. For selected events they are checked, for others not.
  */
 const updateCheckboxes = function() {
-    console.log('update updateCheckboxes');
     var ids = getFavorites();
 
     var events = document.getElementById('schedule').getElementsByClassName('event');
@@ -245,7 +243,6 @@ const updateCheckboxes = function() {
  * Adds eventlisteners to all checkboxes inside the schedule.
  */
 const addFavoriteEventListeners = function() {
-    console.log('Adding favorite listeners.');
     var ids = getFavorites();
     var inputs = document.getElementById('schedule').getElementsByTagName('input');
     for (var input of inputs) {
