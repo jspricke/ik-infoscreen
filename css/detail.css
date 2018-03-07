@@ -70,8 +70,8 @@ body {
 #favcb:checked + label:after {
 	font-size: 28px;
 	position: absolute;
-    left: 0;
-    top: 0;
-	color: #99a1a7;
-	content: '\1F31F';
+    left: 7px;
+    top: -3px;
+	color: crimson;
+	content: '\2665';
 }
