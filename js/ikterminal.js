@@ -264,7 +264,7 @@ const updateFavorites = function() {
  */
 const exportFavorites = function() {
     var ids = getFavorites();
-    prompt('Copy this and paste it on another device.', Array.from(ids).join(','));
+    prompt('Copy this and paste it on another device.', Array.from(ids).sort().join(','));
 }
 
 /**
