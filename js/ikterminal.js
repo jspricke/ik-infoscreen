@@ -208,13 +208,19 @@ const applyFavoriteVisibility = function() {
 
 /**
  * Cleans up the local storage.
+ *
+ * First, prompts the user to type "yes" to clear it to avoid accidental clearings.
+ *
  * Removes the items course_ids and courses_visible. Applies the favorite
  * visibility, effectively showing all events.
  */
 const clearFavorites = function() {
-    window.localStorage.removeItem('course_ids');
-    window.localStorage.removeItem('courses_visible');
-    updateFavorites();
+    var response = prompt('Type "yes" to clear the favorites.', 'no');
+    if (response == 'yes') {
+        window.localStorage.removeItem('course_ids');
+        window.localStorage.removeItem('courses_visible');
+        updateFavorites();
+    }
 }
 
 /**
@@ -306,6 +312,7 @@ const loader = function() {
     document.getElementById('favtoggler').addEventListener('click', toggleFavoriteVisibility);
     document.getElementById('export').addEventListener('click', exportFavorites);
     document.getElementById('import').addEventListener('click', importFavorites);
+    document.getElementById('clear').addEventListener('click', clearFavorites);
     window.addEventListener('focus', evt => updateFavorites());
 
     scrollToActive();

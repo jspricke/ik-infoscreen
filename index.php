@@ -54,6 +54,7 @@
                 <div id="favport">
                     <button id="export">Export favorites</button>
                     <button id="import">Import favorites</button>
+                    <button id="clear">Clear favorites</button>
                 </div>
             </section>
 
