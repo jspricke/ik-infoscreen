@@ -62,7 +62,7 @@ footer ul {
 
 #tools {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-flow: row wrap;
 }
 
@@ -71,26 +71,31 @@ footer ul {
     justify-content: center;
 }
 
-#daytoggle a {
+#daytoggle a, #tools button {
     display: block;
     color: black;
     text-decoration: none;
     margin: 0;
     padding: 0.2em 1.2em;
-    font-size: 0.8em;
+    font-size: 9pt;
     border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
+    float: left;
 }
 
-#daytoggle a:first-of-type {
+#daytoggle a:first-child, #favport button:first-child {
     border-radius: 0.5em 0 0 0.5em;
 }
 
-#daytoggle a:last-child {
+#daytoggle a:last-child, #favport button:last-child {
     border-radius: 0 0.5em 0.5em 0;
 }
 
-#daytoggle a.disabled {
+#favtoggle button {
+    border-radius: 0.5em;
+}
+
+#tools .disabled {
     border: 1px inset #e0f2f7;
     color: gray;
 }
@@ -100,15 +105,6 @@ footer ul {
     font-weight: bold;
 }
 
-#favtoggle {
-    font-size: 0.85em;
-    padding: 0.1em;
-}
-
-#favport {
-    font-size: 0.85em;
-    padding: 0.1em;
-}
 
 /* Bigger small screens have a 2-column schedule */
 @media (min-width:600px) {
@@ -128,6 +124,7 @@ footer ul {
     #tools {
         grid-column-start: 1;
         grid-column-end: 2;
+        justify-content: space-between;
     }
 }
 
