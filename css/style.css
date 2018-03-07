@@ -57,30 +57,35 @@ footer ul {
 }
 
 #daytoggler {
-    text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-#daytoggler button {
+#daytoggler a {
+    display: block;
+    color: black;
+    text-decoration: none;
     margin: 0;
     padding: 0.2em 1.2em;
+    font-size: 0.8em;
     border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
 }
 
-#daytoggler button:first-child {
+#daytoggler a:first-of-type {
     border-radius: 0.5em 0 0 0.5em;
 }
 
-#daytoggler button:last-child {
+#daytoggler a:last-child {
     border-radius: 0 0.5em 0.5em 0;
 }
 
-#daytoggler button[disabled="disabled"] {
+#daytoggler a.disabled {
     border: 1px inset #e0f2f7;
     color: gray;
 }
 
-#daytoggler button.active {
+#daytoggler a.active {
     color: rgb(51, 122, 183);
     font-weight: bold;
 }
@@ -135,7 +140,7 @@ footer ul {
         grid-column-end: 3;
     }
 
-    #daytoggler button:before {
+    #daytoggler a:before {
         content: "Day ";
     }
 }

@@ -169,10 +169,10 @@ function is_active_event($now, $start, $end) {
 
 function create_swapDay_button($day) {
     global $CURRENT_DAY, $VIEW_DAY;
-    printf('<button onclick="swapDay(%s);"%s%s>%s</button>',
-        $day == $CURRENT_DAY ? '' : $day,
-        $day == $CURRENT_DAY ? ' class="active"' : '',
-        $day == $VIEW_DAY ? ' disabled="disabled"' : '',
+    printf('<a href="%s" class="%s%s">%s</a>',
+        $day == $CURRENT_DAY ? '/' : ('/?day=' . $day),
+        $day == $CURRENT_DAY ? 'active' : '',
+        $day == $VIEW_DAY ? ' disabled' : '',
         $day);
 }
 

@@ -104,14 +104,6 @@ const scrollToActive = function() {
     }
 }
 
-const swapDay = function(day) {
-    var url = document.URL.split('?')[0];
-    if (day) {
-        url += '?day=' + day;
-    }
-    window.location.href = url;
-}
-
 const loader = function() {
     startTime();
     startIKDay();
