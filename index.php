@@ -16,6 +16,13 @@
                 }
             </style>
         </noscript>
+        <?php if (isset($_GET["hidetools"])): ?>
+        <style>
+            #tools, #schedule input {
+                display: none;
+            }
+        </style>
+        <?php endif ?>
     </head>
     <body onload="loader();" id="body">
 
