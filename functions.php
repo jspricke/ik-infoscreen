@@ -108,6 +108,9 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
     if ($start_time == $IKHACK && strpos($event->title, $IKHACK) === false) {
         return;
     }
+    if ($start_time != $IKHACK && strpos($event->title, $IKHACK) !== false) {
+        return;
+    }
     if ($start_time == 'Evening' || $start_time == $IKHACK) {
         // For evening events get the proper time (replaces the abbreviation)
         $time = $evt_start->format('H:i') . '&ndash;' . $evt_end->format('H:i');
@@ -132,7 +135,12 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
             $instructor = $event->title;
             $title = '';
         }
+    } elseif (strpos($event->title, $instructor) !== false) {
+        // Instructor is present and inside the title: explode it
+        list(, $instructor, $title) = explode('-', $title, 3);
     }
+
+
 
     // Determine event color, overwrite white
     $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
