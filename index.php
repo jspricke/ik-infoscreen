@@ -42,8 +42,7 @@
 
             <section id="tools">
                 <div id="favtoggle">
-                    <input type="checkbox" id="favtoggler" onclick="toggleFavoriteVisibility();" />
-                    <label for="favtoggler">Favorites</label>
+                    <button id="favtoggler">Toggle favorites</button>
                 </div>
 
                 <div id="daytoggle">

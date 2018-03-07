@@ -198,7 +198,12 @@ const applyFavoriteVisibility = function() {
         }
     }
 
-    document.getElementById('favtoggler').checked = visible != 1;
+    var toggler = document.getElementById('favtoggler');
+    if (visible != 1) {
+        toggler.classList.add('disabled');
+    } else {
+        toggler.classList.remove('disabled');
+    }
 }
 
 /**
@@ -298,9 +303,9 @@ const loader = function() {
     }).observe(document.getElementById('schedule'), {childList: true} );
     document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
     document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
+    document.getElementById('favtoggler').addEventListener('click', toggleFavoriteVisibility);
     document.getElementById('export').addEventListener('click', exportFavorites);
     document.getElementById('import').addEventListener('click', importFavorites);
-
     window.addEventListener('focus', evt => updateFavorites());
 
     scrollToActive();
