@@ -27,6 +27,10 @@ if (file_exists($upload_file)) {
     exit;
 }
 
-move_uploaded_file($_FILES["file"]["tmp_name"], $upload_file);
+if (!move_uploaded_file($_FILES["file"]["tmp_name"], $upload_file)) {
+    header("HTTP/1.1 500 Internal Error");
+    exit;
+}
+
 header("HTTP/1.1 201 Created");
 ?>
