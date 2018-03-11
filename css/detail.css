@@ -6,7 +6,7 @@
         margin: 0 auto;
     }
 
-    aside p:not(:first-of-type) {
+    #vita {
         text-align: justify;
     }
 }
@@ -20,7 +20,7 @@
         border-radius: .2em;
     }
 
-    aside p:not(:first-of-type) {
+    #vita {
         text-align: justify;
         padding: 0;
         hyphens: auto;

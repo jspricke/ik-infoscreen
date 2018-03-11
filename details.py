@@ -65,9 +65,9 @@ def create_aside(attributes, suffix):
         image_url = search(r'src="([^"]*)"', attributes[pic_key])
         if image_url:
             image = image_url.group(1)
-            aside.append(f'<p><img src="{basename(image)}" alt="{instructor}" /> {vita}</p>')
+            aside.append(f'<p id="vita"><img src="{basename(image)}" alt="{instructor}" /> {vita}</p>')
     else:
-        aside.append(f'<p>{vita}</p>')
+        aside.append(f'<p id="vita">{vita}</p>')
 
     return '\n'.join(aside), image
 
