@@ -35,7 +35,7 @@
         <header>
             <h1>
                 IK<?= $START_DATE->format('Y'); ?>
-                <small>Day <?= $CURRENT_DAY; ?></small>
+                <small>Day <?= $VIEW_DAY; ?></small>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>
