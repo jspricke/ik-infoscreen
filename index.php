@@ -21,6 +21,12 @@
             #tools, #schedule input {
                 display: none;
             }
+	    header {
+		padding-top: 20px;
+	    }
+	    body {
+		font-size: 120%;
+	    }
         </style>
         <?php endif ?>
     </head>
@@ -67,14 +73,16 @@
 
             <section class="announcements">
                 <h3>Announcements</h3>
-                <p style="color:red;">Checkout until 9am! Return your keys and don't forget your luggage.</p>
-                <p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am.</p>
+                <p style="color:red;">Welcome to IK 2018.</p>
+                <p style="color:red;">This site on your phone: http://guenne.ik</p>
+                <!--p style="color:red;">Checkout until 9am! Return your keys and don't forget your luggage.</p>
+                <p style="color:red;">First bus arrives at 10:30am (and leaves when full), the second one leaves at 11am.</p-->
             </section>
 
             <section class="announcements">
                 <h3>Information</h3>
                 <p>Do you have images from IK? Please share with Jochen or Michael.</p>
-                <p>Hate paywalls? Paste the URL into <a href="https://sci-hub.la">sci-hub.la</a>.</p>
+                <p>You can find all uploaded lecture slides <a href="/slides">here</a>.</p>
                 <p>Please upload your slides here: <a href="/incoming">http://guenne.ik/incoming</a></p>
             </section>
 

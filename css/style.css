@@ -35,7 +35,7 @@ img {  /* Never stretch the layout because of the impression image. */
 
 .event a {  /* Make events a grid. */
     display: grid;
-    grid-template-columns: 1fr 8fr;
+    grid-template-columns: 6em auto;
     margin-top: 0.1em;
 }
 

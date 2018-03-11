@@ -139,8 +139,22 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
         // Instructor is present and inside the title: explode it
         list(, $instructor, $title) = explode('-', $title, 3);
     }
+    if ($instructor == "Alexander  Schulz") {
+	    $instructor = "Schulz, Prahm, Paaßen";
+	    $title = "Myo, Myself and I";
+    }
 
+    if ($instructor == "Jennifer  Fewell") {
+	    $instructor = "Fewell, Pavlic";
+    }
 
+    if (strpos($instructor, "Windischberger") !== false) {
+	    $instructor = "Windischberger, Di Bernardi Luft";
+    }
+
+    if ($instructor == "Annekatrin  Vetter") {
+	    $instructor = "Vetter, Reul";
+    }
 
     // Determine event color, overwrite white
     $color = $event->color != '#ffffffff' ? $event->color : $event->colorInactive;
