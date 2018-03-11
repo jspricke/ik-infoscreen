@@ -35,7 +35,7 @@ img {  /* Never stretch the layout because of the impression image. */
 
 .event a {  /* Make events a grid. */
     display: grid;
-    grid-template-columns: 1fr 8fr;
+    grid-template-columns: 6em auto;
     margin-top: 0.1em;
 }
 
@@ -81,6 +81,7 @@ footer ul {
     border: 1px outset #e0f2f7;
     background-color: #e0f2f7;
     float: left;
+    max-height: 1.8em;
 }
 
 #daytoggle a:first-child, #favport button:first-child {
