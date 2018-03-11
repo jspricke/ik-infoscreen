@@ -82,6 +82,7 @@ footer ul {
     background-color: #e0f2f7;
     float: left;
     max-height: 1.8em;
+    cursor: pointer;
 }
 
 #daytoggle a:first-child, #favport button:first-child {
