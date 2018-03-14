@@ -7,7 +7,7 @@ import time
 import binascii
 
 
-PATH_DIR_OUTPUT = './out'
+PATH_DIR_OUTPUT = '../hack'
 PATH_DIR_STATIC = './static'
 PATH_FILE_TEMPLATE = './template.html'
 PATH_FILE_DATA = './pages.tsv'
@@ -61,9 +61,8 @@ for line in open(PATH_FILE_DATA, 'r'):
 
   next_filename = 'page_%s.html' % pagehash(salt + password)
 
-# create output path
-if not os.path.exists(PATH_DIR_OUTPUT):
-  os.mkdir(PATH_DIR_OUTPUT)
+shutil.rmtree(PATH_DIR_OUTPUT)
+os.mkdir(PATH_DIR_OUTPUT)
 
 # write pages
 with open(PATH_FILE_TEMPLATE, 'r') as f:
