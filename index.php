@@ -21,9 +21,6 @@
             #tools, #schedule input {
                 display: none;
             }
-            header {
-                margin-top: 20px;
-            }
             body {
                 font-size: 120%;
             }
