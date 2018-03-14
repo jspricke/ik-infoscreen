@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>%(title)s</title>
+    <link rel="stylesheet" href="style.css">
+    <script language="javascript">var SALT = "%(salt)s";</script>
+    <script language="javascript" src="form.js"></script>
+  </head>
+  <body>
+    <div id="wrapper">
+      <h1>%(title)s</h1>
+      <p><img src="%(path_image)s" alt="the logo's puzzle" /></p>
+      <p>%(message)s</p>
+      <form action="javascript:submitForm()">
+        <input type="text" name="input-password" autofocus />
+        <input type="submit" name="input-submit" value="Confirm" />
+      </form>
+    </div>
+  </body>
+</html>
