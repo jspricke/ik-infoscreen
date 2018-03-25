@@ -142,12 +142,6 @@ footer ul {
         grid-row-end: 5;
     }
 
-    aside {
-        grid-column: 2;
-        grid-row-start: 3;
-        grid-row-end: 5;
-    }
-
     #schedule {  /* 3-column schedule */
         grid-column-start: 1;
         grid-column-end: 3;
