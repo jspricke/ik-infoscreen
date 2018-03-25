@@ -56,10 +56,12 @@ for line in open(PATH_FILE_DATA, 'r'):
     'path_image': path_image,
     'message': message,
     'salt': salt,
-    'filename': filename
+    'filename': filename,
   })
 
   next_filename = 'page_%s.html' % pagehash(salt + password)
+
+  print('writing page with pw=%s to file %s.' % (password, filename))
 
 shutil.rmtree(PATH_DIR_OUTPUT)
 os.mkdir(PATH_DIR_OUTPUT)

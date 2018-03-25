@@ -23,7 +23,8 @@ function tohex(number) {
   if(number < 0) {
     number = 0xFFFFFFFF + number + 1;
   }
-  return number.toString(16);
+  let hex = ("00000000" + number.toString(16)).substr(-8);
+  return hex;
 }
 
 function submitForm() {
