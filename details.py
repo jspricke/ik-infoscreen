@@ -12,8 +12,7 @@ urls = compile(r'(((https?|ftp|git|file|mailto|doi)[.:][^	 ,"\'<>\){}]*|www\.[-a
 
 
 def get_json():
-    data = urlencode({'start': '2018-03-09', 'end': '2018-03-17', 'request': 'see_all'}).encode('ascii')
-    return urlopen('https://www.interdisciplinary-college.de/index.php?controller=collections&action=see_detail_from_all_json', data).read().decode('utf-8')
+    return urlopen('https://www.interdisciplinary-college.de/index.php?controller=collections&action=see_detail_from_all_json').read().decode('utf-8')
 
 
 def create_aside(attributes, suffix):
