@@ -37,7 +37,7 @@ $IK_DAYS = $START_DATE->diff($END_DATE)->format('%a');
 $SCHEDULE_DAY = $TODAY;
 if (isset($_GET['day'])) {
     $day = urlencode($_GET['day']);
-    if (strlen($day) == 1 && 1 <= (int) $day && (int) $day <= 8) {
+    if (strlen($day) == 1 && 1 <= (int) $day && (int) $day <= $IK_DAYS) {
         $SCHEDULE_DAY = date('Y-m-d', strtotime($START . ' -1 day +' . $day . ' day'));
     } else {
         $SCHEDULE_DAY = date('Y-m-d', strtotime($day));
