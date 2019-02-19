@@ -45,6 +45,9 @@ if (isset($_GET['day'])) {
 }
 $EVENING_DATE = new DateTimeImmutable($SCHEDULE_DAY . ' 18:00');
 $VIEW_DAY = $EVENING_DATE->add(new DateInterval('P1D'))->diff($START_DATE)->format('%a');
+if (!isset($_GET['day']) && $TODAY_DATE < $START_DATE) {
+    $VIEW_DAY = $CURRENT_DAY;
+}
 
 function read_schedule() {
     return json_decode(file_get_contents('ikschedule.json'))->events;
