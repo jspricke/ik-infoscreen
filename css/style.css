@@ -114,10 +114,6 @@ footer ul {
         grid-template-columns: 1fr auto;
     }
 
-    header h1+h1 { /* enable link and time */
-        display: block;
-    }
-
     #schedule { /* 2-column schedule */
         grid-template-columns: repeat(2, 1fr);
         grid-column-gap: 0.15em;
@@ -140,6 +136,10 @@ footer ul {
         grid-column: 2;
         grid-row-start: 3;
         grid-row-end: 5;
+    }
+
+    header h1+h1 { /* enable link and time */
+        display: block;
     }
 
     #schedule {  /* 3-column schedule */
