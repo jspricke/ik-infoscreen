@@ -68,9 +68,11 @@ const sendShoutboxData = function() {
 
 const startTime = function() {
 	var today = new Date();
+	var d = today.getDay();
 	var h = today.getHours();
 	var m = today.getMinutes();
-	document.getElementById('time').innerHTML = padTime(h) + ":" + padTime(m);
+	w = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	document.getElementById('time').innerHTML = w[d] + " " + padTime(h) + ":" + padTime(m);
 	setTimeout(startTime, 1000);
 }
 
