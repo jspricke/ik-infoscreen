@@ -319,6 +319,7 @@ a:hover {
 
 #shoutbox_container p a {
     word-break: break-all;
+    word-wrap: anywhere;
 }
 
 .message_box {
