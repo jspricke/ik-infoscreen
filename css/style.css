@@ -315,6 +315,7 @@ a:hover {
 
 #shoutbox_container p {
     margin: 0.5em 0;
+    word-break: break-all;
 }
 
 .message_box {
