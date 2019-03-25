@@ -204,7 +204,7 @@ function read_shouts() {
 	    "<a href=\"\\0\">\\0</a>", $chat);
     $chat = preg_replace("~(?<=^|\s)#\w+\b~",
 	    "<font color=\"green\">\\0</font>", $chat);
-    $chat = preg_replace("~(?<=^|\s)@ \d+\. \d+:\d+\b~",
+    $chat = preg_replace("~(?<=^|\s)@ ?(\d+\. )?\d+:\d+\b~",
 	    "<font color=\"red\">\\0</font>", $chat);
     unset($chat[0]);
     return $chat;
