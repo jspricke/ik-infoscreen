@@ -219,7 +219,7 @@ function getImagesFromDir($path) {
     $images = array();
     if ( $img_dir = @opendir($path) ) {
         while ( false !== ($img_file = readdir($img_dir)) ) {
-            if ( preg_match("/(\.gif|\.jpg|\.png|\.JPG)$/", $img_file) ) {
+            if ( preg_match("/(\.gif|\.jpg|\.png|\.JPG|\.svg)$/", $img_file) ) {
                 $images[] = $img_file;
             }
         }
