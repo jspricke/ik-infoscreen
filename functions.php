@@ -13,8 +13,8 @@ $TIMES = array(
     'Evening' => '',
     $IKHACK => '');
 
-$START = '2019-03-12';
-$END = '2019-03-19';
+$START = '2018-03-09';
+$END = '2018-03-16';
 $TODAY = date('Y-m-d');
 $NOW = date('H:i');
 
