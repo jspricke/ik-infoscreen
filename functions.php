@@ -13,8 +13,8 @@ $TIMES = array(
     'Evening' => '',
     $IKHACK => '');
 
-$START = '2019-03-12';
-$END = '2019-03-19';
+$START = '2018-03-09';
+$END = '2018-03-16';
 $TODAY = date('Y-m-d');
 $NOW = date('H:i');
 
@@ -204,7 +204,7 @@ function read_shouts() {
 	    "<a href=\"\\0\">\\0</a>", $chat);
     $chat = preg_replace("~(?<=^|\s)#\w+\b~",
 	    "<font color=\"green\">\\0</font>", $chat);
-    $chat = preg_replace("~(?<=^|\s)@ \d+\. \d+:\d+\b~",
+    $chat = preg_replace("~(?<=^|\s)@ ?(\d+\. )?\d+:\d+\b~",
 	    "<font color=\"red\">\\0</font>", $chat);
     unset($chat[0]);
     return $chat;
@@ -219,7 +219,7 @@ function getImagesFromDir($path) {
     $images = array();
     if ( $img_dir = @opendir($path) ) {
         while ( false !== ($img_file = readdir($img_dir)) ) {
-            if ( preg_match("/(\.gif|\.jpg|\.png|\.JPG)$/", $img_file) ) {
+            if ( preg_match("/(\.gif|\.jpg|\.png|\.JPG|\.svg)$/", $img_file) ) {
                 $images[] = $img_file;
             }
         }
