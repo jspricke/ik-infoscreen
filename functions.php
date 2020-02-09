@@ -155,7 +155,7 @@ function event_group_list_item($event, $start_time, $evening_time, $now) {
         $sessioncount = '';
     }
 
-    printf('<div class="event%s" data-id="%s">' .
+    printf('<div class="event%s" data_id="%s">' .
                '<a href="./details/detail%s.html">' .
                    '<span class="lecture_id" style="background-color: %s;">%s</span>' .
                    '<span class="lecturer"><input type="checkbox" value="%s" />%s%s</span>' .

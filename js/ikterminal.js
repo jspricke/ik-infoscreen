@@ -197,7 +197,7 @@ const applyFavoriteVisibility = function() {
 
     var events = document.getElementById('schedule').getElementsByClassName('event');
     for (var i = 0; i < events.length; ++i) {
-        var selected = ids.has(parseInt(events[i].getAttribute('data-id')))
+        var selected = ids.has(parseInt(events[i].getAttribute('data_id')))
         if (visible | selected) {
             events[i].style.display = 'block';
         } else {
@@ -238,7 +238,7 @@ const updateCheckboxes = function() {
 
     var events = document.getElementById('schedule').getElementsByClassName('event');
     for (var i = 0; i < events.length; ++i) {
-        var selected = ids.has(parseInt(events[i].getAttribute('data-id')))
+        var selected = ids.has(parseInt(events[i].getAttribute('data_id')))
         var input = events[i].querySelector('input');
         input.checked = false;
         if (selected) {
