@@ -6,26 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script type="text/javascript" src="/js/ikterminal.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
-        <noscript>
-            <style>
-                #schedule input, #favtoggle, #favport {
-                    display: none;
-                }
-                #tools {
-                    justify-content: center;
-                }
-            </style>
-        </noscript>
-        <?php if (isset($_GET["hidetools"])): ?>
-        <style>
-            #tools, #schedule input {
-                display: none;
-            }
-            body {
-                font-size: 120%;
-            }
-        </style>
-        <?php endif ?>
     </head>
     <body onload="loader();" id="body">
 
