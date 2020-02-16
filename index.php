@@ -92,10 +92,10 @@
                 <form action="shoutbox.php" method="post" id="shoutboxform">
                     <input type="text" id="shoutboxmessage" name="msg" accesskey="s" placeholder="message" />
                 </form>
+<template id="shoutbox_template">
+    <p><span class="message_box"></span><span class="message"></span></p>
+</template>
                 <div id="shoutbox_container">
-                    <?php foreach ($chat as $line) : list($time, $ip, $msg) = explode(' ', $line, 3) ?>
-                        <p><span class="message_box" style="background-color:#<?= substr(md5($ip), 0, 6); ?>;"></span><span><?= date('d. H:i', $time) ?>:</span> <?= trim($msg); ?></p>
-                    <?php endforeach ?>
                 </div>
             </aside>
         </main>

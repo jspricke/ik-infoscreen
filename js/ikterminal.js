@@ -2,6 +2,17 @@
 
 /** *** Refreshes *** **/
 
+function updateSchoutbox() {
+  fetch('/shoutbox.php').then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    formatShoutbox(json);
+    setTimeout(updateSchoutbox, 5 * 1000);
+  }).catch(function(err) {
+    setTimeout(updateSchoutbox, 5 * 1000);
+  });
+}
+
 const contentFromHTMLById = function(html, id) {
   var dom = document.createElement('html');
   dom.innerHTML = html;
@@ -49,20 +60,30 @@ const submitShoutbox = function(evt) {
 }
 
 const sendShoutboxData = function() {
-  var XHR = new XMLHttpRequest();
-
-  XHR.addEventListener("load", function(event) {
+  fetch('/shoutbox.php', {
+    method: 'POST',
+    body: new FormData(document.getElementById('shoutboxform'))
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
     document.getElementById('shoutboxform').reset();
-    refreshById('shoutbox_container')();
+    formatShoutbox(json);
   });
+}
 
-  XHR.addEventListener("error", function(event) {
-    console.log(event);
+function formatShoutbox(data) {
+  const parent = document.getElementById('shoutbox_container');
+  while (parent.firstChild) {
+    parent.firstChild.remove();
+  }
+
+  var template = document.querySelector('#shoutbox_template');
+  data.forEach(function(line) {
+    var clone = template.content.cloneNode(true);
+    clone.querySelector('.message_box').style.backgroundColor = line[0];
+    clone.querySelector('.message').textContent = line[1] + ': ' + line[2];
+    parent.appendChild(clone);
   });
-
-  XHR.open("POST", "./shoutbox.php");
-
-  XHR.send(new FormData(document.getElementById('shoutboxform')));
 }
 
 
@@ -306,7 +327,7 @@ const loader = function() {
   startTime();
   startIKDay();
   refreshBySchedule('schedule', 60);
-  refreshBySchedule('shoutbox_container', 5);
+  updateSchoutbox();
   if (window.matchMedia('screen and (min-width: 1024px)')) {
     refreshBySchedule('impressions', 20);
   }

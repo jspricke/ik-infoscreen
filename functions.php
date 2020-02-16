@@ -194,25 +194,6 @@ $schedule = add_counts($schedule);
 $schedule = filter_schedule($schedule, $SCHEDULE_DAY);
 
 
-/** Shoutbox **/
-
-function read_shouts() {
-    $chat = file_get_contents('CHAT');
-    $chat = explode(PHP_EOL, $chat);
-    $chat = array_reverse($chat);
-    $chat = preg_replace("~[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]~",
-	    "<a href=\"\\0\">\\0</a>", $chat);
-    $chat = preg_replace("~(?<=^|\s)#\w+\b~",
-	    "<font color=\"green\">\\0</font>", $chat);
-    $chat = preg_replace("~(?<=^|\s)@ ?(\d+\. )?\d+:\d+\b~",
-	    "<font color=\"red\">\\0</font>", $chat);
-    unset($chat[0]);
-    return $chat;
-}
-
-$chat = read_shouts();
-
-
 /** Random impression image **/
 
 function getImagesFromDir($path) {
