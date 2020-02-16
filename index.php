@@ -11,8 +11,8 @@
 
         <header>
             <h1>
-                IK<?= $START_DATE->format('Y'); ?>
-                <small>Day <?= $VIEW_DAY; ?></small>
+                IK<span id="year"></span>
+                <small id="day"></small>
             </h1>
             <h1>
                 <small><a href="/">http://guenne.ik</a></small>

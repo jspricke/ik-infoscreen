@@ -1,5 +1,8 @@
 'use strict';
 
+var start_date = new Date(2020, 2, 13);
+/* end_date = last IK day +1 */
+var end_date = new Date(2020, 2, 21);
 /** *** Refreshes *** **/
 
 function updateSchoutbox() {
@@ -96,6 +99,9 @@ const startTime = function() {
   var m = today.getMinutes();
   var w = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   document.getElementById('time').innerHTML = w[d] + ' ' + padTime(h) + ':' + padTime(m);
+
+  var diff_days = Math.trunc((today.getTime() - start_date.getTime()) / (1000 * 3600 * 24));
+  document.getElementById('day').innerHTML = 'Day' + diff_days;
   setTimeout(startTime, 1000);
 }
 
@@ -104,15 +110,6 @@ const padTime = function(i) {
     i = '0' + i;
   }
   return i;
-}
-
-const startIKDay = function() {
-  var now = new Date();
-  var timeToPastMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5, 0) - now;  // 5 Seconds for time differences
-  setTimeout(function() {
-    refreshById('ikday')();
-    startIKDay();
-  }, timeToPastMidnight);
 }
 
 
@@ -334,7 +331,6 @@ const loader = function() {
 
   // Refresh data
   startTime();
-  startIKDay();
   refreshBySchedule('schedule', 60);
   updateSchoutbox();
   if (window.matchMedia('screen and (min-width: 1024px)')) {
@@ -352,6 +348,7 @@ const loader = function() {
   document.getElementById('export').addEventListener('click', exportFavorites);
   document.getElementById('import').addEventListener('click', importFavorites);
   document.getElementById('clear').addEventListener('click', clearFavorites);
+  document.getElementById('year').innerHTML = start_date.getFullYear();
   window.addEventListener('focus', evt => updateFavorites());
 
   scrollToActive();
