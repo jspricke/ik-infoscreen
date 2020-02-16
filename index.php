@@ -1,5 +1,5 @@
 <?php include('functions.php'); ?><!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Today's IK Schedule</title>
@@ -57,7 +57,7 @@
             <section class="announcements">
                 <h3>Information</h3>
                 <p>Do you have images from IK? Please share with Jochen or Michael.</p>
-                <p>Hate paywalls? Paste the URL into <a href="https://sci-hub.la">sci-hub.la</a>.</p>
+                <p>Hate paywalls? Paste the URL into <a href="https://whereisscihub.now.sh/go">Sci-Hub</a>.</p>
                 <p>Please upload your slides here: <a href="/incoming">http://guenne.ik/incoming</a></p>
             </section>
 
