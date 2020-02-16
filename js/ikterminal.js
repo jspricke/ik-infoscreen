@@ -16,6 +16,17 @@ function updateSchoutbox() {
   });
 }
 
+function updateImpression() {
+  fetch('/impressions.php').then(function(response) {
+    return response.text();
+  }).then(function(text) {
+    document.getElementById('impression').src = text;
+    setTimeout(updateImpression, 20 * 1000);
+  }).catch(function(err) {
+    setTimeout(updateImpression, 20 * 1000);
+  });
+}
+
 const contentFromHTMLById = function(html, id) {
   var dom = document.createElement('html');
   dom.innerHTML = html;
@@ -334,7 +345,7 @@ const loader = function() {
   refreshBySchedule('schedule', 60);
   updateSchoutbox();
   if (window.matchMedia('screen and (min-width: 1024px)')) {
-    refreshBySchedule('impressions', 20);
+    updateImpression();
   }
 
   // Register event listeners

@@ -63,7 +63,7 @@
 
             <section id="impressions">
                 <a href="/images">
-                    <img src="<?= $path . $img ?>" alt="IK Impression" id="impression" />
+                    <img src="thumbs/guenne.svg" alt="IK Impression" id="impression" />
                 </a>
             </section>
 
