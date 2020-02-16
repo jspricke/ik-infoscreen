@@ -3,6 +3,12 @@
 var start_date = new Date(2020, 2, 13);
 /* end_date = last IK day +1 */
 var end_date = new Date(2020, 2, 21);
+var courses;
+var now = new Date();
+  if(now < start_date || now > end_date) {
+    now = new Date(start_date.getTime());
+}
+
 /** *** Refreshes *** **/
 
 function updateSchoutbox() {
@@ -16,6 +22,18 @@ function updateSchoutbox() {
   });
 }
 
+function updateSchedule() {
+  fetch('https://interdisciplinary-college.org/schedule/courses_metadata.php').then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    courses = json.courses;
+    initializeDayView();
+    setTimeout(updateSchedule, 120 * 1000);
+  }).catch(function(err) {
+    setTimeout(updateSchedule, 120 * 1000);
+  });
+}
+
 function updateImpression() {
   fetch('/impressions.php').then(function(response) {
     return response.text();
@@ -25,37 +43,6 @@ function updateImpression() {
   }).catch(function(err) {
     setTimeout(updateImpression, 20 * 1000);
   });
-}
-
-const contentFromHTMLById = function(html, id) {
-  var dom = document.createElement('html');
-  dom.innerHTML = html;
-  return dom.querySelector('#' + id).innerHTML;
-}
-
-// id: #ID value without #
-const refreshById = function(id) {
-  return function () {
-    var XHR = new XMLHttpRequest();
-
-    XHR.addEventListener("load", function(event) {
-      var content = contentFromHTMLById(XHR.responseText, id);
-      document.getElementById(id).innerHTML = content;
-    });
-
-    XHR.addEventListener("error", function(event) {
-      console.log(event);
-    });
-
-    XHR.open("GET", document.URL);
-    XHR.send(null);
-  };
-}
-
-// id: #ID value without #
-// interval: time in seconds to reload
-const refreshBySchedule = function(id, interval) {
-  setInterval(refreshById(id), interval * 1000)
 }
 
 
@@ -219,7 +206,7 @@ const toggleFavoriteVisibility = function() {
 /**
  * Changes the display style of all .event elements inside the #schedule.
  * If the localStorage's courses_visible is true (or null) all events are shown (display: block).
- * Otherwise, only the favorite events are shownn (all others get display: none).
+ * Otherwise, only the favorite events are shown (all others get display: none).
  */
 const applyFavoriteVisibility = function() {
   var ids = getFavorites();
@@ -228,7 +215,7 @@ const applyFavoriteVisibility = function() {
 
   var events = document.getElementById('schedule').getElementsByClassName('event');
   for (var i = 0; i < events.length; ++i) {
-    var selected = ids.has(parseInt(events[i].getAttribute('data_id')))
+    var selected = ids.has(events[i].data_id)
     if (visible | selected) {
       events[i].style.display = 'block';
     } else {
@@ -269,7 +256,7 @@ const updateCheckboxes = function() {
 
   var events = document.getElementById('schedule').getElementsByClassName('event');
   for (var i = 0; i < events.length; ++i) {
-    var selected = ids.has(parseInt(events[i].getAttribute('data_id')))
+    var selected = ids.has(events[i].data_id)
     var input = events[i].querySelector('input');
     input.checked = false;
     if (selected) {
@@ -287,7 +274,7 @@ const addFavoriteEventListeners = function() {
   for (var input of inputs) {
     input.addEventListener('click', evt => {
       evt.preventDefault();
-      toggleFavorite(parseInt(evt.target.value));
+      toggleFavorite(evt.target.parentElement.parentElement.data_id);
       updateFavorites();
     });
   }
@@ -318,7 +305,7 @@ const exportFavorites = function() {
 const importFavorites = function() {
   var favorites = prompt('Insert your exported favorites. Leave blank to keep your current favorites.', '');
   if (favorites) {
-    var ids = new Set(favorites.split(',').map(i => parseInt(i)));
+    var ids = new Set(favorites.split(','));
     setFavorites(ids);
     updateFavorites();
   }
@@ -336,23 +323,16 @@ const hideTools = function() {
 /** *** Entry point *** **/
 
 const loader = function() {
-  addFavoriteEventListeners();
-  updateFavorites();
   hideTools();
 
   // Refresh data
   startTime();
-  refreshBySchedule('schedule', 60);
+  updateSchedule();
   updateSchoutbox();
   if (window.matchMedia('screen and (min-width: 1024px)')) {
     updateImpression();
   }
 
-  // Register event listeners
-  new MutationObserver(() => {
-    addFavoriteEventListeners();
-    updateFavorites();
-  }).observe(document.getElementById('schedule'), {childList: true} );
   document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
   document.getElementById('shoutboxform').addEventListener('submit', submitShoutbox);
   document.getElementById('favtoggler').addEventListener('click', toggleFavoriteVisibility);
@@ -360,7 +340,6 @@ const loader = function() {
   document.getElementById('import').addEventListener('click', importFavorites);
   document.getElementById('clear').addEventListener('click', clearFavorites);
   document.getElementById('year').innerHTML = start_date.getFullYear();
-  window.addEventListener('focus', evt => updateFavorites());
 
   scrollToActive();
 };

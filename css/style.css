@@ -254,16 +254,19 @@ a:hover {
 
 
 /* Schedule children */
-#timeslot_active > h3 {
+.timeslot_active > h3 {
     background-color: #48BB78;
+}
+
+.event {
+    background-color: #fff;
+    border-radius: 0.25em;
+    margin-top: 0.2em;
 }
 
 .event a {  /* Make events a grid. */
     display: grid;
-    grid-template-columns: 6em auto;
-    margin-top: 0.2em;
-    background-color: #fff;
-    border-radius: 0.25em;
+    grid-template-columns: 6em auto 20px;
 }
 
 .active a {
@@ -271,36 +274,43 @@ a:hover {
 }
 
 .event input {
-    float: right;
+    justify-self: end;
+    width: 20px;
+    height: 20px;
 }
 
-.event a:hover {
-    text-decoration: none;
+.event:hover {
     background: #cfcfcf;
-    border-radius: 0.5em;
+}
+
+.lecture_url:hover {
+    text-decoration: none;
 }
 
 .event a span {
     padding: 0.3em;
 }
 
-.event a span.lecture_id {
+.lecture_id {
     border-radius: 0.25em 0 0 0;
     color: #fff;
 }
 
-.event a span.location {
+.location {
     border-radius: 0 0 0 0.25em;
     color: #fff;
+    grid-row: 2;
 }
 
-.event a span.lecturer {
+.lecturer {
     font-weight: bold;
     padding: 0.6em 0.3em 0.3em 0.3em;
 }
 
-.event a span.title {
+.title {
     padding: 0 0.3em 0.6em 0.3em;
+    grid-column-start: 2;
+    grid-column-end: 4;
 }
 
 .announcements p {
@@ -345,3 +355,69 @@ a:hover {
 #impressions {
     text-align: center;
 }
+
+/* taken from https://stackoverflow.com/a/12224359 */
+#lecture_id_0 { background-color: #000000; }
+#lecture_id_1 { background-color: #00FF00; color: black; }
+#lecture_id_2 { background-color: #0000FF; }
+#lecture_id_3 { background-color: #FF0000; }
+#lecture_id_4 { background-color: #01FFFE; color: black; }
+#lecture_id_5 { background-color: #FFA6FE; color: black; }
+#lecture_id_6 { background-color: #FFDB66; color: black; }
+#lecture_id_7 { background-color: #006401; }
+#lecture_id_8 { background-color: #010067; }
+#lecture_id_9 { background-color: #95003A; }
+#lecture_id_10 { background-color: #007DB5; }
+#lecture_id_11 { background-color: #FF00F6; }
+#lecture_id_12 { background-color: #FFEEE8; color: black; }
+#lecture_id_13 { background-color: #774D00; }
+#lecture_id_14 { background-color: #90FB92; color: black; }
+#lecture_id_15 { background-color: #0076FF; }
+#lecture_id_16 { background-color: #D5FF00; color: black; }
+#lecture_id_17 { background-color: #FF937E; color: black; }
+#lecture_id_18 { background-color: #6A826C; }
+#lecture_id_19 { background-color: #FF029D; }
+#lecture_id_20 { background-color: #FE8900; color: black; }
+#lecture_id_21 { background-color: #7A4782; }
+#lecture_id_22 { background-color: #7E2DD2; }
+#lecture_id_23 { background-color: #85A900; color: black; }
+#lecture_id_24 { background-color: #FF0056; }
+#lecture_id_25 { background-color: #A42400; }
+#lecture_id_26 { background-color: #00AE7E; }
+#lecture_id_27 { background-color: #683D3B; }
+#lecture_id_28 { background-color: #BDC6FF; color: black; }
+#lecture_id_29 { background-color: #263400; }
+#lecture_id_30 { background-color: #BDD393; color: black; }
+#lecture_id_31 { background-color: #00B917; }
+#lecture_id_32 { background-color: #9E008E; }
+#lecture_id_33 { background-color: #001544; }
+#lecture_id_34 { background-color: #C28C9F; color: black; }
+#lecture_id_35 { background-color: #FF74A3; color: black; }
+#lecture_id_36 { background-color: #01D0FF; color: black; }
+#lecture_id_37 { background-color: #004754; }
+#lecture_id_38 { background-color: #E56FFE; color: black; }
+#lecture_id_39 { background-color: #788231; }
+#lecture_id_40 { background-color: #0E4CA1; }
+#lecture_id_41 { background-color: #91D0CB; color: black; }
+#lecture_id_42 { background-color: #BE9970; color: black; }
+#lecture_id_43 { background-color: #968AE8; color: black; }
+#lecture_id_44 { background-color: #BB8800; color: black; }
+#lecture_id_45 { background-color: #43002C; }
+#lecture_id_46 { background-color: #DEFF74; color: black; }
+#lecture_id_47 { background-color: #00FFC6; color: black; }
+#lecture_id_48 { background-color: #FFE502; color: black; }
+#lecture_id_49 { background-color: #620E00; }
+#lecture_id_50 { background-color: #008F9C; }
+#lecture_id_51 { background-color: #98FF52; color: black; }
+#lecture_id_52 { background-color: #7544B1; }
+#lecture_id_53 { background-color: #B500FF; }
+#lecture_id_54 { background-color: #00FF78; color: black; }
+#lecture_id_55 { background-color: #FF6E41; color: black; }
+#lecture_id_56 { background-color: #005F39; }
+#lecture_id_57 { background-color: #6B6882; }
+#lecture_id_58 { background-color: #5FAD4E; color: black; }
+#lecture_id_59 { background-color: #A75740; }
+#lecture_id_60 { background-color: #A5FFD2; color: black; }
+#lecture_id_61 { background-color: #FFB167; color: black; }
+#lecture_id_62 { background-color: #009BFF; }
+#lecture_id_63 { background-color: #E85EBE; color: black; }

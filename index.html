@@ -1,9 +1,11 @@
-<?php include('functions.php'); ?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Today's IK Schedule</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script type="text/javascript" src="https://interdisciplinary-college.org/schedule/schedule_functions.js"></script>
+        <script type="text/javascript" src="/js/schedule_view.js"></script>
         <script type="text/javascript" src="/js/ikterminal.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
@@ -22,12 +24,34 @@
 
         <main>
             <section id="schedule">
-                <?php foreach ($TIMES as $start_time => $end_time) : ?>
-                    <div class="timeslot" <?= is_active_timeslot($NOW, $start_time, $end_time) ? 'id="timeslot_active"' : '' ?>>
-                        <h3><?= $start_time . ($end_time !== '' ? ' &ndash; ' . $end_time : '') ?></h3>
-                        <?php foreach ($schedule as $event) { event_group_list_item($event, $start_time, $EVENING_DATE, $NOW); } ?>
-                    </div>
-                <?php endforeach ?>
+
+<template id="lecture_template">
+    <div class="event">
+        <a class="lecture_url">
+            <span class="lecture_id"></span>
+            <span class="lecturer"></span>
+            <input type="checkbox" />
+            <span class="location"></span>
+            <span class="title"></span>
+        </a>
+    </div>
+</template>
+
+	<div class="timeslot" id="morning-slot">
+		<h3>09:00-10:30</h3>
+	</div>
+	<div class="timeslot" id="noon-slot">
+		<h3>11:00-12:30</h3>
+	</div>
+	<div class="timeslot" id="afternoon-slot">
+		<h3>14:30-16:00</h3>
+	</div>
+	<div class="timeslot" id="late-afternoon-slot">
+		<h3>16:30-18:30</h3>
+	</div>
+	<div class="timeslot" id="evening-slot">
+		<h3>Evening</h3>
+	</div>
             </section>
 
             <section id="tools">
@@ -36,9 +60,9 @@
                 </div>
 
                 <div id="daytoggle">
-                <?php for ($i = 1; $i <= $IK_DAYS; ++$i)  {
-                    create_swapDay_button($i);
-                } ?>
+<button onclick="prevDay()" id="prevDayButton">previous day</button>
+<span id="today"></span>
+<button onclick="nextDay()" id="nextDayButton">next day</button>
                 </div>
 
                 <div id="favport">
