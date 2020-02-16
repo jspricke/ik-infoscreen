@@ -1,0 +1,592 @@
+/* These are the custom css styles for the wordpress installation */
+
+/* global styles */
+
+body {
+	line-height: 2.0;
+}
+
+body, .site-header {
+	background-color: #1D59E1;
+}
+
+.custom-header-media::before {
+    background: -moz-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.0) 100%);
+    background: -webkit-linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.0) 100%);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0.0) 100%);
+}
+
+.site-branding {
+	padding:0;
+}
+
+body.has-header-video .site-title a, body.has-header-image .site-title a {
+	color: transparent;
+}
+
+body:not(.title-tagline-hidden) .site-branding-text {
+	display:block;
+}
+
+.custom-header-media {
+  display: none;
+}
+
+.home .custom-header-media {
+  display: inherit;
+}
+
+.site-title a {
+background-image: url(https://interdisciplinary-college.org/wp-content/uploads/2019/07/headline.png);
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: center;
+color: transparent;
+width: 100%;
+max-width:80vw;
+margin:0 auto;
+display:block;
+font-size:46px;
+height: 88px;
+}
+
+@media screen and (max-width: 800px) {
+.home .custom-header-media {
+width:30vw;
+	display: none;
+}
+	
+	.site-title a {
+background-image: url(https://interdisciplinary-college.org/wp-content/uploads/2019/07/headline.png);
+background-size: 100%;
+background-repeat: no-repeat;
+background-position: center;
+color: transparent;
+width: 100%;
+max-width:95vw;
+margin:0 auto 2em;
+display:block;
+font-size:46px;
+height: 88px;
+}
+	
+	.has-header-image.twentyseventeen-front-page .custom-header, .has-header-video.twentyseventeen-front-page .custom-header, .has-header-image.home.blog .custom-header, .has-header-video.home.blog .custom-header {
+    height: auto;
+	}
+	
+	.has-header-image .custom-header-media img, .has-header-video .custom-header-media video, .has-header-video .custom-header-media iframe {
+		min-height: 0;
+		
+	}
+}
+
+
+@media screen and (min-width: 800px) {
+
+body, .site-header, .navigation-top {
+	background-color: #1D59E1;
+}	
+	
+.navigation-top .current-menu-item > a, .navigation-top .current_page_item > a {
+    color: white;
+}
+
+.site-header .navigation-top .menu-scroll-down {
+    color: white;
+}
+
+.navigation-top a {
+  color: #93CFF0;
+}
+
+.navigation-top a:hover {
+  color: white;
+}
+
+.navigation-top {
+	border:none;
+}
+
+
+.main-navigation ul {
+	text-align:center;
+}
+
+
+
+.feature-box {
+	margin:0em -.2em 2em;
+	font-size:1.2em;
+	padding:0.8em 0.2em;
+	color:black;
+	border-bottom:0px solid #93CFF0;
+}
+
+.feature-box a {
+
+
+}
+
+a.button {
+	box-shadow:0px 0px 0px #666;
+	display:inline-block;
+	text-decoration:none;
+	background-color:#1D59E1;
+	color:#9CC4E3;
+	font-size:0.8em;
+	border-radius:1em;
+	padding:0.2em 0.95em 0.2em;
+  font-weight:600;
+	margin:0 0.5em;
+}
+
+a.button:hover {
+	box-shadow:1px 2px 5px #999;
+	color:white;
+}
+	
+}
+
+div.entry-meta {
+	display:none;
+}
+
+.chairs {
+  line-height: 1.3em;
+	font-size:0.9em
+}
+
+.chairs ul {
+    display: block;
+    margin: 0;
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    list-style: none;
+}
+
+.chairs li {
+    display: block;
+    margin-top: 0;
+    padding: 5px;
+    list-style: none;
+		text-align:center;
+}
+
+.chairs img {
+    width: 140px;
+    height: 140px;
+		max-width: 140px;
+		max-height:140px;
+    border-radius: 50%;
+    margin: 0em auto;
+}
+
+.chairs figure {
+	margin:0;
+}
+
+/* end of rsl edits */
+
+/*** Font management ***/
+
+/* LibreFranklin regular */
+ 
+@font-face {
+	font-family: 'Libre Franklin';
+	src: url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.eot');
+	src: url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.eot?#iefix') format('embedded-opentype'),
+		 url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.woff2') format('woff2'),
+		 url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.woff') format('woff'),
+		 url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.ttf') format('truetype'),
+		 url('/fonts/LibreFranklin-Regular/LibreFranklin-Regular.svg#LibreFranklin_regularregular') format('svg');
+	font-weight: 400;
+	font-style: normal;
+}
+ 
+/* LibreFranklin italic */
+ 
+@font-face {
+	font-family: 'Libre Franklin';
+	src: url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.eot');
+	src: url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.eot?#iefix') format('embedded-opentype'),
+		 url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.woff2') format('woff2'),
+		 url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.woff') format('woff'),
+		 url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.ttf') format('truetype'),
+		 url('/fonts/LibreFranklin-Italic/LibreFranklin-Italic.svg#LibreFranklin_regularitalic') format('svg');
+	font-weight: 400;
+	font-style: italic;
+}
+ 
+/* LibreFranklin bold */
+ 
+@font-face {
+	font-family: 'Libre Franklin';
+	src: url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.eot');
+	src: url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.eot?#iefix') format('embedded-opentype'),
+		 url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.woff2') format('woff2'),
+		 url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.woff') format('woff'),
+		 url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.ttf') format('truetype'),
+		 url('/fonts/LibreFranklin-Bold/LibreFranklin-Bold.svg#LibreFranklinbold') format('svg');
+	font-weight: 700;
+	font-style: normal;
+}
+ 
+/* LibreFranklin light */
+ 
+@font-face {
+	font-family: 'Libre Franklin';
+	src: url('/fonts/LibreFranklin-Light/LibreFranklin-Light.eot');
+	src: url('/fonts/LibreFranklin-Light/LibreFranklin-Light.eot?#iefix') format('embedded-opentype'),
+		 url('/fonts/LibreFranklin-Light/LibreFranklin-Light.woff2') format('woff2'),
+		 url('/fonts/LibreFranklin-Light/LibreFranklin-Light.woff') format('woff'),
+		 url('/fonts/LibreFranklin-Light/LibreFranklin-Light.ttf') format('truetype'),
+		 url('/fonts/LibreFranklin-Light/LibreFranklin-Light.svg#LibreFranklinlight') format('svg');
+	font-weight: 300;
+	font-style: normal;
+}
+
+/*** removal of footer ***/
+
+div.site-info {
+	display:none;
+}
+
+/*** Smaller margin in page headers ***/
+
+.entry-header {
+	margin-bottom:1em !important;
+}
+
+/*** Anchor offset ***/
+
+:target:before {
+	content:"";
+	display:block;
+	height:50px; /* fixed header height*/
+}
+
+/*** Offset for images in course descriptions ***/
+
+div.wp-block-image img {
+		padding-top:15px;
+}
+
+/*** Registration Form layout **/
+
+#registration-button {
+	display:grid;
+	align:center;
+	text-align:center;
+	font-size:large;
+}
+
+#registration_form div.table {
+	display: table;
+	padding-bottom:20px;
+}
+#registration_form div.table p { display: table-row;  }
+#registration_form div.table p.table-newblock label { padding-top: 50px; }
+#registration_form label {
+	display: table-cell;
+	padding-right:10px;
+}
+#registration_form input {
+	display: table-cell;
+}
+#registration_form sup a {
+	box-shadow:none;
+}
+#registration_form #no, #registration_form #billing_no {
+	width:60px;
+}
+#registration_form .no_label {
+	padding-left:10px;
+}
+#registration_form #gi_number {
+	width:100px;
+}
+#registration_form #credit_card_participant {
+	width:300px;
+}
+#registration_form label {
+	font-weight:400;
+}
+
+/***** Schedule layout *****/
+
+/* remove the default max width limitation of wordpress */
+body.page-id-87 div.wrap, body.page-id-87 #primary,body.page-id-105 div.wrap, body.page-id-105 #primary {
+	max-width: unset !important;
+}
+
+/* Remove title display for schedules */
+body.page-id-87 .entry-header, body.page-id-105 .entry-header { display: none; }
+
+/* Schedule parent style, including the buttons */
+#schedule-parent { }
+
+/* For high resolutions, we increase the font size */
+@media only screen and (min-resolution:200dpi) and (max-resolution:300dpi) {
+	#schedule-parent { font-size: 18px; }
+}
+@media only screen and (min-resolution:300dpi) {
+	#schedule-parent { font-size: 21px; }
+}
+
+/* link styling */ 
+#schedule-parent a { text-decoration: none; color: black; box-shadow: none; }
+
+/* map styling */
+#schedule-parent img.map {
+	display:none;
+	position:absolute;
+	background-color:white;
+}
+
+#schedule-parent span.location:hover + img.map {
+	display:block;
+}
+
+/*****************
+* Daily Schedule *
+*****************/
+
+/* General daily schedule layout */
+#schedule-daily {
+	display: grid;
+	grid-column-gap: 0.5em;
+	grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+#schedule-daily .session.active div {
+    box-shadow: 0 0 8px #000000;
+}
+
+/* We use only two column whenever the screen is too
+small to fit five columns of 8 cm each, i.e. if the
+screen width divided by 5*3.15 inches is bigger than
+the resolution of the screen in dpi */
+@media only screen and (max-width: 1400px),
+	only screen and (min-resolution: 105dpi) and (max-width: 1680px),
+	only screen and (min-resolution: 121dpi) and (max-width: 1920px),
+	only screen and (min-resolution: 130dpi) and (max-width: 2048px),
+	only screen and (min-resolution: 162dpi) and (max-width: 2560px),
+	only screen and (min-resolution: 187dpi) and (max-width: 2960px),
+	only screen and (min-resolution: 314dpi) and (max-width: 4960px) {
+	#schedule-daily { grid-template-columns: 50% 50%; }
+}
+/* We use only a single column whenever the screen is too
+small to fit second columns of 8 cm each, i.e. if the
+screen width divided by 2*3.15 inches is bigger than
+the resolution of the screen in dpi */
+@media only screen and (max-width: 1024px),
+	only screen and (min-resolution: 266dpi) and (max-width: 1680px),
+	only screen and (min-resolution: 304dpi) and (max-width: 1920px),
+	only screen and (min-resolution: 325dpi) and (max-width: 2048px),
+	only screen and (min-resolution: 406dpi) and (max-width: 2560px),
+	only screen and (min-resolution: 469dpi) and (max-width: 2960px),
+	only screen and (min-resolution: 787dpi) and (max-width: 4960px) {
+	#schedule-daily { grid-template-columns: 100%; }
+}
+
+/* Date layout */
+#today { font-weight: bold; }
+
+/* Styling for time slot headers */
+#schedule-daily .timeslot > h3 { padding-left: 0.5em; background-color: #d3d7cf }
+
+/* Layout within a single session entry */
+#schedule-daily .session {
+	display: grid;
+	grid-template-columns: 65px auto;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-color: white;
+}
+
+/* Layout within the course ID box */
+#schedule-daily div.course-id {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+/* Layout within the course title box */
+#schedule-daily div.course-title {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+/******************
+* Weekly Schedule *
+******************/
+
+#schedule-week-table {
+	width: 2400px;
+	table-layout: fixed;
+}
+
+#schedule-week col { width: 60px; }
+#schedule-week col.course-title { width: 300px; }
+
+#schedule-week td,#schedule-week th {
+	padding: 0.2em;
+	border-color: white;
+	border-width: thin;
+	border-style: solid;
+	text-align: center;
+}
+
+/* For high resolutions, we increase the padding and the column width */
+@media only screen and (min-resolution:200dpi) and (max-resolution:300dpi) {
+	#schedule-week td,#schedule-week th { padding: 0.5em; }
+	#schedule-week col { width: 70px; }
+	#schedule-week col.course-title { width: 400px; }
+}
+@media only screen and (min-resolution:300dpi) {
+	#schedule-week td,#schedule-week th { padding: 1em; }
+	#schedule-week col { width: 100px; }
+	#schedule-week col.course-title { width: 600px; }
+}
+
+/* Styling for time slot headers */
+#schedule-week #filler {
+	background-color: white;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 74px;
+	left: -8px;
+	z-index: 3;
+	background-clip: padding-box;
+}
+
+#schedule-week th.day-header {
+	background-color: #555753;
+	color: white;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 80px;
+	z-index: 2;
+	border-right-style: solid !important;
+	border-right-width: medium !important;
+	background-clip: padding-box;
+}
+#schedule-week .timeslot-header {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 115px;
+	z-index: 2;
+	border-bottom-style: solid !important;
+	border-bottom-width: medium !important;
+	background-clip: padding-box;
+}
+
+#schedule-week .morning-slot {
+	background-color: #d3d7cf;
+}
+
+#schedule-week .noon-slot {
+	background-color: #eeeeec;
+}
+
+#schedule-week .afternoon-slot {
+	background-color: #d3d7cf;
+}
+
+#schedule-week .late-afternoon-slot {
+	background-color: #eeeeec;
+}
+
+#schedule-week .evening-slot {
+	background-color: #d3d7cf;
+	border-right-style: solid !important;
+	border-right-width: medium !important;
+}
+
+#schedule-week td:last-child {
+	border-right-style: solid !important;
+	border-right-width: medium !important;
+}
+
+/* Layout for the course ID table cell */
+#schedule-week td.course-id {
+	position: -webkit-sticky;
+	position: sticky;
+	left: 0;
+	background-clip: padding-box;
+}
+
+/* Layout for the course title table cell */
+
+#schedule-week td.course-title {
+	position: -webkit-sticky;
+	position: sticky;
+	z-index: 1;
+	left: 52px;
+	border-right-style: solid !important;
+	border-right-width: medium !important;
+	font-size: 14px;
+	text-align: left;
+	background-clip: padding-box;
+}
+
+/* For high resolutions, we increase the title font size */
+@media only screen and (min-resolution:200dpi) and (max-resolution:300dpi) {
+	#schedule-week td.course-title { font-size: 16px; }
+}
+@media only screen and (min-resolution:300dpi) {
+	#schedule-week td.course-title { font-size: 18px; }
+}
+
+/* Layout for time slot boxes */
+#schedule-week td.slot-box {
+	text-align: center;
+}
+
+#schedule-week td.rowspan {
+	writing-mode: vertical-rl;
+	padding-left: 15px !important;
+}
+
+/****************
+* Shared Styles *
+****************/
+
+#schedule-daily div.course-id.bc,#schedule-week .course-id.bc,#schedule-week .slot-box.bc { background-color: #009939; }
+#schedule-daily div.course-id.mc,#schedule-week .course-id.mc,#schedule-week .slot-box.mc { background-color: #e21317; }
+#schedule-daily div.course-id.sc,#schedule-week .course-id.sc,#schedule-week .slot-box.sc { background-color: #f7a70e; }
+#schedule-daily div.course-id.pc,#schedule-week .course-id.pc,#schedule-week .slot-box.pc { background-color: #1d8ece; }
+#schedule-daily div.course-id.prc,#schedule-week .course-id.prc,#schedule-week .slot-box.prc { background-color: #1d8ece; }
+#schedule-daily div.course-id.et,#schedule-week .course-id.et,#schedule-week .slot-box.et { background-color: #674ea7; }
+#schedule-daily div.course-id.rc,#schedule-week .course-id.rc,#schedule-week .slot-box.rc { background-color: #674ea7; }
+#schedule-daily div.course-id.evnt,#schedule-week .course-id.evnt,#schedule-week .slot-box.evnt { background-color: #674ea7; }
+
+/* Layout within the course title box */
+#schedule-daily div.course-title {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+#schedule-daily .course-title.bc,#schedule-week .course-title.bc { background-color: #d9ead3 }
+#schedule-daily .course-title.mc,#schedule-week .course-title.mc { background-color: #f4cccc }
+#schedule-daily .course-title.sc,#schedule-week .course-title.sc { background-color: #fff2cc }
+#schedule-daily .course-title.pc,#schedule-week .course-title.pc { background-color: #d0e0e3 }
+#schedule-daily .course-title.prc,#schedule-week .course-title.prc { background-color: #d0e0e3 }
+#schedule-daily .course-title.et,#schedule-week .course-title.et { background-color: #d9d2e9 }
+#schedule-daily .course-title.rc,#schedule-week .course-title.rc { background-color: #d9d2e9 }
+#schedule-daily .course-title.evnt,#schedule-week .course-title.evnt { background-color: #d9d2e9 }
+
+/* Layout for the course ID span */
+#schedule-daily span.course-id,#schedule-week span.course-id { font-weight: bold; }
+
+/* Layout for the course title span */
+#schedule-daily span.course-title,#schedule-week span.course-title { font-weight: bold; }
