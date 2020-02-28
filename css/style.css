@@ -31,16 +31,11 @@ img {  /* Never stretch the layout because of the impression image. */
 #schedule {
     display: grid;
     grid-row-gap: 0.75em;
-}
+    background-color: #E2E8F0;
+    padding-bottom: 0.3em;
+    margin-right: 0.3em;
+    border-radius: 0.3em;
 
-.event a {  /* Make events a grid. */
-    display: grid;
-    grid-template-columns: 6em auto;
-    margin-top: 0.1em;
-}
-
-.event input {
-    float: right;
 }
 
 footer {
@@ -48,7 +43,7 @@ footer {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #efefef;
+    background-color: #E2E8F0;
 }
 
 footer ul {
@@ -116,7 +111,7 @@ footer ul {
 
     #schedule { /* 2-column schedule */
         grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 0.15em;
+        grid-column-gap: 0.3em;
     }
 
     #tools {
@@ -260,10 +255,24 @@ a:hover {
 
 
 /* Schedule children */
+#timeslot_active > h3 {
+    background-color: #48BB78;
+}
 
-#timeslot_active, .event.active {
-    border-radius: 0.5em;
-    background-color: #e0f2f7;
+.event a {  /* Make events a grid. */
+    display: grid;
+    grid-template-columns: 6em auto;
+    margin-top: 0.2em;
+    background-color: #fff;
+    border-radius: 0.25em;
+}
+
+.active a {
+    background-color: #F0FFF4;
+}
+
+.event input {
+    float: right;
 }
 
 .event a:hover {
@@ -277,17 +286,22 @@ a:hover {
 }
 
 .event a span.lecture_id {
-    border-radius: 0.25em 0.25em 0 0;
+    border-radius: 0.25em 0 0 0;
     color: #fff;
 }
 
 .event a span.location {
-    border-radius: 0 0 0.25em 0.25em;
+    border-radius: 0 0 0 0.25em;
     color: #fff;
 }
 
 .event a span.lecturer {
     font-weight: bold;
+    padding: 0.6em 0.3em 0.3em 0.3em;
+}
+
+.event a span.title {
+    padding: 0 0.3em 0.6em 0.3em;
 }
 
 .announcements p {
@@ -301,7 +315,7 @@ a:hover {
 }
 
 #shoutbox {
-    background-color: #efefef;
+    background-color: #E2E8F0;
     border-radius: 0.5em;
 }
 
