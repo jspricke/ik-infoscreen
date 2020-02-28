@@ -1,15 +1,5 @@
 'use strict';
 
-		// initialize the day view for the current conference day
-		async function initializeDayView() {
-			// load all course sessions and wait for the results
-			await load_all_sessions_from_ical();
-			// sort all sessions
-			sort_all_sessions();
-			// build the actual day view for the current day
-			dayView(now);
-		}
-
 		// this function moves the day view one day forward
 		function nextDay() {
 			now.setDate(now.getDate() + 1);
@@ -64,6 +54,11 @@
  *         shedule_data.js for details on the format.
  */
 function dayView(date) {
+	if(!courses || !sessions)
+		return;
+	merge_courses_sessions(sessions);
+	sort_all_sessions();
+
 	// remove all current session content from the view
 	{
 		var slots = ["morning", "noon", "afternoon", "late-afternoon", "evening"];

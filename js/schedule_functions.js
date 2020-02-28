@@ -4,6 +4,34 @@
 // start_date - start date of the conference in the format "YYYY-MM-DD"
 // end_date - end date of the conference in the format "YYYY-MM-DD"
 
+async function merge_courses_sessions(sessions) {
+	// ensure that all courses have a sessions attribute
+	for(var c = 0; c < courses.length; c++) {
+		var course = courses[c];
+		course.sessions = [];
+	}
+		// build a dictionary of course identifiers to courses for easier
+		// access
+		var course_dict = {};
+		for(var c = 0; c < courses.length; c++) {
+			var course = courses[c];
+			course_dict[course.identifier] = course;
+		}
+		// sort the sessions into the correct courses by means of the
+		// course_id attribute
+		for(var s = 0; s < sessions.length; s++) {
+			var session = sessions[s];
+			// don't use the current session if it belongs to no course
+			// or if this course is not listed
+			if(!('course_id' in session) || !(session.course_id in course_dict)) {
+				continue;
+			}
+			// otherwise, append it to the course
+			var course = course_dict[session.course_id];
+			course.sessions.push(session);
+		}
+}
+
 /**
  * This function returns an integer that indicates the
  * chronological order of the given time slot string.

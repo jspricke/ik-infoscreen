@@ -4,6 +4,7 @@ var start_date = new Date(2020, 2, 13);
 /* end_date = last IK day +1 */
 var end_date = new Date(2020, 2, 21);
 var courses;
+var sessions;
 var now = new Date();
   if(now < start_date || now > end_date) {
     now = new Date(start_date.getTime());
@@ -11,37 +12,34 @@ var now = new Date();
 
 /** *** Refreshes *** **/
 
-function updateSchoutbox() {
-  fetch('/shoutbox.php').then(function(response) {
-    return response.json();
-  }).then(function(json) {
-    formatShoutbox(json);
-    setTimeout(updateSchoutbox, 5 * 1000);
+function updateGet(url, time, func) {
+  fetch(url).then(function(response) {
+    if (response) {
+      func(response);
+    }
+    setTimeout(updateGet, time, url, time, func);
   }).catch(function(err) {
-    setTimeout(updateSchoutbox, 5 * 1000);
+    setTimeout(updateGet, time, url, time, func);
   });
 }
 
-function updateSchedule() {
-  fetch('https://interdisciplinary-college.org/schedule/courses_metadata.php').then(function(response) {
-    return response.json();
-  }).then(function(json) {
-    courses = json.courses;
-    initializeDayView();
-    setTimeout(updateSchedule, 120 * 1000);
-  }).catch(function(err) {
-    setTimeout(updateSchedule, 120 * 1000);
+function updateSchedule(response) {
+  response.json().then(function(data) {
+    courses = data.courses;
+    dayView(now);
   });
 }
 
-function updateImpression() {
-  fetch('/impressions.php').then(function(response) {
-    return response.text();
-  }).then(function(text) {
-    document.getElementById('impression').src = text;
-    setTimeout(updateImpression, 20 * 1000);
-  }).catch(function(err) {
-    setTimeout(updateImpression, 20 * 1000);
+function read_ical_from_url(response) {
+  response.text().then(function(data) {
+    sessions = read_ical_data(data);
+    dayView(now);
+  });
+}
+
+function updateImpression(response) {
+  response.text().then(function(data) {
+    document.getElementById('impression').src = data;
   });
 }
 
@@ -65,25 +63,25 @@ const sendShoutboxData = function() {
     method: 'POST',
     body: new FormData(document.getElementById('shoutboxform'))
   }).then(function(response) {
-    return response.json();
-  }).then(function(json) {
     document.getElementById('shoutboxform').reset();
-    formatShoutbox(json);
+    formatShoutbox(response);
   });
 }
 
-function formatShoutbox(data) {
-  const parent = document.getElementById('shoutbox_container');
-  while (parent.firstChild) {
-    parent.firstChild.remove();
-  }
+function formatShoutbox(response) {
+  response.json().then(function(data) {
+    const parent = document.getElementById('shoutbox_container');
+    while (parent.firstChild) {
+      parent.firstChild.remove();
+    }
 
-  var template = document.querySelector('#shoutbox_template');
-  data.forEach(function(line) {
-    var clone = template.content.cloneNode(true);
-    clone.querySelector('.message_box').style.backgroundColor = line[0];
-    clone.querySelector('.message').textContent = line[1] + ': ' + line[2];
-    parent.appendChild(clone);
+    var template = document.querySelector('#shoutbox_template');
+    data.forEach(function(line) {
+      var clone = template.content.cloneNode(true);
+      clone.querySelector('.message_box').style.backgroundColor = line[0];
+      clone.querySelector('.message').textContent = line[1] + ': ' + line[2];
+      parent.appendChild(clone);
+    });
   });
 }
 
@@ -327,10 +325,11 @@ const loader = function() {
 
   // Refresh data
   startTime();
-  updateSchedule();
-  updateSchoutbox();
+  updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 1000, updateSchedule);
+  updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 1000, read_ical_from_url);
+  updateGet(`${window.location.origin}/shoutbox.php`, 5 * 1000, formatShoutbox);
   if (window.matchMedia('screen and (min-width: 1024px)')) {
-    updateImpression();
+    updateGet(`${window.location.origin}/impressions.php`, 20 * 1000, updateImpression);
   }
 
   document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
