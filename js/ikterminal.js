@@ -13,6 +13,14 @@ var now = new Date();
 /** *** Refreshes *** **/
 
 function updateGet(url, time, func) {
+  if ('caches' in window) {
+    caches.match(url).then(function(response) {
+      if (response) {
+        func(response);
+      }
+    });
+  }
+
   fetch(url).then(function(response) {
     if (response) {
       func(response);
@@ -321,6 +329,11 @@ const hideTools = function() {
 /** *** Entry point *** **/
 
 const loader = function() {
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
+
   hideTools();
 
   // Refresh data
