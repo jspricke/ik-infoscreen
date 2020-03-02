@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>IK Schedule</title>
 	<!-- load stylesheet -->
-	<link rel="stylesheet" href="style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/css/week.css">
 	<style>
 		body { font-family: sans-serif; background-color: #ffffff; }
 		#schedule-parent { padding-top: 100px; }
 	</style>
-	<!-- load schedule data -->
-	<script type="text/javascript" src="schedule_data_offline.js"></script>
 	<!-- load schedule functions -->
-	<script type="text/javascript" src="schedule_view.js"></script>
-	<script type="text/javascript" src="schedule_functions.js"></script>
+	<script type="text/javascript" src="/js/schedule_functions.js"></script>
+	<script type="text/javascript" src="/js/schedule_week.js"></script>
+	<script type="text/javascript" src="/js/ikterminal.js"></script>
 	<script type="text/javascript">
-		async function initialize() {
-			// load all course sessions and wait for the results
-			await load_all_sessions_from_ical();
-			// sort all sessions
-			sort_all_sessions();
-			// then, build the week view
+	function updateScheduleWeek(response) {
+		response.json().then(function(data) {
+			courses = data.courses;
 			weekView();
-		}
+		});
+	}
+
+	function read_ical_from_url_week(response) {
+		response.text().then(function(data) {
+			sessions = read_ical_data(data);
+			weekView();
+		});
+	}
+
+	function initialize() {
+		updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 1000, updateScheduleWeek);
+		updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 1000, read_ical_from_url_week);
+	}
 	</script>
 </head>
 <body onload="initialize();">

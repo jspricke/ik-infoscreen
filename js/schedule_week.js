@@ -210,6 +210,11 @@ function dayView(date) {
  */
 function weekView() {
 
+	if(!courses || !sessions)
+		return;
+	merge_courses_sessions(sessions);
+	sort_all_sessions();
+
 	// as a preparation, generate a list of all time slots
 	// in the conference, ordered according to days
 	var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -401,7 +406,7 @@ function weekView() {
 						var lowercase_location = course.sessions[se].location.toLowerCase()
 						if(lowercase_location.startsWith('h1') || lowercase_location.startsWith('h2') || lowercase_location.startsWith('h3') || lowercase_location.startsWith('h4') || lowercase_location.startsWith('f1') || lowercase_location.startsWith('f2')) {
 							var map = new_child_with_class("img", "map", slot_td);
-							map.setAttribute("src", "../../schedule/lecture_rooms_map_" + course.sessions[se].location.toLowerCase() + ".svg");
+							map.setAttribute("src", "/lecture_rooms_map_" + course.sessions[se].location.toLowerCase() + ".svg");
 						}
 					}
 					// increment the session index
