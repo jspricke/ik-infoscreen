@@ -215,6 +215,19 @@ function weekView() {
 	merge_courses_sessions(sessions);
 	sort_all_sessions();
 
+	var slots = ["schedule-week-head", "schedule-week-body"];
+	for(var s = 0; s < slots.length; s++ ) {
+		var slot_div = document.getElementById(slots[s]);
+		slot_div.className = null;
+		for(var c = slot_div.children.length - 1; c >= 0; c--) {
+			slot_div.removeChild(slot_div.children[c]);
+		}
+	}
+	var slot_div = document.getElementById("schedule-week-table");
+	slot_div.className = null;
+	for(var c = slot_div.children.length - 1; c > 1; c--) {
+		slot_div.removeChild(slot_div.children[c]);
+	}
 	// as a preparation, generate a list of all time slots
 	// in the conference, ordered according to days
 	var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
