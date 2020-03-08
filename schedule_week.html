@@ -5,6 +5,13 @@
 	<title>IK Schedule</title>
 	<!-- load stylesheet -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Week Schedule of the IK in Günne">
+	<meta name="theme-color" content="#337AB7" />
+	<link rel="manifest" href="/manifest.json">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<meta name="apple-mobile-web-app-title" content="IK Schedule">
+	<link rel="apple-touch-icon" href="/cropped-ik_icon_small-180x180.png">
 	<link rel="stylesheet" href="/css/week.css">
 	<style>
 		body { font-family: sans-serif; background-color: #ffffff; }
@@ -15,6 +22,10 @@
 	<script type="text/javascript" src="/js/schedule_week.js"></script>
 	<script type="text/javascript" src="/js/ikterminal.js"></script>
 	<script type="text/javascript">
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/service-worker.js');
+	}
+
 	function updateScheduleWeek(response) {
 		response.json().then(function(data) {
 			courses = data.courses;
