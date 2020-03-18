@@ -21,22 +21,21 @@ const CACHE_NAME = 'static-cache-v1';
 const DATA_CACHE_NAME = 'data-cache-v1';
 
 const FILES_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/js/ikterminal.js',
-  '/js/schedule_view.js',
-  '/js/schedule_functions.js',
-  '/js/schedule_week.js',
-  '/css/style.css',
-  '/css/week.css',
-  '/thumbs/guenne.svg',
-  '/schedule_week.html',
-  '/lecture_rooms_map_h1.svg',
-  '/lecture_rooms_map_h2.svg',
-  '/lecture_rooms_map_h3.svg',
-  '/lecture_rooms_map_h4.svg',
-  '/lecture_rooms_map_f1.svg',
-  '/lecture_rooms_map_f2.svg',
+  'index.html',
+  'js/ikterminal.js',
+  'js/schedule_view.js',
+  'js/schedule_functions.js',
+  'js/schedule_week.js',
+  'css/style.css',
+  'css/week.css',
+  'thumbs/guenne.svg',
+  'schedule_week.html',
+  'lecture_rooms_map_h1.svg',
+  'lecture_rooms_map_h2.svg',
+  'lecture_rooms_map_h3.svg',
+  'lecture_rooms_map_h4.svg',
+  'lecture_rooms_map_f1.svg',
+  'lecture_rooms_map_f2.svg',
 ];
 
 self.addEventListener('install', (evt) => {
