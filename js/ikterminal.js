@@ -71,8 +71,12 @@ const sendShoutboxData = function() {
     method: 'POST',
     body: new FormData(document.getElementById('shoutboxform'))
   }).then(function(response) {
-    document.getElementById('shoutboxform').reset();
-    formatShoutbox(response);
+    if(response.ok) {
+      document.getElementById('shoutboxform').reset();
+      formatShoutbox(response);
+    } else {
+      alert('Shoutbox only works while connected to the Günne WiFi.');
+    }
   });
 }
 
