@@ -41,8 +41,8 @@
 	}
 
 	function initialize() {
-		updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 1000, updateScheduleWeek);
-		updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 1000, read_ical_from_url_week);
+		updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 60 * 1000, updateScheduleWeek);
+		updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 60 * 1000, read_ical_from_url_week);
 	}
 	</script>
 </head>

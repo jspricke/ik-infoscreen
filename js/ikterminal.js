@@ -342,11 +342,11 @@ const loader = function() {
 
   // Refresh data
   startTime();
-  updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 1000, updateSchedule);
-  updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 1000, read_ical_from_url);
+  updateGet('https://interdisciplinary-college.org/schedule/courses_metadata.php', 20 * 60 * 1000, updateSchedule);
+  updateGet('https://interdisciplinary-college.org/schedule/calendar_data.php', 20 * 60 * 1000, read_ical_from_url);
   updateGet('https://guenne.interdisciplinary-college.org/shoutbox.php', 5 * 1000, formatShoutbox);
   if (window.matchMedia('screen and (min-width: 1024px)')) {
-    updateGet('https://guenne.interdisciplinary-college.org/impressions.php', 20 * 1000, updateImpression);
+    updateGet('https://guenne.interdisciplinary-college.org/impressions.php', 5 * 60 * 1000, updateImpression);
   }
 
   document.getElementById('shoutboxmessage').addEventListener('onkeydown', sendShoutbox);
