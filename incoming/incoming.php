@@ -5,13 +5,13 @@ if (empty($_POST) && empty($_FILES)) {
     exit;
 }
 
-$password = "lecture";
-
-// Empty or wrong password
-if (!isset($_POST['password']) || $_POST['password'] !== $password) {
-    header("HTTP/1.1 401 Unauthorized");
-    exit;
-}
+//$password = "slides";
+//
+//// Empty or wrong password
+//if (!isset($_POST['password']) || $_POST['password'] !== $password) {
+//    header("HTTP/1.1 401 Unauthorized");
+//    exit;
+//}
 
 // No file selected for upload
 if (empty($_FILES) || !isset($_FILES["file"]) || empty($_FILES["file"]["name"])) {

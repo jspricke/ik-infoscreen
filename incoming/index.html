@@ -12,10 +12,12 @@
 
             <section id="upload">
                 <p id="statusMessage"></p>
-                <form method="post" action="index.php" enctype="multipart/form-data" id="fileUpload">
+                <form method="post" action="incoming.php" enctype="multipart/form-data" id="fileUpload">
                     <fieldset>
+<!--
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Please ask the admins for the password!" />
+-->
                         <label for="file">Slide file</label>
                         <input type="file" name="file" placeholder="Please one file at a time." id="file" />
                         <input type="submit" name="submit" value="Upload" />
@@ -25,9 +27,10 @@
             </section>
 
             <section id="instructions">
-                <p>Please upload multiple files separately.<br />
+                <p>All uploads will be validated before they are made available to participants.<br />
+                Please upload multiple files separately.<br />
                 Please indicate the name/id of the lecture in the name of the uploaded files.<br />
-                If you have files bigger than 500MB, please hand them to the admins personally.</p>
+                If your upload fails for any reason, please talk to the admins personally.</p>
             </section>
         </main>
         <footer>
