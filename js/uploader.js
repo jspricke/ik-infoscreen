@@ -31,7 +31,7 @@ const submitFiles = function(event) {
                 setStatusMessage('error', 'No file selected.');
                 break;
             case 200: case 201: case 204:
-                setStatusMessage('info', 'Upload successful. Thank you!');
+                setStatusMessage('info', 'Upload successful. Thank you! We will make the files available to participants soon.');
                 document.getElementById('fileUpload').reset();
                 break;
             default:
