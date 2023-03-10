@@ -1,8 +1,8 @@
 'use strict';
 
-var start_date = new Date(2020, 2, 13);
+var start_date = new Date(2023, 2, 12);
 /* end_date = last IK day +1 */
-var end_date = new Date(2020, 2, 21);
+var end_date = new Date(2023, 2, 17);
 var courses;
 var sessions;
 var now = new Date();
