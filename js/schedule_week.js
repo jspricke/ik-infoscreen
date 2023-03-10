@@ -714,32 +714,31 @@ function new_text_child(txt, parent) {
  * @throws throws an error if the given long form is unknown.
  */
 function shorten_course_type(type_string) {
-	if(type_string === "Basic Course" || type_string === "Introductory Course") {
-		return "bc";
+	switch(type_string)
+	{
+		case "Basic Course":
+		case "Introductory Course":
+			return "bc";
+		case "Method Course":
+		case "Advanced Course":
+			return "mc";
+		case "Special Course":
+		case "Focus Course":
+			return "sc";
+		case "Practical Course":
+			return "pc";
+		case "Professional Course":
+			return "prc";
+		case "Rainbow Course":
+			return "rc";
+		case "Evening Talk":
+			return "et";
+		case "Additional Event":
+		case "Joint Event":
+			return "evnt";
+		case "Hack":
+			return "hk";
+		default:
+			throw new Error("Unknown course type: " + type_string);
 	}
-	if(type_string === "Method Course" || type_string === "Advanced Course") {
-		return "mc";
-	}
-	if(type_string === "Special Course" || type_string === "Focus Course") {
-		return "sc";
-	}
-	if(type_string === "Practical Course") {
-		return "pc";
-	}
-	if(type_string === "Professional Course") {
-		return "prc";
-	}
-	if(type_string === "Rainbow Course") {
-		return "rc";
-	}
-	if(type_string === "Evening Talk") {
-		return "et";
-	}
-	if(type_string === "Additional Event") {
-		return "evnt";
-	}
-	if(type_string === "Hack") {
-		return "hk";
-	}
-	throw new Error("Unknown course type: " + type_string);
 }
